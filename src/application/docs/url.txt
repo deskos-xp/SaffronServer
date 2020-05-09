@@ -1,0 +1,2 @@
+https://scotch.io/bar-talk/processing-incoming-request-data-in-flask
+https://flask-login.readthedocs.io/en/latest/

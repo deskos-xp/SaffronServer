@@ -1,0 +1,15 @@
+opencv-python
+marshmallow-sqlalchemy
+Flask-SQLAlchemy
+Flask-Marshmallow
+passlib
+flask
+flask-HTTPAuth
+python-dotenv
+mysqlclient
+reportlab
+phonenumbers
+emails
+treepoem
+pyzbar
+uwsgi

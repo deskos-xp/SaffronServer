@@ -1,0 +1,18 @@
+[Unit]
+Description=saffron server unit
+After=syslog.target
+
+[Service]
+Type=simple
+PIDFile=/tmp/saffron_server.pid
+WorkingDirectory=/srv/SaffronServerFlask
+RemainAfterExit=yes
+ExecStart=/usr/bin/uwsgi --ini /etc/uwsgi/saffron_server.ini
+StandardError=syslog
+KillSignal=SIGQUIT
+NotifyAccess=all
+Type=notify
+
+
+[Install]
+WantedBy=multi-user.target

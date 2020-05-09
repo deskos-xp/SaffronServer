@@ -1,0 +1,12 @@
+QSpinBox {
+	padding-right: 15px; /* make room for the arrows */
+	border-width: 3;
+	background-color: white;
+	color: black;
+}
+QDoubleSpinBox {
+	padding-right: 15px; /* make room for the arrows */
+	border-width: 3;
+	background-color: white;
+	color: black;
+}

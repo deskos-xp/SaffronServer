@@ -1,0 +1,84 @@
+[done]need function to edit user
+[done]need function to get user by id
+[done]need function to find user by fields
+
+[done]add department data objects
+	[done]id will be give to user
+	id will be given to product
+
+[done]add product data objects
+
+[done]add address object
+	add routes
+
+[done]add manufacturer objects
+	add routes
+
+[done]add brand data objects
+
+[done]add vendor data products
+	routes
+	models
+	testing scripts/json files
+
+[done]need a relationship table to link
+	manufacturer
+	brand
+	vendor
+	product
+
+[done]add models for
+	weightUnits
+	priceUnits
+
+[done]add routes for
+	weightUnits
+	priceUnits
+
+
+[done]add /<vendor||manufacturer||brand>/update/<user_id>/<add||remove>/<address_id> routes
+[done]add a check to all routes that {removes keys/warns/throws more meaningful message} for keys that are db.relationships
+	if key in relationships:
+		json.__delitem__(key)
+		#should be a decorator
+		warning_of_ignorance(key)
+
+[done]add delete routes for all routes in routes/ dir
+	find out who depends on address_with_id, remove it from the relationship, then delete it
+	asnwer is writtern in routes/address_routes.py
+
+
+[done]add ledger object containing
+	product_count object
+		product
+		cases
+		units
+	date
+	user
+
+[done]add ledger routes in routes/ledger_routes.py
+
+[done]all new routes must return the id of the newly created object
+[done]all update routes must return the id of the updated object
+
+[done]add routes to product_routes to upload images for upc_image and product image
+	/product/update/<product_id>/upload/upc_image
+	/product/update/<product_id>/upload/product_image
+
+add export route to export ledger
+	<FORMAT_TYPE> in [json,xml,pdf]
+	<WHERE> in [phone,email,screen]
+
+	/ledger/export/<ID>/format/<FORMAT_TYPE>/to/<WHERE>
+	
+	json exporter done
+
+[ignore for now]add make_response to end of all endpoints instead of returning just json/strings
+[ignore for now]add a check to all routes/endpoint functions that says if user is not admin to return unaauthorized	
+[done]add module to convert returned ledger data to pdf format and send to android client for sending to ron
+
+add route to generate barcode/qrcode from product upc and send to client
+	/export/barcode/<BARCODE_TYPE>/<PRODUCT_ID> - get
+[done]add address object to user relationships
+
+all endpoints returned a status object with a status code and accompanying data for API client to utilize

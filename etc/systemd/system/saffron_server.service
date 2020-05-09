@@ -1,0 +1,18 @@
+[Unit]
+Description=saffron server service unit
+After=syslog.target
+
+[Service]
+User=http
+Group=http
+ExecStart=/srv/SaffronServerFlask/venv/bin/uwsgi --ini /etc/uwsgi/saffron_server.ini --gid http --uid http --wsgi-disable-file-wrapper
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStop=/bin/kill -INT $MAINPID
+Type=notify
+SuccessExitStatus=15 17 29 30
+StandardError=syslog
+NotifyAccess=all
+KillSignal=SIGQUIT
+
+[Install]
+WantedBy=multi-user.target

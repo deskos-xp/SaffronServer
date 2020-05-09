@@ -1,0 +1,4 @@
+#install pipreqs arch linux
+sudo pacman -S python-pipreqs
+#install pip
+pip install --user pipreqs

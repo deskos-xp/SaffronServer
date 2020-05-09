@@ -1,0 +1,12 @@
+QSpinBox {
+	background-color: red;
+	color: white;
+	border-width: 3px;
+	padding-right: 15px;
+}
+QDoubleSpinBox {
+	background-color: red;
+	color: white;
+	border-width: 3px;
+	padding-right: 15px;
+}
