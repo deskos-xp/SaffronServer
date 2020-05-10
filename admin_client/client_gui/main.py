@@ -2,10 +2,11 @@ import sys
 from PyQt5 import QtGui,uic
 from PyQt5.QtGui import QIcon,QPixmap
 from PyQt5.QtWidgets import QMainWindow,QApplication,QWidget,qApp,QStackedWidget
-from MainWindow import SearchGrid,NewGrid,CredentialController
-
+from app import SearchGrid,NewGrid,CredentialController
+import faulthandler
+faulthandler.enable()
 from PyQt5.QtCore import pyqtSignal,QObject,pyqtSlot,QCoreApplication
-from MainWindow.MenuBar import MenuBar
+from app.MenuBar import MenuBar
 class mainWindow(QMainWindow,QObject):
     #address="http://localhost:9000/"
     #auth=("admin","avalon")
@@ -20,19 +21,19 @@ class mainWindow(QMainWindow,QObject):
     def __init__(self):
         super(mainWindow,self).__init__() 
         #QStackedWidget.
-        uic.loadUi('MainWindow/forms/MainWindow.ui',self)
-        uic.loadUi('MainWindow/forms/SearchGrid.ui',self.search_widget)
-        uic.loadUi('MainWindow/forms/NewGrid.ui',self.new_widget)
-        uic.loadUi('MainWindow/forms/Credentials.ui',self.credential_holder)
+        uic.loadUi('app/forms/MainWindow.ui',self)
+        uic.loadUi('app/forms/SearchGrid.ui',self.search_widget)
+        uic.loadUi('app/forms/NewGrid.ui',self.new_widget)
+        uic.loadUi('app/forms/Credentials.ui',self.credential_holder)
         self.setWindowTitle("Saffron Explorer")
-        self.setWindowIcon(QIcon("MainWindow/Icons/SaffronExplorer.png"))
+        self.setWindowIcon(QIcon("app/Icons/SaffronExplorer.png"))
         self.search_widget.root=self
         self.new_widget.root=self
         self.credential_holder.root=self
 
         self.STACKED_INDEX={self.stackedWidget.widget(i).objectName():i for i in range(self.stackedWidget.count())}
         self.stackedWidgetChange.connect(self.changeWidget)
-        self.label_loading.setPixmap(QPixmap("MainWindow/Icons/SaffronExplorer.png"))
+        self.label_loading.setPixmap(QPixmap("app/Icons/SaffronExplorer.png"))
 
 
         self.cred_controller=CredentialController.CredentialController(self.credential_holder)
