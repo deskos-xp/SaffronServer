@@ -18,10 +18,13 @@ class Watcher(QThread):
     def run(self):
         if self.parent != None:
             while True:
-                if self.print_check == True:
-                    print(self.lock_counter.keys())
-                if len(self.lock_counter.keys()) == self.unlock_len:
-                    self.w.save_product_info.setEnabled(True)
-                else:
-                    self.w.save_product_info.setEnabled(False)
+                try:
+                    if self.print_check == True:
+                        print(self.lock_counter.keys())
+                    if len(self.lock_counter.keys()) == self.unlock_len:
+                        self.w.save_product_info.setEnabled(True)
+                    else:
+                        self.w.save_product_info.setEnabled(False)
+                except Exception as e:
+                    print(e)
                 time.sleep(self.TIME)
