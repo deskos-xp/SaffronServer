@@ -5,10 +5,10 @@ from PyQt5.QtWidgets import QDialog,QComboBox,QWidget,QListWidgetItem,QListWidge
 import ast,json,sys,os,requests
 from .widgets.UpdateSelector import UpdateSelector 
 from PyQt5.QtGui import QStandardItemModel
-
+from .StackChanger import StackChanger
 from .widgets.EntityStackModule.EntityStack import EntityStack
 
-class DeleteDialog(QDialog):
+class DeleteDialog(QDialog,StackChanger):
     auth:tuple=None
     address:str=None
     w:QWidget=None
@@ -32,12 +32,19 @@ class DeleteDialog(QDialog):
         #widget
         self.adr=EntityStack(self.w,self.dialog.address,self.dialog,self.address,self.auth,"address")
         self.adr.done_del.connect(self.progress_statement) 
+        #for first displayable widget that user will see so selector is populated
         self.adr.worker.signals.waitResult=False
-        print(dir(self.address)) 
+        self.enabledWidgetsChanger.append(self.adrCH)
+
+
         self.brand=EntityStack(self.w,self.dialog.brand,self.dialog,self.address,self.auth,"brand")
         self.brand.done_del.connect(self.progress_statement)
+        self.enabledWidgetsChanger.append(self.brandCH)
 
-                
+        self.vendor=EntityStack(self.w,self.dialog.vendor,self.dialog,self.address,self.auth,"vendor")
+        self.vendor.done_del.connect(self.progress_statement)               
+        self.enabledWidgetsChanger.append(self.vendorCH)
+
 
         self.dialog.show() 
 
@@ -45,17 +52,6 @@ class DeleteDialog(QDialog):
         print("Done Deleting Object")
         self.w.sb.showMessage("Done Deleting Object!",10)
 
-    def stack_changer(self,index:QModelIndex):
-        self.dialog.views.setCurrentIndex(index.row())
-        print(self.dialog.views.currentWidget().objectName())
-        try:
-            self.adr.isVisible(self.dialog.views.currentWidget().objectName())
-        except Exception as e:
-            print(e)
-        try:
-            self.brand.isVisible(self.dialog.views.currentWidget().objectName())
-        except Exception as e:
-            print(e)
         #QListWidget.
 
     def selector_ud(self,model):
