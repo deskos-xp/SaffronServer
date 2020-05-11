@@ -40,6 +40,8 @@ class Worker(QRunnable):
                         if 'objects' in j.keys():
                             j=j['objects']
                             for k in j:
+                                if self.signals.kill_bool == True:
+                                    break
                                 self.signals.ready.emit(k)
                     except Exception as e:
                         print(e)

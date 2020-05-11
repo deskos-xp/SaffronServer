@@ -30,6 +30,7 @@ class mainWindow(QMainWindow,QObject):
         self.search_widget.root=self
         self.new_widget.root=self
         self.credential_holder.root=self
+        self.sb=self.statusBar()
 
         self.STACKED_INDEX={self.stackedWidget.widget(i).objectName():i for i in range(self.stackedWidget.count())}
         self.stackedWidgetChange.connect(self.changeWidget)

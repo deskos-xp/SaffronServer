@@ -6,8 +6,13 @@ import requests,ast,json,os,sys
 
 class WorkerDelSignals(QObject):
     kill_bool:bool=False
-    done:pyqtSignal=pyqtSignal(int)
+    done:pyqtSignal=pyqtSignal(int,int)
     waitResult:bool=False
+    ID:int=None
+    
+    @pyqtSlot(int)
+    def setID(self,ID:int):
+        self.ID=ID
 
     @pyqtSlot(bool)
     def wait(self,func):
@@ -30,8 +35,16 @@ class WorkerDel(QRunnable):
         if self.signals.waitResult == False:
             #dummy code
             status_code=200
+            if self.signals.kill_bool == True:
+                return
             #not ready for deployment yet
+            print(self.signals.ID)
+            
+            status=requests.delete("{address}/address/delete/{ID}".format(**dict(address=self.address,ID=self.signals.ID)),auth=self.auth)
+            status_code=status.status_code
+
             '''
+            
             while self.signals.kill_bool == False:
                 data=dict(page=0,limit=sys.maxsize)
                 response=requests.post("{address}/address/get".format(**dict(address=self.address)),auth=self.auth,json=data)
@@ -47,6 +60,6 @@ class WorkerDel(QRunnable):
                 #self.signals.ready.emit(dict())
                 QThread.sleep(2)  
             '''
-            self.signals.done.emit(status_code)
+            self.signals.done.emit(status_code,self.signals.ID)
         else:
             print("waiting until address widget is visible")

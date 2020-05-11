@@ -30,10 +30,14 @@ class DeleteDialog(QDialog):
         
         #widget
         self.address=AddressStack(self.w,self.dialog.address,self.dialog,self.auth,self.address)
-        
+        self.address.done_del.connect(self.progress_statement) 
 
 
         self.dialog.show() 
+
+    def progress_statement(self):
+        print("Done Deleting Object")
+        self.w.sb.showMessage("Done Deleting Object!",10)
 
     def stack_changer(self,index:QModelIndex):
         self.dialog.views.setCurrentIndex(index.row())
