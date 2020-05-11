@@ -45,6 +45,30 @@ class DeleteDialog(QDialog,StackChanger):
         self.vendor.done_del.connect(self.progress_statement)               
         self.enabledWidgetsChanger.append(self.vendorCH)
 
+        self.manufacturer=EntityStack(self.w,self.dialog.manufacturer,self.dialog,self.address,self.auth,"manufacturer")
+        self.manufacturer.done_del.connect(self.progress_statement)               
+        self.enabledWidgetsChanger.append(self.manufacturerCH)
+
+        self.department=EntityStack(self.w,self.dialog.department,self.dialog,self.address,self.auth,"department")
+        self.department.done_del.connect(self.progress_statement)               
+        self.enabledWidgetsChanger.append(self.departmentCH)
+
+        self.priceUnit=EntityStack(self.w,self.dialog.priceUnit,self.dialog,self.address,self.auth,"priceUnit")
+        self.priceUnit.done_del.connect(self.progress_statement)               
+        self.enabledWidgetsChanger.append(self.priceUnitCH)
+
+        self.weightUnit=EntityStack(self.w,self.dialog.weightUnit,self.dialog,self.address,self.auth,"weightUnit")
+        self.weightUnit.done_del.connect(self.progress_statement)               
+        self.enabledWidgetsChanger.append(self.weightUnitCH)
+
+        self.product=EntityStack(self.w,self.dialog.product,self.dialog,self.address,self.auth,"product")
+        self.product.done_del.connect(self.progress_statement)               
+        self.enabledWidgetsChanger.append(self.productCH)
+
+
+
+
+
 
         self.dialog.show() 
 
