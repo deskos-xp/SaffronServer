@@ -9,7 +9,7 @@ class WorkerSignals(QObject):
     #    super(UpdateSelectorSignals,self).__init__()
     ready:pyqtSignal=pyqtSignal(dict)
     kill_bool:bool=False
-    waitResult:bool=False
+    waitResult:bool=True
 
     @pyqtSlot(bool)
     def wait(self,func): 
@@ -22,18 +22,21 @@ class WorkerSignals(QObject):
 class Worker(QRunnable):
     address:str=None
     auth:tuple=None
-    def __init__(self,auth,address):
+    def __init__(self,auth:tuple,address:str,name:str):
         super(Worker,self).__init__()
         self.signals=WorkerSignals()
         self.auth=auth
         self.address=address
+        self.parent_name=name
         
     def run(self):
         while self.signals.kill_bool == False:
             print(self.signals.waitResult)
             if self.signals.waitResult == False:
                 data=dict(page=0,limit=sys.maxsize)
-                response=requests.post("{address}/address/get".format(**dict(address=self.address)),auth=self.auth,json=data)
+                #print(self.address)
+                #exit(1)
+                response=requests.post("{address}/{parent_name}/get".format(**dict(address=self.address,parent_name=self.parent_name)),auth=self.auth,json=data)
                 if response.status_code == 200:
                     try:
                         j=response.json()
@@ -47,5 +50,5 @@ class Worker(QRunnable):
                         print(e)
                 #self.signals.ready.emit(dict())
             else:
-                print("Waiting until address widget is visible")
+                print("Waiting until {parent_name} widget is visible".format(**dict(parent_name=self.parent_name)))
             QThread.sleep(2)    

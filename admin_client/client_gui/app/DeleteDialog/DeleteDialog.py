@@ -6,7 +6,7 @@ import ast,json,sys,os,requests
 from .widgets.UpdateSelector import UpdateSelector 
 from PyQt5.QtGui import QStandardItemModel
 
-from .widgets.address.AddressStack import AddressStack
+from .widgets.EntityStackModule.EntityStack import EntityStack
 
 class DeleteDialog(QDialog):
     auth:tuple=None
@@ -25,13 +25,19 @@ class DeleteDialog(QDialog):
         self.qtp=QThreadPool.globalInstance()
         updaterSelector=UpdateSelector(self.w,self.dialog.selector)
         updaterSelector.signals.ready.connect(self.selector_ud)
+
         self.qtp.start(updaterSelector)        
         self.dialog.selector.activated.connect(self.stack_changer)
         
         #widget
-        self.address=AddressStack(self.w,self.dialog.address,self.dialog,self.auth,self.address)
-        self.address.done_del.connect(self.progress_statement) 
+        self.adr=EntityStack(self.w,self.dialog.address,self.dialog,self.address,self.auth,"address")
+        self.adr.done_del.connect(self.progress_statement) 
+        self.adr.worker.signals.waitResult=False
+        print(dir(self.address)) 
+        self.brand=EntityStack(self.w,self.dialog.brand,self.dialog,self.address,self.auth,"brand")
+        self.brand.done_del.connect(self.progress_statement)
 
+                
 
         self.dialog.show() 
 
@@ -42,7 +48,14 @@ class DeleteDialog(QDialog):
     def stack_changer(self,index:QModelIndex):
         self.dialog.views.setCurrentIndex(index.row())
         print(self.dialog.views.currentWidget().objectName())
-        self.address.isVisible(self.dialog.views.currentWidget().objectName())
+        try:
+            self.adr.isVisible(self.dialog.views.currentWidget().objectName())
+        except Exception as e:
+            print(e)
+        try:
+            self.brand.isVisible(self.dialog.views.currentWidget().objectName())
+        except Exception as e:
+            print(e)
         #QListWidget.
 
     def selector_ud(self,model):

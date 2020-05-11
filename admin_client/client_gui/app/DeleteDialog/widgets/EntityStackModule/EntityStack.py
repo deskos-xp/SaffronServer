@@ -2,32 +2,39 @@ from PyQt5 import uic
 from PyQt5.QtCore import pyqtSignal,QObject,QRunnable,QThread,QThreadPool,pyqtSlot
 from PyQt5.QtWidgets import QWidget,QTableWidget,QTableWidgetItem,QListWidget,QComboBox
 
-import ast,requests,os,sys,json,time
+import ast,requests,os,sys,json,time,inspect
 
 from .worker import Worker
 from .workerDel import WorkerDel
-class AddressStack(QWidget):
+from dotenv import load_dotenv
+load_dotenv()
+class EntityStack(QWidget):
     done_del:pyqtSignal=pyqtSignal()
-    def __init__(self,parent:QWidget,designand:QWidget,dialog:QWidget,address:str,auth:tuple):
+    def __init__(self,parent:QWidget,designand:QWidget,dialog:QWidget,address:str,auth:tuple,objectName:str):
         self.w=parent
         self.address=address
         self.auth=auth
         self.widget=designand
         self.dialog=dialog
         
-        super(AddressStack,self).__init__() 
-        uic.loadUi("app/DeleteDialog/widgets/common/forms/common_stacks.ui",self.widget)
-        self.widget.setObjectName("address")
+        super(EntityStack,self).__init__() 
+        #need a way to get local forms dir for here
+        filename = inspect.getframeinfo(inspect.currentframe()).filename
+        path = os.path.dirname(os.path.abspath(filename))
+        self.form=os.path.join(os.path.join(path,os.getenv("form_dir")),os.getenv("form")) 
+        #exit(1)
+        uic.loadUi(self.form,self.widget)
 
+        self.widget.setObjectName(objectName)
+        self.setObjectName(objectName+"_controller")
+        
         self.qtp=QThreadPool.globalInstance()
-        self.worker=Worker(self.address,self.auth)
+        
+        self.worker=Worker(self.auth,self.address,self.widget.objectName())
         self.worker.signals.ready.connect(self.updateSelector)
-        #self.worker.signals.wait=self.widget.isVisible
-        #self.setupDelWorker()
-        #self.workerDel.signals.wait=self.widget.isVisible
 
         dialog.rejected.connect(self.suicide)
-        self.widget.confirm.rejected.connect(dialog.reject)
+        self.widget.confirm.rejected.connect(self.suicide)
         #on accepted, do start self.workerDel
 
         #updates selector data
@@ -40,7 +47,7 @@ class AddressStack(QWidget):
 
 
     def setupDelWorker(self):
-        self.workerDel=WorkerDel(self.address,self.auth)
+        self.workerDel=WorkerDel(self.auth,self.address,self.widget.objectName())
         self.workerDel.signals.done.connect(self.progressCounter)
 
     def startDelWorker(self):
@@ -71,7 +78,7 @@ class AddressStack(QWidget):
 
     @pyqtSlot(str)
     def isVisible(self,state):
-        if state == "address":
+        if state == self.widget.objectName():
             STATE=False
         else:
             STATE=True
@@ -89,11 +96,12 @@ class AddressStack(QWidget):
             self.workerDel.signals.kill()
         except Exception as e:
             print(e)
+        self.dialog.close()
 
     def progressCounter(self,status_code:int,ID:int):
         print(status_code)
         self.done_del.emit()
-        self.dialog.accept()
+        self.suicide()
         self.widget.selector.clear()
 
     def updateSelector(self,data:dict):

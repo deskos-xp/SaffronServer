@@ -13,7 +13,7 @@ class MenuBar:
     w=None
     bar=None
     def init_action_exit(self):
-        self.exitButton=QAction(QIcon("app/Icons/exit24.png"),'Exit',self.w)
+        self.exitButton=QAction(QIcon("app/Icons/exit24.png"),'&Exit',self.w)
         self.exitButton.setShortcut('Ctrl+E')
         self.exitButton.setStatusTip('Exit application')
         self.exitButton.triggered.connect(self.w.close)
@@ -32,8 +32,9 @@ class MenuBar:
         self.aboutDialog=aboutDialog
                 #self.aboutDialog.reject)
         #modify viewable data here
+
     def init_action_DeleteDialog(self):
-        self.DeleteDialog_action=QAction(QIcon("app/Icons/DeleteDialog.png"),"Delete",self.w)
+        self.DeleteDialog_action=QAction(QIcon("app/Icons/DeleteDialog.png"),"&Delete",self.w)
         self.DeleteDialog_action.setStatusTip("delete db entries")
         self.DeleteDialog_action.triggered.connect(self.add_deleteDialog)
         self.deletemenu.addAction(self.DeleteDialog_action)
@@ -42,7 +43,7 @@ class MenuBar:
         self.deleteDialog=DeleteDialog(self.w,self.w.address,self.w.auth)
 
     def init_action_about(self):
-        self.about_action=QAction(QIcon("app/Icons/about.png"),"About",self.w)
+        self.about_action=QAction(QIcon("app/Icons/about.png"),"&About",self.w)
         self.about_action.setStatusTip("About the program")
         self.about_action.triggered.connect(self.view_about)
         self.helpmenu.addAction(self.about_action)
@@ -159,8 +160,9 @@ class MenuBar:
     def init_menus(self):
         self.filemenu=self.bar.addMenu("&File")
         self.newmenu=self.bar.addMenu("&New")
-        self.helpmenu=self.bar.addMenu("&Help")
         self.deletemenu=self.bar.addMenu("&Delete")
+        self.helpmenu=self.bar.addMenu("&Help")
+
     def init_delete_dialogs(self):
         self.init_action_DeleteDialog()
 
