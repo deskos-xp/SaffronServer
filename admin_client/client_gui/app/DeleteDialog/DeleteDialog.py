@@ -65,18 +65,12 @@ class DeleteDialog(QDialog,StackChanger):
         self.product.done_del.connect(self.progress_statement)               
         self.enabledWidgetsChanger.append(self.productCH)
 
-
-
-
-
-
+        #first time using QThreadPool, ping me if you have any ideas, questions or comments
         self.dialog.show() 
 
     def progress_statement(self):
         print("Done Deleting Object")
         self.w.sb.showMessage("Done Deleting Object!",10)
-
-        #QListWidget.
 
     def selector_ud(self,model):
         for i in model:
