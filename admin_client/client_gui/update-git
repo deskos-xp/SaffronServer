@@ -1,2 +1,3 @@
 #! /usr/bin/bash
+pipreqs app --savepath requirements.txt
 cd ../.. ; git add . ; git commit -am "updates to add EntityStackModule as a generic stand-in for deletion types" ;git push ; cd -
