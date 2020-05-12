@@ -32,12 +32,14 @@ class EntityStack(QWidget):
         
         self.worker=Worker(self.auth,self.address,self.widget.objectName())
         self.worker.signals.ready.connect(self.updateSelector)
+        
 
         dialog.rejected.connect(self.suicide)
         self.widget.confirm.rejected.connect(self.suicide)
         #on accepted, do start self.workerDel
 
         #updates selector data
+        self.qtp.setExpiryTimeout(15000)
         self.qtp.start(self.worker)
         self.selector_items=[]
         
@@ -82,12 +84,22 @@ class EntityStack(QWidget):
             STATE=False
         else:
             STATE=True
-        print(state,"fired as",STATE)
+
+        print(STATE,"fired as",state)
+        if STATE == False:
+            self.suicide_noclose()
+        else:
+            self.worker=Worker(self.auth,self.address,self.widget.objectName())
+            self.worker.signals.ready.connect(self.updateSelector)
+            self.qtp.start(self.worker)
+
+    def suicide_noclose(self):
+        print("suicide triggered!")
+        self.worker.signals.kill()
         try:
-            self.workerDel.signals.wait(STATE)
+            self.workerDel.signals.kill()
         except Exception as e:
             print(e)
-        self.worker.signals.wait(STATE)
 
     @pyqtSlot()
     def suicide(self):
