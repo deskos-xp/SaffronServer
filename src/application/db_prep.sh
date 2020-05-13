@@ -19,20 +19,20 @@ curl -uadmin:avalon -X GET localhost:5000/brand/update/1/add/address/1
 curl -uadmin:avalon localhost:5000/product/new -X POST -d@shell/new_product.json
 
 #create units
-curl -uadmin:avalon -X POST -d @shell/new_weightUnit.json localhost:5000/weightUnit/new
-curl -uadmin:avalon -X POST -d @shell/new_priceUnit.json localhost:5000/priceUnit/new
+#curl -uadmin:avalon -X POST -d @shell/new_weightUnit.json localhost:5000/weightUnit/new
+#curl -uadmin:avalon -X POST -d @shell/new_priceUnit.json localhost:5000/priceUnit/new
 #create prices/weights values
-curl -uadmin:avalon -X POST -d '{"id":3,"value":1.00}' localhost:5000/price/new
-curl -uadmin:avalon -X POST -d '{"id":3,"value":1.00}' localhost:5000/weight/new
+#curl -uadmin:avalon -X POST -d '{"id":3,"value":1.00}' localhost:5000/price/new
+#curl -uadmin:avalon -X POST -d '{"id":3,"value":1.00}' localhost:5000/weight/new
 
 #use get method to get unit by value for its id
 #add units to values tables
-curl -uadmin:avalon -X GET localhost:5000/price/update/3/add/1
-curl -uadmin:avalon -X GET localhost:5000/weight/update/3/add/1
+#curl -uadmin:avalon -X GET localhost:5000/price/update/3/add/1
+#curl -uadmin:avalon -X GET localhost:5000/weight/update/3/add/1
 
 #add prices/weights to product
-curl -uadmin:avalon -X GET localhost:5000/product/update/1/add/weight/3
-curl -uadmin:avalon -X GET localhost:5000/product/update/1/add/price/3
+#curl -uadmin:avalon -X GET localhost:5000/product/update/1/add/weight/3
+#curl -uadmin:avalon -X GET localhost:5000/product/update/1/add/price/3
 
 #new weight
 #update weight/update/<weight_id>/add/<weightUnit_id>

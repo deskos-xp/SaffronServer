@@ -1,0 +1,8 @@
+[done]rewrite server to elimate price/weight unit entities -- that will be handled client side
+
+create worker threads to load app2/config/*.json for comboboxes in NewProduct
+
+rewrite main app to use QThreadPool
+	stacked widget -- login
+		-- widget new grid [module like delete dialog]
+		-- widget search grid [module like delete dialog]

@@ -28,16 +28,19 @@ class AddressComboBoxController(QThread):
         while True:
             self.get_address()
             if self.status != None:
-                stat=self.status.json()
-                if stat != None:
-                    addrs=stat.get("objects")
-                    for i in addrs:
-                        if i['apartment_suite'] == None or i['apartment_suite'] == "":                            
-                            self.newAddress.emit("{id} : {street_number} {street_name},{city}, {state}{ZIP}".format(**i))
-                        else:
-                            self.newAddress.emit("{id} : {street_number} {street_name},{city}, {state}{ZIP} APT - {apartment_suite}".format(**i))
+                try:
+                    stat=self.status.json()
+                    if stat != None:
+                        addrs=stat.get("objects")
+                        for i in addrs:
+                            if i['apartment_suite'] == None or i['apartment_suite'] == "":                            
+                                self.newAddress.emit("{id} : {street_number} {street_name},{city}, {state}{ZIP}".format(**i))
+                            else:
+                                self.newAddress.emit("{id} : {street_number} {street_name},{city}, {state}{ZIP} APT - {apartment_suite}".format(**i))
 
-                time.sleep(self.TIME)
+                    time.sleep(self.TIME)
+                except Exception as e:
+                    print(e)
             else:
                 break
         self.finished.emit()

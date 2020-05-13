@@ -2,6 +2,10 @@
 		"upc":"",
 		"home_code":"",	
 		"name":"OpenNature", 
-                "case_count":0,
-                "comment":""
+                "case_count":1,
+                "comment":"",
+		"priceUnit":"$",
+		"price":1.50,
+		"weightUnit":"pound",
+		"weight":2.10
 }

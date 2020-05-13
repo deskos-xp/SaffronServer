@@ -2,7 +2,8 @@ from .. import db,auth,ma
 from .weightUnit import WeightUnit,WeightUnitSchema
 from .as_dict import AsDict
 
-weight_weightUnits=db.Table("weight_weightUnits",db.Column("weight_id",db.Integer,db.ForeignKey("weight.id")),
+weight_weightUnits=db.Table("weight_weightUnits",
+        db.Column("weight_id",db.Integer,db.ForeignKey("weight.id"),unique=True),
                     db.Column("weightUnits_id",db.Integer,db.ForeignKey("weightUnits.id"))
                     )
 

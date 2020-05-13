@@ -13,3 +13,4 @@ emails
 treepoem
 pyzbar
 uwsgi
+sqlalchemy_utils

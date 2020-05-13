@@ -4,11 +4,11 @@ from .user import User,UserSchema
 from .as_dict import AsDict
 
 ledger_productCount=db.Table("ledger_products",
-        db.Column("ledger_id",db.Integer,db.ForeignKey("ledger.id")),
+        db.Column("ledger_id",db.Integer,db.ForeignKey("ledger.id"),unique=True),
         db.Column("productCount_id",db.Integer,db.ForeignKey("productCount.id"))
     )
 ledger_user=db.Table("ledger_user",
-        db.Column("ledger_id",db.Integer,db.ForeignKey("ledger.id")),
+        db.Column("ledger_id",db.Integer,db.ForeignKey("ledger.id"),unique=True),
         db.Column("user_id",db.Integer,db.ForeignKey("users.id"))
     )
 

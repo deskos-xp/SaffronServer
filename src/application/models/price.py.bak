@@ -2,7 +2,8 @@ from .. import db,auth,ma
 from .priceUnit import PriceUnit,PriceUnitSchema
 from .as_dict import AsDict
 
-price_priceUnits=db.Table("price_priceUnits",db.Column("price_id",db.Integer,db.ForeignKey("price.id")),
+price_priceUnits=db.Table("price_priceUnits",
+        db.Column("price_id",db.Integer,db.ForeignKey("price.id"),unique=True),
                     db.Column("priceUnits_id",db.Integer,db.ForeignKey("priceUnits.id"))
                     )
 

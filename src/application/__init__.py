@@ -10,6 +10,7 @@ import logging
 import os
 from dotenv import load_dotenv
 load_dotenv()
+from sqlalchemy_utils import auto_delete_orphans
 
 LOG=os.getenv("LOG")
 if os.path.exists(LOG) and os.path.isfile(LOG):
@@ -63,6 +64,7 @@ def pre_delete_dependents(model,ID):
         #print(name)
         #print(related)
         if model in getattr(obj,name):
+            auto_delete_orphans(related)
             getattr(obj,name).remove(model)
             db.session.flush()
             db.session.commit()
@@ -110,7 +112,8 @@ def create_app():
 
     with app.app_context():
         from .routes import user_routes,department_routes,manufacturer_routes,address_routes,vendor_routes,brand_routes
-        from .routes import product_routes, weightUnit_routes,priceUnit_routes,price_routes,weight_routes
+        from .routes import product_routes
+        #weightUnit_routes,priceUnit_routes,price_routes,weight_routes
         from .routes import ledger_routes,productCount_routes
         from .routes import export_routes
         db.create_all()

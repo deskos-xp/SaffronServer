@@ -3,7 +3,7 @@ from .address import Address,AddressSchema
 from .as_dict import AsDict
 
 brand_address=db.Table("brand_addresses",
-        db.Column("brand_id",db.Integer,db.ForeignKey("brands.id")),
+        db.Column("brand_id",db.Integer,db.ForeignKey("brands.id"),unique=True),
         db.Column("address_id",db.Integer,db.ForeignKey("address.id"))
         )
 

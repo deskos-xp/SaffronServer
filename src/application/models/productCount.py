@@ -3,7 +3,7 @@ from .product import Product,ProductSchema
 from .as_dict import AsDict
 
 productCount_products=db.Table("productCount_product",
-            db.Column("product_id",db.Integer,db.ForeignKey("products.id")),
+            db.Column("product_id",db.Integer,db.ForeignKey("products.id"),unique=True),
             db.Column("productCount_id",db.Integer,db.ForeignKey("productCount.id"))
                     )
 

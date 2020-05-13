@@ -5,8 +5,8 @@ from ..models.vendor import Vendor,VendorSchema
 from ..models.brand import Brand,BrandSchema
 from ..models.manufacturer import Manufacturer,ManufacturerSchema
 from ..models.departments import Department,DepartmentSchema
-from ..models.weight import Weight,WeightSchema
-from ..models.price import Price,PriceSchema
+#from ..models.weight import Weight,WeightSchema
+#from ..models.price import Price,PriceSchema
 from werkzeug.utils import secure_filename
 from werkzeug.wsgi import FileWrapper
 from flask import send_file,send_from_directory
@@ -210,7 +210,7 @@ def remove_vendor_to_product(product_id,vendor_id):
     
     db.session.commit()
     return status(product,status=status_codes.UPDATED)
-
+'''
 @app.route("/product/update/<product_id>/add/weight/<weight_id>",methods=["get"])
 @auth.login_required
 def add_weight_to_product(product_id,weight_id):
@@ -229,7 +229,8 @@ def add_weight_to_product(product_id,weight_id):
     db.session.flush()
     db.session.commit()
     return status(product,status=status_codes.UPDATED)
-
+'''
+'''
 @app.route("/product/update/<product_id>/add/price/<price_id>",methods=["get"])
 @auth.login_required
 def add_price_to_product(product_id,price_id):
@@ -248,7 +249,7 @@ def add_price_to_product(product_id,price_id):
     db.session.flush()
     db.session.commit()
     return status(Product(),status=status_codes.UPDATED)
-
+'''
 
 @app.route("/product/update/<product_id>/add/vendor/<vendor_id>",methods=["get"])
 @auth.login_required

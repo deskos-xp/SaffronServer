@@ -5,11 +5,11 @@ from .address import Address,AddressSchema
 
 from .as_dict import AsDict
 user_departments=db.Table("user_departments",
-            db.Column("user_id",db.Integer,db.ForeignKey("users.id")),
+            db.Column("user_id",db.Integer,db.ForeignKey("users.id"),unique=True),
             db.Column("department_id",db.Integer,db.ForeignKey("departments.id"))
         )
 user_addresses=db.Table("user_addresses",
-        db.Column("user_id",db.Integer,db.ForeignKey("users.id")),
+        db.Column("user_id",db.Integer,db.ForeignKey("users.id"),unique=True),
         db.Column("address_id",db.Integer,db.ForeignKey("address.id"))
         )
 
