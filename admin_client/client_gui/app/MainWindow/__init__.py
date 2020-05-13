@@ -13,7 +13,7 @@ class Main(QMainWindow,QObject):
     EXIT_CODE_REBOOT = 33333333
     def __init__(self):
         super(Main,self).__init__()
-        uic.loadUi("app2/MainWindow/forms/app.ui",self)
+        uic.loadUi("app/MainWindow/forms/app.ui",self)
         self.Login=login.Login(self.login)
 
         self.setWindowTitle("SaffronClient 2")

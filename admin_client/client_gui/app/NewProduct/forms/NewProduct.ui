@@ -61,6 +61,9 @@
                <height>45</height>
               </size>
              </property>
+             <property name="placeholderText">
+              <string>Product Name</string>
+             </property>
             </widget>
            </item>
            <item row="2" column="1">
@@ -70,6 +73,9 @@
                <width>0</width>
                <height>45</height>
               </size>
+             </property>
+             <property name="placeholderText">
+              <string>Home/Module Code</string>
              </property>
             </widget>
            </item>
@@ -138,7 +144,7 @@
              </property>
              <layout class="QGridLayout" name="gridLayout_5">
               <item row="0" column="0">
-               <widget class="QComboBox" name="comboBox">
+               <widget class="QComboBox" name="priceUnit">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -167,6 +173,9 @@
                <width>0</width>
                <height>45</height>
               </size>
+             </property>
+             <property name="placeholderText">
+              <string>UPC Code</string>
              </property>
             </widget>
            </item>
@@ -212,7 +221,7 @@
   <tabstop>homecode</tabstop>
   <tabstop>casecount</tabstop>
   <tabstop>doubleSpinBox</tabstop>
-  <tabstop>comboBox</tabstop>
+  <tabstop>priceUnit</tabstop>
   <tabstop>weight</tabstop>
   <tabstop>weightUnit</tabstop>
   <tabstop>manufacturer</tabstop>

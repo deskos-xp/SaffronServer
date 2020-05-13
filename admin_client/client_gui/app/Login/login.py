@@ -12,7 +12,7 @@ class Login(QWidget):
     def __init__(self,widget):
         super(Login,self).__init__()
         self.widget=widget
-        uic.loadUi("app2/Login/forms/login.ui",self.widget)
+        uic.loadUi("app/Login/forms/login.ui",self.widget)
         
         self.widget.username.textChanged.connect(self.saveLogin)
         self.widget.password.textChanged.connect(self.saveLogin)
