@@ -6,6 +6,9 @@ import sys
 from ..Login import login 
 from ..NewProduct.NewProduct import NewProduct
 
+from ..drm import drm,drmEnum
+from PyQt5.QtCore import QCoreApplication
+
 class Main(QMainWindow,QObject):
     #address="http://localhost:9000/"
     #auth=("admin","avalon")
@@ -23,6 +26,10 @@ class Main(QMainWindow,QObject):
         self.Login.loggedIn.connect(self.stackChange)
        
         self.application.currentChanged.connect(self.readyToWork)
+        d=drm()
+        if d.state == drmEnum.LOCKED:
+            exit() 
+            print(d.state)
         #self.show()
 
 

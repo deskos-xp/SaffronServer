@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QGridLayout
-QGridLayout
+
+
 def clearGrid(self,complete=False):
     if complete == False:
 
