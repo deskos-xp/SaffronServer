@@ -1,17 +1,20 @@
 import enum,json,os
 import os
 from colored import fg,bg,attr
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
 class drmEnum(enum.Enum):
     LOCKED=enum.auto()
     UNLOCKED=enum.auto()
     
 class drmMeta:
-    config='eula.json'
+    config=os.getenv('config')
     path = os.path.abspath(__file__)
     dir_path = os.path.dirname(path)
-    email="k.j.hirner.wisdom@gmail.com"
-    name="SaffronExplorer"
+    email=os.getenv('email')
+    name=os.getenv('name')
 
 class drm(drmMeta):
     eula:dict=None
@@ -48,6 +51,7 @@ class drm(drmMeta):
             )))
 
     def loadEULA(self):
+        print("reading {config}".format(**dict(config=self.config)))
         with open(os.path.join(self.dir_path,self.config),'r') as fd:
             self.eula=json.load(fd)
     

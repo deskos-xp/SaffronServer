@@ -24,7 +24,7 @@ class Main(QMainWindow,QObject):
         self.qtp=QThreadPool.globalInstance()
         self.sb=self.statusBar()
         self.Login.loggedIn.connect(self.stackChange)
-       
+        
         self.application.currentChanged.connect(self.readyToWork)
         d=drm()
         if d.state == drmEnum.LOCKED:

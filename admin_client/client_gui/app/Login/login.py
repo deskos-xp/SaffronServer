@@ -9,6 +9,7 @@ class Login(QWidget):
     login:dict=dict(username=None,password=None,server_address=None)
     widget:QWidget=None
     loggedIn:pyqtSignal=pyqtSignal(dict)
+
     def __init__(self,widget):
         super(Login,self).__init__()
         self.widget=widget
@@ -17,13 +18,17 @@ class Login(QWidget):
         self.widget.username.textChanged.connect(self.saveLogin)
         self.widget.password.textChanged.connect(self.saveLogin)
         self.widget.server_address.textChanged.connect(self.saveLogin)
-
+        
         self.widget.login.clicked.connect(self.attemptLogin)
         self.qtp=QThreadPool.globalInstance() 
+
+    def notify(self,error):
+        print(error)
 
     def attemptLogin(self):
         self.worker=Worker(self.login)
         self.worker.signals.state.connect(self.loginState)
+        self.worker.signals.hasError.connect(self.notify)
         self.qtp.start(self.worker)
 
     def loginState(self,boolean):

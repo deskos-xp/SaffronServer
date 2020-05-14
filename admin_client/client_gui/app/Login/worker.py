@@ -7,6 +7,7 @@ class WorkerSignals(QObject):
     state:pyqtSignal=pyqtSignal(bool)
     user:pyqtSignal=pyqtSignal(dict)
     killMe=False
+    hasError:pyqtSignal=pyqtSignal(Exception)
 
     @pyqtSlot()
     def kill(self):
@@ -20,23 +21,26 @@ class Worker(QRunnable):
         self.session=requests.Session()
 
     def run(self):
-        self.status=self.session.post(
-                "{address}/user/get".format(address=self.auth.get("server_address")),
-                auth=(self.auth.get("username"),
-                    self.auth.get("password")),
-                json=dict(page=0,limit=1))
         try:
-            print(self.status.json())
-            j=self.status.json()
-            if 'objects' in j:
-                uList=j.get('objects')
-                if uList != None and len(uList) > 0:
-                    self.signals.user.emit(uList[0])
-                    self.signals.state.emit(True)
+            self.status=self.session.post(
+                    "{address}/user/get".format(address=self.auth.get("server_address")),
+                    auth=(self.auth.get("username"),
+                        self.auth.get("password")),
+                    json=dict(page=0,limit=1))
+            try:
+                print(self.status.json())
+                j=self.status.json()
+                if 'objects' in j:
+                    uList=j.get('objects')
+                    if uList != None and len(uList) > 0:
+                        self.signals.user.emit(uList[0])
+                        self.signals.state.emit(True)
+                    else:
+                        self.signals.state.emit(False)
                 else:
                     self.signals.state.emit(False)
-            else:
+            except Exception as e:
                 self.signals.state.emit(False)
+                print(e)
         except Exception as e:
-            self.signals.state.emit(False)
-            print(e)
+            self.signals.hasError.emit(e)
