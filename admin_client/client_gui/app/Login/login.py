@@ -2,9 +2,9 @@ from PyQt5 import uic
 from PyQt5.QtCore import QThreadPool,QObject,pyqtSignal,QRunnable,pyqtSlot,QCoreApplication
 from PyQt5.QtWidgets import QTextEdit,QPushButton,QStackedWidget,QMainWindow,QApplication,QWidget,QCheckBox
 import sys
-from .worker import Worker
-from .saveAuth import SaveAuth
-from .loadAuth import LoadAuth
+from .workers.worker import Worker
+from .workers.saveAuth import SaveAuth
+from .workers.loadAuth import LoadAuth
 class Login(QWidget):
     #address="http://localhost:9000/"
     #auth=("admin","avalon")
