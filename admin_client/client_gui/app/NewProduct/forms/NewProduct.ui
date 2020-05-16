@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>685</width>
+    <width>705</width>
     <height>876</height>
    </rect>
   </property>
@@ -26,8 +26,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>646</width>
-          <height>1227</height>
+          <width>666</width>
+          <height>1260</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
@@ -91,63 +91,94 @@
              </property>
              <layout class="QGridLayout" name="gridLayout_11">
               <item row="0" column="0">
-               <widget class="QSplitter" name="splitter_3">
+               <widget class="QSplitter" name="splitter_2">
                 <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+                 <enum>Qt::Vertical</enum>
                 </property>
-                <widget class="QSplitter" name="splitter">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
+                <widget class="QLabel" name="product_img">
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>200</height>
+                  </size>
                  </property>
-                 <widget class="QLabel" name="product_img">
-                  <property name="minimumSize">
-                   <size>
-                    <width>200</width>
-                    <height>200</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>product_img</string>
-                  </property>
-                  <property name="scaledContents">
-                   <bool>true</bool>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                 <widget class="QPushButton" name="nav_product_img">
-                  <property name="text">
-                   <string>Product Image</string>
-                  </property>
-                 </widget>
+                 <property name="maximumSize">
+                  <size>
+                   <width>200</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>product_img</string>
+                 </property>
+                 <property name="scaledContents">
+                  <bool>true</bool>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
                 </widget>
-                <widget class="QSplitter" name="splitter_2">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
+                <widget class="QLineEdit" name="product_img_path">
+                 <property name="dragEnabled">
+                  <bool>true</bool>
                  </property>
-                 <widget class="QLabel" name="upc_img">
-                  <property name="minimumSize">
-                   <size>
-                    <width>200</width>
-                    <height>200</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>product_upc_image</string>
-                  </property>
-                  <property name="scaledContents">
-                   <bool>true</bool>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                 <widget class="QPushButton" name="nav_upc_img">
-                  <property name="text">
-                   <string>UPC Image</string>
-                  </property>
-                 </widget>
+                 <property name="placeholderText">
+                  <string>/path/to/product/img</string>
+                 </property>
+                 <property name="clearButtonEnabled">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+                <widget class="QPushButton" name="nav_product_img">
+                 <property name="text">
+                  <string>Product Image</string>
+                 </property>
+                </widget>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QSplitter" name="splitter">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <widget class="QLabel" name="upc_img">
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>200</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>product_upc_image</string>
+                 </property>
+                 <property name="scaledContents">
+                  <bool>true</bool>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+                <widget class="QLineEdit" name="upc_img_path">
+                 <property name="dragEnabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="placeholderText">
+                  <string>/path/to/upc/img</string>
+                 </property>
+                 <property name="clearButtonEnabled">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+                <widget class="QPushButton" name="nav_upc_img">
+                 <property name="text">
+                  <string>UPC Image</string>
+                 </property>
                 </widget>
                </widget>
               </item>
@@ -323,16 +354,6 @@
               <enum>QFrame::Raised</enum>
              </property>
              <layout class="QGridLayout" name="gridLayout_5">
-              <item row="0" column="0">
-               <widget class="QComboBox" name="priceUnit">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>45</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="1">
                <widget class="QDoubleSpinBox" name="price">
                 <property name="minimumSize">
@@ -343,6 +364,16 @@
                 </property>
                 <property name="maximum">
                  <double>100000000.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QComboBox" name="priceUnit">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>45</height>
+                 </size>
                 </property>
                </widget>
               </item>

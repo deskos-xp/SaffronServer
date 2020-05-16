@@ -1,6 +1,8 @@
 from PyQt5 import uic
 from PyQt5.QtCore import QThreadPool,QObject,QRunnable,pyqtSignal,pyqtSlot
-from PyQt5.QtWidgets import QWidget,QComboBox
+from PyQt5.QtWidgets import QWidget,QComboBox,QFileDialog
+from PyQt5.QtGui import QPixmap
+
 
 import json,ast,os
 from dotenv import load_dotenv
@@ -9,7 +11,7 @@ from .workers.weightUnitWorker import WeightUnitWorker
 from .workers.GenericWorker import Worker
 from .workers.NewProductWorker import NewProductWorker
 from .workers.NewProductUpdateWorker import NewProductUpdateWorker
-
+from .workers.UploaderWorker import UploaderWorker
 class NewProduct(QWidget):
     def __init__(self,auth:dict,widget:QWidget):
         super(NewProduct,self).__init__()
@@ -17,6 +19,9 @@ class NewProduct(QWidget):
         self.auth=auth
         self.widget=widget
         self.qtp=QThreadPool.globalInstance()
+        
+        self.upc_img=None
+        self.product_img=None
 
         uic.loadUi("app/NewProduct/forms/NewProduct.ui",self.widget)
         
@@ -44,7 +49,54 @@ class NewProduct(QWidget):
         self.departmentWorker.signals.hasItem.connect(self.addToCombo)
         self.qtp.start(self.departmentWorker)
 
-        self.widget.save.clicked.connect(self.construct_and_send) 
+
+        self.widget.nav_product_img.clicked.connect(self.getProductImg)
+        self.widget.nav_upc_img.clicked.connect(self.getUPCImg)
+
+        self.widget.save.clicked.connect(self.construct_and_send)
+
+        self.widget.product_img_path.textChanged.connect(self.tryPath)
+        self.widget.upc_img_path.textChanged.connect(self.tryPath)
+
+    def tryPath(self,text):
+        pixmap=None
+        if os.path.exists(text) and os.path.isfile(text):
+            print("file exists... attempting to load it as an img")
+            if self.sender().objectName() == "product_img_path":
+                pixmap=self.pathToQPixmap(text)
+                self.widget.product_img.setPixmap(pixmap)
+                if pixmap != None:
+                   self.product_img=text 
+            elif self.sender().objectName() == "upc_img_path":
+                pixmap=self.pathToQPixmap(text)
+                self.widget.upc_img.setPixmap(pixmap)
+                if pixmap != None:
+                    self.upc_img=text
+        else:
+            if self.sender().objectName() == "product_img_path":
+                self.product_img=None
+            elif self.sender().objectName() == "upc_img_path":
+                self.upc_img=None
+
+    def getFilePathDialog(self,caption,) -> str:
+            fname = QFileDialog.getOpenFileName(self.widget, caption,'.',"Image files (*.jpg *.gif *.png)") 
+            if fname: 
+                return fname[0]
+
+    def getProductImg(self):
+        path=self.getFilePathDialog("Open Product Image...")
+        self.widget.product_img_path.setText(path)
+        
+    def pathToQPixmap(self,path) -> QPixmap:
+        try:
+            return QPixmap(path)
+        except Exception as e:
+            print(e)
+            return None
+
+    def getUPCImg(self):
+        path=self.getFilePathDialog("Open UPC Image...")
+        self.widget.upc_img_path.setText(path)
 
     def construct_and_send(self):
         newProductData=self.constructNewProductData()
@@ -76,6 +128,20 @@ class NewProduct(QWidget):
         d_worker.signals.finished.connect(self.status)
 
         #upload images
+        if self.product_img != None:
+            product_img_worker=UploaderWorker(self.auth,"product_image",self.product_img,product_id)
+            product_img_worker.signals.uploaded.connect(self.status) 
+            product_img_worker.signals.finished.connect(self.status)
+
+            self.qtp.start(product_img_worker)
+
+        if self.upc_img != None:
+            upc_img_worker=UploaderWorker(self.auth,"upc_image",self.upc_img,product_id)
+            upc_img_worker.signals.uploaded.connect(self.status) 
+            upc_img_worker.signals.finished.connect(self.status)
+
+            self.qtp.start(upc_img_worker)
+
 
         self.qtp.start(d_worker)
         self.qtp.start(b_worker)
@@ -84,8 +150,11 @@ class NewProduct(QWidget):
 
         print(department_uri,brand_uri,vendor_uri,manufacturer_uri,sep="\n")
         
+    def status(self,response,WHAT):
+        print(response,WHAT)
+
     def status(self):
-        print(self.sender().objectName(),"stage completed!")
+        print(self.sender(),"stage completed!")
 
     def errorHandler(self,error):
         print(error)

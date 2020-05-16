@@ -1,8 +1,9 @@
 [done]rewrite server to elimate price/weight unit entities -- that will be handled client side
 
-create worker threads to load app2/config/*.json for comboboxes in NewProduct
+create worker threads to load app2/config/*.json for comboboxes in NewProduct [done]
 
 rewrite main app to use QThreadPool
-	stacked widget -- login
-		-- widget new grid [module like delete dialog]
-		-- widget search grid [module like delete dialog]
+	stacked widget -- login --> needs a remember checkbox [done]
+		-- widget new grid [module like delete dialog][done]
+		-- widget search grid [module like delete dialog] <<<<<<<< priority
+		--login page needs enter key mapped to login button
