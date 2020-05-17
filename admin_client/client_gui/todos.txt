@@ -6,4 +6,6 @@ rewrite main app to use QThreadPool
 	stacked widget -- login --> needs a remember checkbox [done]
 		-- widget new grid [module like delete dialog][done]
 		-- widget search grid [module like delete dialog] <<<<<<<< priority
+			--create a dialog to view the data stored in the listView's data model
+				--make it qthreadable
 		--login page needs enter key mapped to login button

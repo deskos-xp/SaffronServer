@@ -1,3 +1,8 @@
+import enum
+class SearchModeEnum(enum.Enum):
+    GET=enum.auto()
+    POST=enum.auto()
+    DEFAULT=enum.auto()
 
 def mode(data:dict) -> bool: 
     countTrue=0
