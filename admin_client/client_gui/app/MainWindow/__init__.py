@@ -5,7 +5,7 @@ import sys
 
 from ..Login import login 
 from ..NewProduct.NewProduct import NewProduct
-
+from ..SearchProduct.SearchProduct import SearchProduct
 from ..drm import drm,drmEnum
 from PyQt5.QtCore import QCoreApplication
 
@@ -35,7 +35,7 @@ class Main(QMainWindow,QObject):
 
     def readyToWork(self):
         self.newGrid=NewProduct(self.auth,self.newGrid)
-
+        self.searchGrid=SearchProduct(self.auth,self.searchGrid)
 
     @pyqtSlot(dict)
     def stackChange(self,auth:dict):
