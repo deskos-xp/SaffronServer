@@ -1,5 +1,6 @@
 from PyQt5.QtCore import QAbstractTableModel,Qt,QModelIndex
 from PyQt5.QtGui import QColor
+
 class DataViewModel(QAbstractTableModel):
     def __init__(self,*args,item=None,**kwargs):
         super(DataViewModel,self).__init__()
@@ -7,6 +8,7 @@ class DataViewModel(QAbstractTableModel):
         self.items=[[i,self.item.get(i)] for i in self.item.keys()]
         #print(item)
         self.load_data(self.items)
+        self.DEFAULT_ALIGNMENT=[Qt.AlignLeft,Qt.AlignCenter]
 
     def load_data(self, data):
         self.fields = [i[0] for i in data]
@@ -41,6 +43,6 @@ class DataViewModel(QAbstractTableModel):
         elif role == Qt.BackgroundRole:
             return QColor(Qt.white)
         elif role == Qt.TextAlignmentRole:
-            return Qt.AlignRight
+            return self.DEFAULT_ALIGNMENT[column]
 
         return None
