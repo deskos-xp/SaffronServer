@@ -7,6 +7,7 @@ from . import mode
 from .workers.GetWorker import GetWorker
 from . import SearchModeEnum
 from .SearchViewModel import SearchViewModel
+from ..DataView.DataViewDialog import DataViewDialog
 class SearchProduct(QWidget):
     def __init__(self,auth:dict,widget:QWidget):
         self.widget=widget
@@ -52,6 +53,10 @@ class SearchProduct(QWidget):
     def showData(self,item):
         if self.model.items[item.row()] in [None,{}]:
             self.clearModel()
+        else:
+            print(item)
+            dialog=DataViewDialog(self.auth,self.model.items[item.row()],self)
+            #dialog.exec_()
             #now its time for the dataview dialog to be made
         #print(self.model.items[item.row()])
 
