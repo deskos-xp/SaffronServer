@@ -2,38 +2,44 @@ from PyQt5 import uic
 from PyQt5.QtCore import QThreadPool,QObject,pyqtSignal,QRunnable,pyqtSlot,QCoreApplication,pyqtSlot
 from PyQt5.QtWidgets import QTextEdit,QPushButton,QStackedWidget,QMainWindow,QApplication
 import sys
+from .MenuBar.MenuBar import MenuBar
 
-from ..Login import login 
+from ..Login.login import Login 
 from ..NewProduct.NewProduct import NewProduct
 from ..SearchProduct.SearchProduct import SearchProduct
 from ..drm import drm,drmEnum
 from PyQt5.QtCore import QCoreApplication
 
 class Main(QMainWindow,QObject):
-    #address="http://localhost:9000/"
-    #auth=("admin","avalon")
     auth:dict=dict(server_address=None,username=None,password=None)
     EXIT_CODE_REBOOT = 33333333
     def __init__(self):
         super(Main,self).__init__()
         uic.loadUi("app/MainWindow/forms/app.ui",self)
-        self.Login=login.Login(self.login)
-
+        self.loggin=Login(self.login)
         self.setWindowTitle("SaffronClient 2")
         #self.setWindowIcon(Icon(PATH))
-        self.qtp=QThreadPool.globalInstance()
+        #self.qtp=QThreadPool.globalInstance()
         self.sb=self.statusBar()
-        self.Login.loggedIn.connect(self.stackChange)
-        
+        self.loggin.loggedIn.connect(self.stackChange)
+        self.loggin.logInFail.connect(self.logInFailed)
         self.application.currentChanged.connect(self.readyToWork)
+        
+        self.menubar=MenuBar(self)        
+       
         d=drm()
         if d.state == drmEnum.LOCKED:
-            exit() 
+            exit(d.state) 
             print(d.state)
         #self.show()
 
+    @pyqtSlot()
+    def logInFailed(self):
+        self.sb.showMessage("Attempted Log-In failed!",1000)
 
+    @pyqtSlot()
     def readyToWork(self):
+        self.menubar.loggedIn(self.application.currentIndex())
         self.newGrid=NewProduct(self.auth,self.newGrid)
         self.searchGrid=SearchProduct(self.auth,self.searchGrid)
 
@@ -42,7 +48,7 @@ class Main(QMainWindow,QObject):
         self.auth=auth
         self.application.setCurrentIndex(1)
 
-
+'''
 def main():
     #ecode=mainWindow.EXIT_CODE_REBOOT
     #while ecode == mainWindow.EXIT_CODE_REBOOT:
@@ -65,5 +71,5 @@ if __name__ == "__main__":
         print(ecode)
         del(ecode)
         ecode=0
-
+'''
 

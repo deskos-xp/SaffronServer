@@ -37,12 +37,12 @@ class GetWorker(QRunnable):
                 if response.status_code == 200:
                     j=response.json()
                     if 'object' in j.keys() and j.get('object') not in [None,[],{}]:
-                        print(j.get('object'))
+                        #print(j.get('object'))
                         self.signals.hasItem.emit(j.get('object'))
                     elif 'objects' in j.keys() and j.get('objects') not in [None,[]]:
                         for i in j.get('objects'):
                             self.signals.hasItem.emit(i)
-                        print(j.get('objects'))
+                        #print(j.get('objects'))
                     else:
                         self.signals.hasError.emit(Exception("no results!"))
                 else:

@@ -1,0 +1,1406 @@
+*** Segmentation fault
+Register dump:
+
+ RAX: 0000000000000000   RBX: 00007fb5d40084e0   RCX: 00007fb5f0cb2ce5
+ RDX: 0000000000000000   RSI: 000055d84a26f360   RDI: 0000000000000002
+ RBP: 00007fb5d40084e0   R8 : 0000000000000000   R9 : 000055d84a26f360
+ R10: 0000000000000008   R11: 0000000000000246   R12: 000055d84aa56660
+ R13: 0000000000000001   R14: 00007ffe7915df80   R15: 0000000000000000
+ RSP: 000055d84a26f360
+
+ RIP: 00007fb5f0cb2ce5   EFLAGS: 00000246
+
+ CS: 0033   FS: 0000   GS: 0000
+
+ Trap: 0000000e   Error: 00000004   OldMask: 00000000   CR2: 00000010
+
+ FPUCW: 0000037f   FPUSW: 00000000   TAG: 00000000
+ RIP: 00000000   RDP: 00000000
+
+ ST(0) 0000 0000000000000000   ST(1) 0000 0000000000000000
+ ST(2) 0000 0000000000000000   ST(3) 0000 0000000000000000
+ ST(4) 0000 0000000000000000   ST(5) 0000 0000000000000000
+ ST(6) 0000 0000000000000000   ST(7) 0000 0000000000000000
+ mxcsr: 1f80
+ XMM0:  000000000000000000000000f5f00000 XMM1:  000000000000000000000000f5f00000
+ XMM2:  000000000000000000000000f5f00000 XMM3:  000000000000000000000000f5f00000
+ XMM4:  000000000000000000000000f5f00000 XMM5:  000000000000000000000000f5f00000
+ XMM6:  000000000000000000000000f5f00000 XMM7:  000000000000000000000000f5f00000
+ XMM8:  000000000000000000000000f5f00000 XMM9:  000000000000000000000000f5f00000
+ XMM10: 000000000000000000000000f5f00000 XMM11: 000000000000000000000000f5f00000
+ XMM12: 000000000000000000000000f5f00000 XMM13: 000000000000000000000000f5f00000
+ XMM14: 000000000000000000000000f5f00000 XMM15: 000000000000000000000000f5f00000
+
+Backtrace:
+/usr/lib/libc.so.6(gsignal+0x145)[0x7fb5f0cb2ce5]
+/usr/lib/libc.so.6(+0x3bd70)[0x7fb5f0cb2d70]
+/usr/lib/libQt5XcbQpa.so.5(+0xc93ae)[0x7fb5ea4da3ae]
+/usr/lib/libQt5XcbQpa.so.5(+0xc9447)[0x7fb5ea4da447]
+/usr/lib/libQt5XcbQpa.so.5(+0xc9a2d)[0x7fb5ea4daa2d]
+/usr/lib/libQt5Gui.so.5(_ZN18QRasterPaintEngine16drawCachedGlyphsEiPKjPK11QFixedPointP11QFontEngine+0x768)[0x7fb5ef380698]
+/usr/lib/libQt5Gui.so.5(_ZN18QRasterPaintEngine12drawTextItemERK7QPointFRK9QTextItem+0x20b)[0x7fb5ef38417b]
+/usr/lib/libQt5Gui.so.5(+0x3fec3b)[0x7fb5ef39dc3b]
+/usr/lib/libQt5Gui.so.5(_ZNK9QTextLine4drawEP8QPainterRK7QPointFPKN11QTextLayout11FormatRangeE+0x8ad)[0x7fb5ef1d1c3d]
+/usr/lib/libQt5Gui.so.5(_ZNK11QTextLayout4drawEP8QPainterRK7QPointFRK7QVectorINS_11FormatRangeEERK6QRectF+0x73f)[0x7fb5ef1d2ddf]
+/usr/lib/libQt5Widgets.so.5(_ZN18QWidgetLineControl4drawEP8QPainterRK6QPointRK5QRecti+0x156)[0x7fb5ef8fdbd6]
+/usr/lib/libQt5Widgets.so.5(_ZN9QLineEdit10paintEventEP11QPaintEvent+0x52e)[0x7fb5ef8f43ce]
+/usr/lib/python3.8/site-packages/PyQt5/QtWidgets.abi3.so(+0x24f8c4)[0x7fb5effa38c4]
+/usr/lib/libQt5Widgets.so.5(_ZN7QWidget5eventEP6QEvent+0x27e)[0x7fb5ef7ea2ee]
+/usr/lib/libQt5Widgets.so.5(_ZN9QLineEdit5eventEP6QEvent+0xab)[0x7fb5ef8f928b]
+/usr/lib/python3.8/site-packages/PyQt5/QtWidgets.abi3.so(+0x24ded4)[0x7fb5effa1ed4]
+/usr/lib/libQt5Widgets.so.5(_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent+0x82)[0x7fb5ef7a6352]
+/usr/lib/libQt5Widgets.so.5(_ZN12QApplication6notifyEP7QObjectP6QEvent+0x339)[0x7fb5ef7af829]
+/usr/lib/python3.8/site-packages/PyQt5/QtWidgets.abi3.so(+0x37388f)[0x7fb5f00c788f]
+/usr/lib/libQt5Core.so.5(_ZN16QCoreApplication15notifyInternal2EP7QObjectP6QEvent+0x182)[0x7fb5eed0b4f2]
+/usr/lib/libQt5Widgets.so.5(_ZN14QWidgetPrivate14sendPaintEventERK7QRegion+0x38)[0x7fb5ef7e25b8]
+/usr/lib/libQt5Widgets.so.5(_ZN14QWidgetPrivate10drawWidgetEP12QPaintDeviceRK7QRegionRK6QPoint6QFlagsINS_14DrawWidgetFlagEEP8QPainterP21QWidgetRepaintManager+0x80c)[0x7fb5ef7e2e1c]
+/usr/lib/libQt5Widgets.so.5(_ZN14QWidgetPrivate22paintSiblingsRecursiveEP12QPaintDeviceRK5QListIP7QObjectEiRK7QRegionRK6QPoint6QFlagsINS_14DrawWidgetFlagEEP8QPainterP21QWidgetRepaintManager+0x4e8)[0x7fb5ef7e4298]
+/usr/lib/libQt5Widgets.so.5(_ZN14QWidgetPrivate10drawWidgetEP12QPaintDeviceRK7QRegionRK6QPoint6QFlagsINS_14DrawWidgetFlagEEP8QPainterP21QWidgetRepaintManager+0x51d)[0x7fb5ef7e2b2d]
+/usr/lib/libQt5Widgets.so.5(_ZN14QWidgetPrivate22paintSiblingsRecursiveEP12QPaintDeviceRK5QListIP7QObjectEiRK7QRegionRK6QPoint6QFlagsINS_14DrawWidgetFlagEEP8QPainterP21QWidgetRepaintManager+0x4e8)[0x7fb5ef7e4298]
+/usr/lib/libQt5Widgets.so.5(_ZN14QWidgetPrivate10drawWidgetEP12QPaintDeviceRK7QRegionRK6QPoint6QFlagsINS_14DrawWidgetFlagEEP8QPainterP21QWidgetRepaintManager+0x51d)[0x7fb5ef7e2b2d]
+/usr/lib/libQt5Widgets.so.5(_ZN14QWidgetPrivate22paintSiblingsRecursiveEP12QPaintDeviceRK5QListIP7QObjectEiRK7QRegionRK6QPoint6QFlagsINS_14DrawWidgetFlagEEP8QPainterP21QWidgetRepaintManager+0x4e8)[0x7fb5ef7e4298]
+/usr/lib/libQt5Widgets.so.5(_ZN14QWidgetPrivate10drawWidgetEP12QPaintDeviceRK7QRegionRK6QPoint6QFlagsINS_14DrawWidgetFlagEEP8QPainterP21QWidgetRepaintManager+0x51d)[0x7fb5ef7e2b2d]
+/usr/lib/libQt5Widgets.so.5(_ZN14QWidgetPrivate22paintSiblingsRecursiveEP12QPaintDeviceRK5QListIP7QObjectEiRK7QRegionRK6QPoint6QFlagsINS_14DrawWidgetFlagEEP8QPainterP21QWidgetRepaintManager+0x4e8)[0x7fb5ef7e4298]
+/usr/lib/libQt5Widgets.so.5(_ZN14QWidgetPrivate10drawWidgetEP12QPaintDeviceRK7QRegionRK6QPoint6QFlagsINS_14DrawWidgetFlagEEP8QPainterP21QWidgetRepaintManager+0x51d)[0x7fb5ef7e2b2d]
+/usr/lib/libQt5Widgets.so.5(+0x16e5a9)[0x7fb5ef7b95a9]
+/usr/lib/libQt5Widgets.so.5(+0x16efe4)[0x7fb5ef7b9fe4]
+/usr/lib/libQt5Widgets.so.5(_ZN14QWidgetPrivate16syncBackingStoreEv+0xa7)[0x7fb5ef7e3d27]
+/usr/lib/libQt5Widgets.so.5(_ZN7QWidget5eventEP6QEvent+0xca4)[0x7fb5ef7ead14]
+/usr/lib/libQt5Widgets.so.5(_ZN11QMainWindow5eventEP6QEvent+0x65)[0x7fb5ef904435]
+/usr/lib/python3.8/site-packages/PyQt5/QtWidgets.abi3.so(+0x235264)[0x7fb5eff89264]
+/usr/lib/libQt5Widgets.so.5(_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent+0x82)[0x7fb5ef7a6352]
+/usr/lib/libQt5Widgets.so.5(_ZN12QApplication6notifyEP7QObjectP6QEvent+0x339)[0x7fb5ef7af829]
+/usr/lib/python3.8/site-packages/PyQt5/QtWidgets.abi3.so(+0x37388f)[0x7fb5f00c788f]
+/usr/lib/libQt5Core.so.5(_ZN16QCoreApplication15notifyInternal2EP7QObjectP6QEvent+0x182)[0x7fb5eed0b4f2]
+/usr/lib/libQt5Core.so.5(_ZN23QCoreApplicationPrivate16sendPostedEventsEP7QObjectiP11QThreadData+0x156)[0x7fb5eed0dd56]
+/usr/lib/libQt5Core.so.5(+0x2fe244)[0x7fb5eed64244]
+/usr/lib/libglib-2.0.so.0(g_main_context_dispatch+0x27e)[0x7fb5edeec6be]
+/usr/lib/libglib-2.0.so.0(+0x6d531)[0x7fb5edeee531]
+/usr/lib/libglib-2.0.so.0(g_main_context_iteration+0x31)[0x7fb5edeee571]
+/usr/lib/libQt5Core.so.5(_ZN20QEventDispatcherGlib13processEventsE6QFlagsIN10QEventLoop17ProcessEventsFlagEE+0x60)[0x7fb5eed63890]
+/usr/lib/libQt5Core.so.5(_ZN10QEventLoop4execE6QFlagsINS_17ProcessEventsFlagEE+0x12c)[0x7fb5eed0a05c]
+/usr/lib/libQt5Core.so.5(_ZN16QCoreApplication4execEv+0x96)[0x7fb5eed12066]
+/usr/lib/python3.8/site-packages/PyQt5/QtWidgets.abi3.so(+0x37231f)[0x7fb5f00c631f]
+/usr/lib/libpython3.8.so.1.0(PyCFunction_Call+0x10f)[0x7fb5f09fa09f]
+/usr/lib/libpython3.8.so.1.0(_PyObject_MakeTpCall+0x442)[0x7fb5f09ed3d2]
+/usr/lib/libpython3.8.so.1.0(_PyEval_EvalFrameDefault+0x4ea1)[0x7fb5f0aaac51]
+/usr/lib/libpython3.8.so.1.0(_PyFunction_Vectorcall+0x1bd)[0x7fb5f0a97a9d]
+/usr/lib/libpython3.8.so.1.0(_PyEval_EvalFrameDefault+0x4a5a)[0x7fb5f0aaa80a]
+/usr/lib/libpython3.8.so.1.0(+0x1e2200)[0x7fb5f0a99200]
+/usr/lib/libpython3.8.so.1.0(_PyObject_MakeTpCall+0x21a)[0x7fb5f09ed1aa]
+/usr/lib/libpython3.8.so.1.0(_PyEval_EvalFrameDefault+0x49ec)[0x7fb5f0aaa79c]
+/usr/lib/libpython3.8.so.1.0(_PyEval_EvalCodeWithName+0x3d4)[0x7fb5f0a968f4]
+/usr/lib/libpython3.8.so.1.0(PyEval_EvalCode+0x23)[0x7fb5f0b1dd73]
+/usr/lib/libpython3.8.so.1.0(+0x266dc8)[0x7fb5f0b1ddc8]
+/usr/lib/libpython3.8.so.1.0(+0x26b063)[0x7fb5f0b22063]
+/usr/lib/libpython3.8.so.1.0(PyRun_FileExFlags+0x97)[0x7fb5f09bcdf0]
+/usr/lib/libpython3.8.so.1.0(PyRun_SimpleFileExFlags+0x390)[0x7fb5f09c6aa4]
+/usr/lib/libpython3.8.so.1.0(Py_RunMain+0x4fe)[0x7fb5f0b2e81e]
+/usr/lib/libpython3.8.so.1.0(Py_BytesMain+0x39)[0x7fb5f0b2e909]
+/usr/lib/libc.so.6(__libc_start_main+0xf3)[0x7fb5f0c9e023]
+/usr/bin/python3(_start+0x2e)[0x55d848e3205e]
+
+Memory map:
+
+55d848e31000-55d848e32000 r--p 00000000 08:02 40133814 /usr/bin/python3.8
+55d848e32000-55d848e33000 r-xp 00001000 08:02 40133814 /usr/bin/python3.8
+55d848e33000-55d848e34000 r--p 00002000 08:02 40133814 /usr/bin/python3.8
+55d848e34000-55d848e35000 r--p 00002000 08:02 40133814 /usr/bin/python3.8
+55d848e35000-55d848e36000 rw-p 00003000 08:02 40133814 /usr/bin/python3.8
+55d84a1fe000-55d84b090000 rw-p 00000000 00:00 0 [heap]
+7fb5d4000000-7fb5d406b000 rw-p 00000000 00:00 0
+7fb5d406b000-7fb5d8000000 ---p 00000000 00:00 0
+7fb5d87e4000-7fb5d87e7000 r--p 00000000 08:02 40140798 /usr/lib/libwebp.so.7.1.0
+7fb5d87e7000-7fb5d883d000 r-xp 00003000 08:02 40140798 /usr/lib/libwebp.so.7.1.0
+7fb5d883d000-7fb5d8850000 r--p 00059000 08:02 40140798 /usr/lib/libwebp.so.7.1.0
+7fb5d8850000-7fb5d8851000 r--p 0006b000 08:02 40140798 /usr/lib/libwebp.so.7.1.0
+7fb5d8851000-7fb5d8852000 rw-p 0006c000 08:02 40140798 /usr/lib/libwebp.so.7.1.0
+7fb5d8852000-7fb5d8854000 rw-p 00000000 00:00 0
+7fb5d8854000-7fb5d8856000 r--p 00000000 08:02 40140807 /usr/lib/libwebpmux.so.3.0.5
+7fb5d8856000-7fb5d885c000 r-xp 00002000 08:02 40140807 /usr/lib/libwebpmux.so.3.0.5
+7fb5d885c000-7fb5d885e000 r--p 00008000 08:02 40140807 /usr/lib/libwebpmux.so.3.0.5
+7fb5d885e000-7fb5d885f000 r--p 00009000 08:02 40140807 /usr/lib/libwebpmux.so.3.0.5
+7fb5d885f000-7fb5d8860000 rw-p 0000a000 08:02 40140807 /usr/lib/libwebpmux.so.3.0.5
+7fb5d8860000-7fb5d8869000 r--p 00000000 08:02 40133162 /usr/lib/libtiff.so.5.5.0
+7fb5d8869000-7fb5d88b7000 r-xp 00009000 08:02 40133162 /usr/lib/libtiff.so.5.5.0
+7fb5d88b7000-7fb5d88e6000 r--p 00057000 08:02 40133162 /usr/lib/libtiff.so.5.5.0
+7fb5d88e6000-7fb5d88e7000 ---p 00086000 08:02 40133162 /usr/lib/libtiff.so.5.5.0
+7fb5d88e7000-7fb5d88eb000 r--p 00086000 08:02 40133162 /usr/lib/libtiff.so.5.5.0
+7fb5d88eb000-7fb5d88ee000 rw-p 0008a000 08:02 40133162 /usr/lib/libtiff.so.5.5.0
+7fb5d88ee000-7fb5d88ef000 rw-p 00000000 00:00 0
+7fb5d88ef000-7fb5d88fa000 r--p 00000000 08:02 40135520 /usr/lib/liblcms2.so.2.0.8
+7fb5d88fa000-7fb5d8931000 r-xp 0000b000 08:02 40135520 /usr/lib/liblcms2.so.2.0.8
+7fb5d8931000-7fb5d8945000 r--p 00042000 08:02 40135520 /usr/lib/liblcms2.so.2.0.8
+7fb5d8945000-7fb5d8946000 ---p 00056000 08:02 40135520 /usr/lib/liblcms2.so.2.0.8
+7fb5d8946000-7fb5d8948000 r--p 00056000 08:02 40135520 /usr/lib/liblcms2.so.2.0.8
+7fb5d8948000-7fb5d894b000 rw-p 00058000 08:02 40135520 /usr/lib/liblcms2.so.2.0.8
+7fb5d894b000-7fb5d894c000 rw-p 00000000 00:00 0
+7fb5d894c000-7fb5d89b8000 r-xp 00000000 08:02 40150318 /usr/lib/libmng.so.2.0.2
+7fb5d89b8000-7fb5d8bb7000 ---p 0006c000 08:02 40150318 /usr/lib/libmng.so.2.0.2
+7fb5d8bb7000-7fb5d8bbb000 r--p 0006b000 08:02 40150318 /usr/lib/libmng.so.2.0.2
+7fb5d8bbb000-7fb5d8bbc000 rw-p 0006f000 08:02 40150318 /usr/lib/libmng.so.2.0.2
+7fb5d8bbc000-7fb5d8bc0000 r--p 00000000 08:02 40133125 /usr/lib/libjpeg.so.8.2.2
+7fb5d8bc0000-7fb5d8c16000 r-xp 00004000 08:02 40133125 /usr/lib/libjpeg.so.8.2.2
+7fb5d8c16000-7fb5d8c50000 r--p 0005a000 08:02 40133125 /usr/lib/libjpeg.so.8.2.2
+7fb5d8c50000-7fb5d8c51000 ---p 00094000 08:02 40133125 /usr/lib/libjpeg.so.8.2.2
+7fb5d8c51000-7fb5d8c52000 r--p 00094000 08:02 40133125 /usr/lib/libjpeg.so.8.2.2
+7fb5d8c52000-7fb5d8c53000 rw-p 00095000 08:02 40133125 /usr/lib/libjpeg.so.8.2.2
+7fb5d8c53000-7fb5d8c5e000 r--p 00000000 08:02 40144239 /usr/lib/libjasper.so.4.0.0
+7fb5d8c5e000-7fb5d8ca9000 r-xp 0000b000 08:02 40144239 /usr/lib/libjasper.so.4.0.0
+7fb5d8ca9000-7fb5d8cb8000 r--p 00056000 08:02 40144239 /usr/lib/libjasper.so.4.0.0
+7fb5d8cb8000-7fb5d8cb9000 ---p 00065000 08:02 40144239 /usr/lib/libjasper.so.4.0.0
+7fb5d8cb9000-7fb5d8cba000 r--p 00065000 08:02 40144239 /usr/lib/libjasper.so.4.0.0
+7fb5d8cba000-7fb5d8cbe000 rw-p 00066000 08:02 40144239 /usr/lib/libjasper.so.4.0.0
+7fb5d8cbe000-7fb5d8cc5000 rw-p 00000000 00:00 0
+7fb5d8d2e000-7fb5d8dbb000 r-xp 00000000 08:02 40135868 /usr/lib/libvorbisenc.so.2.0.11
+7fb5d8dbb000-7fb5d8fba000 ---p 0008d000 08:02 40135868 /usr/lib/libvorbisenc.so.2.0.11
+7fb5d8fba000-7fb5d8fd6000 r--p 0008c000 08:02 40135868 /usr/lib/libvorbisenc.so.2.0.11
+7fb5d8fd6000-7fb5d8fd7000 rw-p 000a8000 08:02 40135868 /usr/lib/libvorbisenc.so.2.0.11
+7fb5d8fd7000-7fb5d8fe0000 r--p 00000000 08:02 40139425 /usr/lib/libFLAC.so.8.3.0
+7fb5d8fe0000-7fb5d9009000 r-xp 00009000 08:02 40139425 /usr/lib/libFLAC.so.8.3.0
+7fb5d9009000-7fb5d9013000 r--p 00032000 08:02 40139425 /usr/lib/libFLAC.so.8.3.0
+7fb5d9013000-7fb5d9014000 ---p 0003c000 08:02 40139425 /usr/lib/libFLAC.so.8.3.0
+7fb5d9014000-7fb5d9015000 r--p 0003c000 08:02 40139425 /usr/lib/libFLAC.so.8.3.0
+7fb5d9015000-7fb5d9016000 rw-p 0003d000 08:02 40139425 /usr/lib/libFLAC.so.8.3.0
+7fb5d9016000-7fb5d901d000 r--p 00000000 08:02 40139444 /usr/lib/libsndfile.so.1.0.28
+7fb5d901d000-7fb5d906f000 r-xp 00007000 08:02 40139444 /usr/lib/libsndfile.so.1.0.28
+7fb5d906f000-7fb5d908c000 r--p 00059000 08:02 40139444 /usr/lib/libsndfile.so.1.0.28
+7fb5d908c000-7fb5d908f000 r--p 00075000 08:02 40139444 /usr/lib/libsndfile.so.1.0.28
+7fb5d908f000-7fb5d9090000 rw-p 00078000 08:02 40139444 /usr/lib/libsndfile.so.1.0.28
+7fb5d9090000-7fb5d9092000 rw-p 00000000 00:00 0
+7fb5d9092000-7fb5d9098000 r-xp 00000000 08:02 40133334 /usr/lib/libdatrie.so.1.3.5
+7fb5d9098000-7fb5d9297000 ---p 00006000 08:02 40133334 /usr/lib/libdatrie.so.1.3.5
+7fb5d9297000-7fb5d9298000 r--p 00005000 08:02 40133334 /usr/lib/libdatrie.so.1.3.5
+7fb5d9298000-7fb5d9299000 rw-p 00006000 08:02 40133334 /usr/lib/libdatrie.so.1.3.5
+7fb5d9299000-7fb5d92a2000 r--p 00000000 08:02 40121829 /usr/lib/libblkid.so.1.1.0
+7fb5d92a2000-7fb5d92d4000 r-xp 00009000 08:02 40121829 /usr/lib/libblkid.so.1.1.0
+7fb5d92d4000-7fb5d92e4000 r--p 0003b000 08:02 40121829 /usr/lib/libblkid.so.1.1.0
+7fb5d92e4000-7fb5d92e5000 ---p 0004b000 08:02 40121829 /usr/lib/libblkid.so.1.1.0
+7fb5d92e5000-7fb5d92e9000 r--p 0004b000 08:02 40121829 /usr/lib/libblkid.so.1.1.0
+7fb5d92e9000-7fb5d92ea000 rw-p 0004f000 08:02 40121829 /usr/lib/libblkid.so.1.1.0
+7fb5d92ea000-7fb5d92fe000 r--p 00000000 08:02 41423880 /usr/lib/pulseaudio/libpulsecommon-13.0.so
+7fb5d92fe000-7fb5d9344000 r-xp 00014000 08:02 41423880 /usr/lib/pulseaudio/libpulsecommon-13.0.so
+7fb5d9344000-7fb5d936a000 r--p 0005a000 08:02 41423880 /usr/lib/pulseaudio/libpulsecommon-13.0.so
+7fb5d936a000-7fb5d936b000 ---p 00080000 08:02 41423880 /usr/lib/pulseaudio/libpulsecommon-13.0.so
+7fb5d936b000-7fb5d936d000 r--p 00080000 08:02 41423880 /usr/lib/pulseaudio/libpulsecommon-13.0.so
+7fb5d936d000-7fb5d936e000 rw-p 00082000 08:02 41423880 /usr/lib/pulseaudio/libpulsecommon-13.0.so
+7fb5d936e000-7fb5d9370000 r--p 00000000 08:02 40133722 /usr/lib/libfribidi.so.0.4.0
+7fb5d9370000-7fb5d9375000 r-xp 00002000 08:02 40133722 /usr/lib/libfribidi.so.0.4.0
+7fb5d9375000-7fb5d938b000 r--p 00007000 08:02 40133722 /usr/lib/libfribidi.so.0.4.0
+7fb5d938b000-7fb5d938c000 r--p 0001c000 08:02 40133722 /usr/lib/libfribidi.so.0.4.0
+7fb5d938c000-7fb5d938d000 rw-p 0001d000 08:02 40133722 /usr/lib/libfribidi.so.0.4.0
+7fb5d938d000-7fb5d9394000 r--p 00000000 08:02 40133734 /usr/lib/libpangoft2-1.0.so.0.4400.7
+7fb5d9394000-7fb5d939d000 r-xp 00007000 08:02 40133734 /usr/lib/libpangoft2-1.0.so.0.4400.7
+7fb5d939d000-7fb5d93a1000 r--p 00010000 08:02 40133734 /usr/lib/libpangoft2-1.0.so.0.4400.7
+7fb5d93a1000-7fb5d93a2000 ---p 00014000 08:02 40133734 /usr/lib/libpangoft2-1.0.so.0.4400.7
+7fb5d93a2000-7fb5d93a3000 r--p 00014000 08:02 40133734 /usr/lib/libpangoft2-1.0.so.0.4400.7
+7fb5d93a3000-7fb5d93a4000 rw-p 00015000 08:02 40133734 /usr/lib/libpangoft2-1.0.so.0.4400.7
+7fb5d93a4000-7fb5d93b0000 r--p 00000000 08:02 40121835 /usr/lib/libmount.so.1.1.0
+7fb5d93b0000-7fb5d93eb000 r-xp 0000c000 08:02 40121835 /usr/lib/libmount.so.1.1.0
+7fb5d93eb000-7fb5d93fd000 r--p 00047000 08:02 40121835 /usr/lib/libmount.so.1.1.0
+7fb5d93fd000-7fb5d93fe000 ---p 00059000 08:02 40121835 /usr/lib/libmount.so.1.1.0
+7fb5d93fe000-7fb5d9400000 r--p 00059000 08:02 40121835 /usr/lib/libmount.so.1.1.0
+7fb5d9400000-7fb5d9401000 rw-p 0005b000 08:02 40121835 /usr/lib/libmount.so.1.1.0
+7fb5d9401000-7fb5d940e000 r--p 00000000 08:02 40139471 /usr/lib/libpulse.so.0.21.1
+7fb5d940e000-7fb5d943d000 r-xp 0000d000 08:02 40139471 /usr/lib/libpulse.so.0.21.1
+7fb5d943d000-7fb5d9453000 r--p 0003c000 08:02 40139471 /usr/lib/libpulse.so.0.21.1
+7fb5d9453000-7fb5d9455000 r--p 00051000 08:02 40139471 /usr/lib/libpulse.so.0.21.1
+7fb5d9455000-7fb5d9456000 rw-p 00053000 08:02 40139471 /usr/lib/libpulse.so.0.21.1
+7fb5d9456000-7fb5d9461000 r--p 00000000 08:02 40133681 /usr/lib/libpixman-1.so.0.40.0
+7fb5d9461000-7fb5d94e3000 r-xp 0000b000 08:02 40133681 /usr/lib/libpixman-1.so.0.40.0
+7fb5d94e3000-7fb5d94f5000 r--p 0008d000 08:02 40133681 /usr/lib/libpixman-1.so.0.40.0
+7fb5d94f5000-7fb5d94fd000 r--p 0009e000 08:02 40133681 /usr/lib/libpixman-1.so.0.40.0
+7fb5d94fd000-7fb5d94fe000 rw-p 000a6000 08:02 40133681 /usr/lib/libpixman-1.so.0.40.0
+7fb5d94fe000-7fb5d952c000 r--p 00000000 08:02 40122011 /usr/lib/libxml2.so.2.9.10
+7fb5d952c000-7fb5d960e000 r-xp 0002e000 08:02 40122011 /usr/lib/libxml2.so.2.9.10
+7fb5d960e000-7fb5d9658000 r--p 00110000 08:02 40122011 /usr/lib/libxml2.so.2.9.10
+7fb5d9658000-7fb5d9661000 r--p 00159000 08:02 40122011 /usr/lib/libxml2.so.2.9.10
+7fb5d9661000-7fb5d9662000 rw-p 00162000 08:02 40122011 /usr/lib/libxml2.so.2.9.10
+7fb5d9662000-7fb5d9664000 rw-p 00000000 00:00 0
+7fb5d9664000-7fb5d969a000 r--p 00000000 08:02 40121860 /usr/lib/libgio-2.0.so.0.6400.2
+7fb5d969a000-7fb5d978f000 r-xp 00036000 08:02 40121860 /usr/lib/libgio-2.0.so.0.6400.2
+7fb5d978f000-7fb5d980c000 r--p 0012b000 08:02 40121860 /usr/lib/libgio-2.0.so.0.6400.2
+7fb5d980c000-7fb5d980d000 ---p 001a8000 08:02 40121860 /usr/lib/libgio-2.0.so.0.6400.2
+7fb5d980d000-7fb5d9814000 r--p 001a8000 08:02 40121860 /usr/lib/libgio-2.0.so.0.6400.2
+7fb5d9814000-7fb5d9815000 rw-p 001af000 08:02 40121860 /usr/lib/libgio-2.0.so.0.6400.2
+7fb5d9815000-7fb5d9817000 rw-p 00000000 00:00 0
+7fb5d9817000-7fb5d9831000 r--p 00000000 08:02 40148335 /usr/lib/libdtkcore.so.2.1.1
+7fb5d9831000-7fb5d9889000 r-xp 0001a000 08:02 40148335 /usr/lib/libdtkcore.so.2.1.1
+7fb5d9889000-7fb5d98e2000 r--p 00072000 08:02 40148335 /usr/lib/libdtkcore.so.2.1.1
+7fb5d98e2000-7fb5d98e3000 ---p 000cb000 08:02 40148335 /usr/lib/libdtkcore.so.2.1.1
+7fb5d98e3000-7fb5d98e6000 r--p 000cb000 08:02 40148335 /usr/lib/libdtkcore.so.2.1.1
+7fb5d98e6000-7fb5d98e7000 rw-p 000ce000 08:02 40148335 /usr/lib/libdtkcore.so.2.1.1
+7fb5d98e7000-7fb5d992b000 r--p 00000000 08:02 40139494 /usr/lib/libQt5Multimedia.so.5.14.2
+7fb5d992b000-7fb5d99bf000 r-xp 00044000 08:02 40139494 /usr/lib/libQt5Multimedia.so.5.14.2
+7fb5d99bf000-7fb5d99f4000 r--p 000d8000 08:02 40139494 /usr/lib/libQt5Multimedia.so.5.14.2
+7fb5d99f4000-7fb5d99f5000 ---p 0010d000 08:02 40139494 /usr/lib/libQt5Multimedia.so.5.14.2
+7fb5d99f5000-7fb5d99fd000 r--p 0010d000 08:02 40139494 /usr/lib/libQt5Multimedia.so.5.14.2
+7fb5d99fd000-7fb5d99fe000 rw-p 00115000 08:02 40139494 /usr/lib/libQt5Multimedia.so.5.14.2
+7fb5d99fe000-7fb5d9a74000 r--p 00000000 08:02 40148325 /usr/lib/libdframeworkdbus.so.2.0.0
+7fb5d9a74000-7fb5d9c2e000 r-xp 00076000 08:02 40148325 /usr/lib/libdframeworkdbus.so.2.0.0
+7fb5d9c2e000-7fb5d9cae000 r--p 00230000 08:02 40148325 /usr/lib/libdframeworkdbus.so.2.0.0
+7fb5d9cae000-7fb5d9caf000 ---p 002b0000 08:02 40148325 /usr/lib/libdframeworkdbus.so.2.0.0
+7fb5d9caf000-7fb5d9cb9000 r--p 002b0000 08:02 40148325 /usr/lib/libdframeworkdbus.so.2.0.0
+7fb5d9cb9000-7fb5d9cba000 rw-p 002ba000 08:02 40148325 /usr/lib/libdframeworkdbus.so.2.0.0
+7fb5d9cba000-7fb5d9ccc000 r--p 00000000 08:02 40133699 /usr/lib/libcairo.so.2.11703.0
+7fb5d9ccc000-7fb5d9d9b000 r-xp 00012000 08:02 40133699 /usr/lib/libcairo.so.2.11703.0
+7fb5d9d9b000-7fb5d9dd7000 r--p 000e1000 08:02 40133699 /usr/lib/libcairo.so.2.11703.0
+7fb5d9dd7000-7fb5d9dd8000 ---p 0011d000 08:02 40133699 /usr/lib/libcairo.so.2.11703.0
+7fb5d9dd8000-7fb5d9ddc000 r--p 0011d000 08:02 40133699 /usr/lib/libcairo.so.2.11703.0
+7fb5d9ddc000-7fb5d9ddd000 rw-p 00121000 08:02 40133699 /usr/lib/libcairo.so.2.11703.0
+7fb5d9ddd000-7fb5d9dde000 rw-p 00000000 00:00 0
+7fb5d9dde000-7fb5d9dec000 r--p 00000000 08:02 40121869 /usr/lib/libgobject-2.0.so.0.6400.2
+7fb5d9dec000-7fb5d9e21000 r-xp 0000e000 08:02 40121869 /usr/lib/libgobject-2.0.so.0.6400.2
+7fb5d9e21000-7fb5d9e39000 r--p 00043000 08:02 40121869 /usr/lib/libgobject-2.0.so.0.6400.2
+7fb5d9e39000-7fb5d9e3c000 r--p 0005a000 08:02 40121869 /usr/lib/libgobject-2.0.so.0.6400.2
+7fb5d9e3c000-7fb5d9e3d000 rw-p 0005d000 08:02 40121869 /usr/lib/libgobject-2.0.so.0.6400.2
+7fb5d9e3d000-7fb5d9edb000 r--p 00000000 08:02 40133746 /usr/lib/librsvg-2.so.2.47.0
+7fb5d9edb000-7fb5da0ca000 r-xp 0009e000 08:02 40133746 /usr/lib/librsvg-2.so.2.47.0
+7fb5da0ca000-7fb5da1ff000 r--p 0028d000 08:02 40133746 /usr/lib/librsvg-2.so.2.47.0
+7fb5da1ff000-7fb5da200000 ---p 003c2000 08:02 40133746 /usr/lib/librsvg-2.so.2.47.0
+7fb5da200000-7fb5da289000 r--p 003c2000 08:02 40133746 /usr/lib/librsvg-2.so.2.47.0
+7fb5da289000-7fb5da28a000 rw-p 0044b000 08:02 40133746 /usr/lib/librsvg-2.so.2.47.0
+7fb5da28a000-7fb5db56a000 r-xp 00000000 08:02 40168473 /usr/lib/libnvidia-glcore.so.440.82
+7fb5db56a000-7fb5db58b000 rwxp 012e0000 08:02 40168473 /usr/lib/libnvidia-glcore.so.440.82
+7fb5db58b000-7fb5dba9e000 r-xp 01301000 08:02 40168473 /usr/lib/libnvidia-glcore.so.440.82
+7fb5dba9e000-7fb5dbc9d000 ---p 01814000 08:02 40168473 /usr/lib/libnvidia-glcore.so.440.82
+7fb5dbc9d000-7fb5dbfe3000 rw-p 01813000 08:02 40168473 /usr/lib/libnvidia-glcore.so.440.82
+7fb5dbfe3000-7fb5dc000000 rw-p 00000000 00:00 0
+7fb5dc000000-7fb5dc021000 rw-p 00000000 00:00 0
+7fb5dc021000-7fb5e0000000 ---p 00000000 00:00 0
+7fb5e0000000-7fb5e0002000 r--p 00000000 08:02 40133340 /usr/lib/libthai.so.0.3.1
+7fb5e0002000-7fb5e0006000 r-xp 00002000 08:02 40133340 /usr/lib/libthai.so.0.3.1
+7fb5e0006000-7fb5e0009000 r--p 00006000 08:02 40133340 /usr/lib/libthai.so.0.3.1
+7fb5e0009000-7fb5e000a000 r--p 00008000 08:02 40133340 /usr/lib/libthai.so.0.3.1
+7fb5e000a000-7fb5e000b000 rw-p 00009000 08:02 40133340 /usr/lib/libthai.so.0.3.1
+7fb5e000b000-7fb5e001a000 r--p 00000000 08:02 40133728 /usr/lib/libpango-1.0.so.0.4400.7
+7fb5e001a000-7fb5e003e000 r-xp 0000f000 08:02 40133728 /usr/lib/libpango-1.0.so.0.4400.7
+7fb5e003e000-7fb5e0055000 r--p 00033000 08:02 40133728 /usr/lib/libpango-1.0.so.0.4400.7
+7fb5e0055000-7fb5e0058000 r--p 00049000 08:02 40133728 /usr/lib/libpango-1.0.so.0.4400.7
+7fb5e0058000-7fb5e0059000 rw-p 0004c000 08:02 40133728 /usr/lib/libpango-1.0.so.0.4400.7
+7fb5e0059000-7fb5e0125000 r--p 00000000 08:02 40148340 /usr/lib/libdtkwidget.so.2.1.1
+7fb5e0125000-7fb5e021b000 r-xp 000cc000 08:02 40148340 /usr/lib/libdtkwidget.so.2.1.1
+7fb5e021b000-7fb5e02bb000 r--p 001c2000 08:02 40148340 /usr/lib/libdtkwidget.so.2.1.1
+7fb5e02bb000-7fb5e02bc000 ---p 00262000 08:02 40148340 /usr/lib/libdtkwidget.so.2.1.1
+7fb5e02bc000-7fb5e02d6000 r--p 00262000 08:02 40148340 /usr/lib/libdtkwidget.so.2.1.1
+7fb5e02d6000-7fb5e02d7000 rw-p 0027c000 08:02 40148340 /usr/lib/libdtkwidget.so.2.1.1
+7fb5e02dc000-7fb5e02dd000 r--p 00000000 08:02 40140804 /usr/lib/libwebpdemux.so.2.0.6
+7fb5e02dd000-7fb5e02df000 r-xp 00001000 08:02 40140804 /usr/lib/libwebpdemux.so.2.0.6
+7fb5e02df000-7fb5e02e0000 r--p 00003000 08:02 40140804 /usr/lib/libwebpdemux.so.2.0.6
+7fb5e02e0000-7fb5e02e1000 r--p 00003000 08:02 40140804 /usr/lib/libwebpdemux.so.2.0.6
+7fb5e02e1000-7fb5e02e2000 rw-p 00004000 08:02 40140804 /usr/lib/libwebpdemux.so.2.0.6
+7fb5e02e2000-7fb5e02e5000 r--p 00000000 08:02 41426420 /usr/lib/qt/plugins/imageformats/libqwebp.so
+7fb5e02e5000-7fb5e02e7000 r-xp 00003000 08:02 41426420 /usr/lib/qt/plugins/imageformats/libqwebp.so
+7fb5e02e7000-7fb5e02e8000 r--p 00005000 08:02 41426420 /usr/lib/qt/plugins/imageformats/libqwebp.so
+7fb5e02e8000-7fb5e02e9000 r--p 00005000 08:02 41426420 /usr/lib/qt/plugins/imageformats/libqwebp.so
+7fb5e02e9000-7fb5e02ea000 rw-p 00006000 08:02 41426420 /usr/lib/qt/plugins/imageformats/libqwebp.so
+7fb5e02ea000-7fb5e02ec000 r--p 00000000 08:02 41426419 /usr/lib/qt/plugins/imageformats/libqwbmp.so
+7fb5e02ec000-7fb5e02ed000 r-xp 00002000 08:02 41426419 /usr/lib/qt/plugins/imageformats/libqwbmp.so
+7fb5e02ed000-7fb5e02ee000 r--p 00003000 08:02 41426419 /usr/lib/qt/plugins/imageformats/libqwbmp.so
+7fb5e02ee000-7fb5e02ef000 r--p 00003000 08:02 41426419 /usr/lib/qt/plugins/imageformats/libqwbmp.so
+7fb5e02ef000-7fb5e02f0000 rw-p 00004000 08:02 41426419 /usr/lib/qt/plugins/imageformats/libqwbmp.so
+7fb5e02f0000-7fb5e02f3000 r--p 00000000 08:02 41426418 /usr/lib/qt/plugins/imageformats/libqtiff.so
+7fb5e02f3000-7fb5e02f7000 r-xp 00003000 08:02 41426418 /usr/lib/qt/plugins/imageformats/libqtiff.so
+7fb5e02f7000-7fb5e02f8000 r--p 00007000 08:02 41426418 /usr/lib/qt/plugins/imageformats/libqtiff.so
+7fb5e02f8000-7fb5e02f9000 ---p 00008000 08:02 41426418 /usr/lib/qt/plugins/imageformats/libqtiff.so
+7fb5e02f9000-7fb5e02fa000 r--p 00008000 08:02 41426418 /usr/lib/qt/plugins/imageformats/libqtiff.so
+7fb5e02fa000-7fb5e02fb000 rw-p 00009000 08:02 41426418 /usr/lib/qt/plugins/imageformats/libqtiff.so
+7fb5e02fb000-7fb5e02fd000 r--p 00000000 08:02 41426417 /usr/lib/qt/plugins/imageformats/libqtga.so
+7fb5e02fd000-7fb5e02ff000 r-xp 00002000 08:02 41426417 /usr/lib/qt/plugins/imageformats/libqtga.so
+7fb5e02ff000-7fb5e0300000 r--p 00004000 08:02 41426417 /usr/lib/qt/plugins/imageformats/libqtga.so
+7fb5e0300000-7fb5e0301000 r--p 00004000 08:02 41426417 /usr/lib/qt/plugins/imageformats/libqtga.so
+7fb5e0301000-7fb5e0302000 rw-p 00005000 08:02 41426417 /usr/lib/qt/plugins/imageformats/libqtga.so
+7fb5e0302000-7fb5e0305000 r--p 00000000 08:02 41426416 /usr/lib/qt/plugins/imageformats/libqmng.so
+7fb5e0305000-7fb5e0307000 r-xp 00003000 08:02 41426416 /usr/lib/qt/plugins/imageformats/libqmng.so
+7fb5e0307000-7fb5e0308000 r--p 00005000 08:02 41426416 /usr/lib/qt/plugins/imageformats/libqmng.so
+7fb5e0308000-7fb5e0309000 ---p 00006000 08:02 41426416 /usr/lib/qt/plugins/imageformats/libqmng.so
+7fb5e0309000-7fb5e030a000 r--p 00006000 08:02 41426416 /usr/lib/qt/plugins/imageformats/libqmng.so
+7fb5e030a000-7fb5e030b000 rw-p 00007000 08:02 41426416 /usr/lib/qt/plugins/imageformats/libqmng.so
+7fb5e030b000-7fb5e030f000 r--p 00000000 08:02 41419294 /usr/lib/qt/plugins/imageformats/libqjpeg.so
+7fb5e030f000-7fb5e0314000 r-xp 00004000 08:02 41419294 /usr/lib/qt/plugins/imageformats/libqjpeg.so
+7fb5e0314000-7fb5e0315000 r--p 00009000 08:02 41419294 /usr/lib/qt/plugins/imageformats/libqjpeg.so
+7fb5e0315000-7fb5e0316000 ---p 0000a000 08:02 41419294 /usr/lib/qt/plugins/imageformats/libqjpeg.so
+7fb5e0316000-7fb5e0317000 r--p 0000a000 08:02 41419294 /usr/lib/qt/plugins/imageformats/libqjpeg.so
+7fb5e0317000-7fb5e0318000 rw-p 0000b000 08:02 41419294 /usr/lib/qt/plugins/imageformats/libqjpeg.so
+7fb5e0318000-7fb5e031b000 r--p 00000000 08:02 41426415 /usr/lib/qt/plugins/imageformats/libqjp2.so
+7fb5e031b000-7fb5e031e000 r-xp 00003000 08:02 41426415 /usr/lib/qt/plugins/imageformats/libqjp2.so
+7fb5e031e000-7fb5e0320000 r--p 00006000 08:02 41426415 /usr/lib/qt/plugins/imageformats/libqjp2.so
+7fb5e0320000-7fb5e0321000 r--p 00007000 08:02 41426415 /usr/lib/qt/plugins/imageformats/libqjp2.so
+7fb5e0321000-7fb5e0322000 rw-p 00008000 08:02 41426415 /usr/lib/qt/plugins/imageformats/libqjp2.so
+7fb5e0322000-7fb5e0325000 r--p 00000000 08:02 41419293 /usr/lib/qt/plugins/imageformats/libqico.so
+7fb5e0325000-7fb5e0328000 r-xp 00003000 08:02 41419293 /usr/lib/qt/plugins/imageformats/libqico.so
+7fb5e0328000-7fb5e0329000 r--p 00006000 08:02 41419293 /usr/lib/qt/plugins/imageformats/libqico.so
+7fb5e0329000-7fb5e032a000 ---p 00007000 08:02 41419293 /usr/lib/qt/plugins/imageformats/libqico.so
+7fb5e032a000-7fb5e032b000 r--p 00007000 08:02 41419293 /usr/lib/qt/plugins/imageformats/libqico.so
+7fb5e032b000-7fb5e032c000 rw-p 00008000 08:02 41419293 /usr/lib/qt/plugins/imageformats/libqico.so
+7fb5e032c000-7fb5e032f000 r--p 00000000 08:02 41426414 /usr/lib/qt/plugins/imageformats/libqicns.so
+7fb5e032f000-7fb5e0333000 r-xp 00003000 08:02 41426414 /usr/lib/qt/plugins/imageformats/libqicns.so
+7fb5e0333000-7fb5e0335000 r--p 00007000 08:02 41426414 /usr/lib/qt/plugins/imageformats/libqicns.so
+7fb5e0335000-7fb5e0336000 r--p 00008000 08:02 41426414 /usr/lib/qt/plugins/imageformats/libqicns.so
+7fb5e0336000-7fb5e0337000 rw-p 00009000 08:02 41426414 /usr/lib/qt/plugins/imageformats/libqicns.so
+7fb5e0337000-7fb5e0339000 r--p 00000000 08:02 41419292 /usr/lib/qt/plugins/imageformats/libqgif.so
+7fb5e0339000-7fb5e033d000 r-xp 00002000 08:02 41419292 /usr/lib/qt/plugins/imageformats/libqgif.so
+7fb5e033d000-7fb5e033e000 r--p 00006000 08:02 41419292 /usr/lib/qt/plugins/imageformats/libqgif.so
+7fb5e033e000-7fb5e033f000 r--p 00006000 08:02 41419292 /usr/lib/qt/plugins/imageformats/libqgif.so
+7fb5e033f000-7fb5e0340000 rw-p 00007000 08:02 41419292 /usr/lib/qt/plugins/imageformats/libqgif.so
+7fb5e0476000-7fb5e0755000 rw-s 00000000 00:01 71543 /memfd:xorg (deleted)
+7fb5e0755000-7fb5e0758000 r--p 00000000 08:02 40111490 /usr/lib/libnss_files-2.31.so
+7fb5e0758000-7fb5e075f000 r-xp 00003000 08:02 40111490 /usr/lib/libnss_files-2.31.so
+7fb5e075f000-7fb5e0761000 r--p 0000a000 08:02 40111490 /usr/lib/libnss_files-2.31.so
+7fb5e0761000-7fb5e0762000 r--p 0000b000 08:02 40111490 /usr/lib/libnss_files-2.31.so
+7fb5e0762000-7fb5e0763000 rw-p 0000c000 08:02 40111490 /usr/lib/libnss_files-2.31.so
+7fb5e0763000-7fb5e0769000 rw-p 00000000 00:00 0
+7fb5e0769000-7fb5e076c000 r-xp 00000000 08:02 40168493 /usr/lib/libnvidia-tls.so.440.82
+7fb5e076c000-7fb5e096c000 ---p 00003000 08:02 40168493 /usr/lib/libnvidia-tls.so.440.82
+7fb5e096c000-7fb5e096d000 rw-p 00003000 08:02 40168493 /usr/lib/libnvidia-tls.so.440.82
+7fb5e096d000-7fb5e0a16000 r-xp 00000000 08:02 40168450 /usr/lib/libGLX_nvidia.so.440.82
+7fb5e0a16000-7fb5e0a4b000 rwxp 000a9000 08:02 40168450 /usr/lib/libGLX_nvidia.so.440.82
+7fb5e0a4b000-7fb5e0a5a000 r-xp 000de000 08:02 40168450 /usr/lib/libGLX_nvidia.so.440.82
+7fb5e0a5a000-7fb5e0c59000 ---p 000ed000 08:02 40168450 /usr/lib/libGLX_nvidia.so.440.82
+7fb5e0c59000-7fb5e0c7d000 rw-p 000ec000 08:02 40168450 /usr/lib/libGLX_nvidia.so.440.82
+7fb5e0c7d000-7fb5e0c7f000 rw-p 00000000 00:00 0
+7fb5e0c7f000-7fb5e0c8b000 r--p 00000000 08:02 40129750 /usr/lib/libxcb-glx.so.0.0.0
+7fb5e0c8b000-7fb5e0c94000 r-xp 0000c000 08:02 40129750 /usr/lib/libxcb-glx.so.0.0.0
+7fb5e0c94000-7fb5e0c99000 r--p 00015000 08:02 40129750 /usr/lib/libxcb-glx.so.0.0.0
+7fb5e0c99000-7fb5e0c9a000 ---p 0001a000 08:02 40129750 /usr/lib/libxcb-glx.so.0.0.0
+7fb5e0c9a000-7fb5e0c9c000 r--p 0001a000 08:02 40129750 /usr/lib/libxcb-glx.so.0.0.0
+7fb5e0c9c000-7fb5e0c9d000 rw-p 0001c000 08:02 40129750 /usr/lib/libxcb-glx.so.0.0.0
+7fb5e0c9f000-7fb5e0ca1000 r--p 00000000 08:02 40139416 /usr/lib/libasyncns.so.0.3.1
+7fb5e0ca1000-7fb5e0ca4000 r-xp 00002000 08:02 40139416 /usr/lib/libasyncns.so.0.3.1
+7fb5e0ca4000-7fb5e0ca5000 r--p 00005000 08:02 40139416 /usr/lib/libasyncns.so.0.3.1
+7fb5e0ca5000-7fb5e0ca6000 r--p 00005000 08:02 40139416 /usr/lib/libasyncns.so.0.3.1
+7fb5e0ca6000-7fb5e0ca7000 rw-p 00006000 08:02 40139416 /usr/lib/libasyncns.so.0.3.1
+7fb5e0ca7000-7fb5e0ca8000 r--p 00000000 08:02 40121866 /usr/lib/libgmodule-2.0.so.0.6400.2
+7fb5e0ca8000-7fb5e0ca9000 r-xp 00001000 08:02 40121866 /usr/lib/libgmodule-2.0.so.0.6400.2
+7fb5e0ca9000-7fb5e0caa000 r--p 00002000 08:02 40121866 /usr/lib/libgmodule-2.0.so.0.6400.2
+7fb5e0caa000-7fb5e0cab000 r--p 00002000 08:02 40121866 /usr/lib/libgmodule-2.0.so.0.6400.2
+7fb5e0cab000-7fb5e0cac000 rw-p 00003000 08:02 40121866 /usr/lib/libgmodule-2.0.so.0.6400.2
+7fb5e0cac000-7fb5e0cb1000 r--p 00000000 08:02 40133731 /usr/lib/libpangocairo-1.0.so.0.4400.7
+7fb5e0cb1000-7fb5e0cb7000 r-xp 00005000 08:02 40133731 /usr/lib/libpangocairo-1.0.so.0.4400.7
+7fb5e0cb7000-7fb5e0cb9000 r--p 0000b000 08:02 40133731 /usr/lib/libpangocairo-1.0.so.0.4400.7
+7fb5e0cb9000-7fb5e0cba000 ---p 0000d000 08:02 40133731 /usr/lib/libpangocairo-1.0.so.0.4400.7
+7fb5e0cba000-7fb5e0cbb000 r--p 0000d000 08:02 40133731 /usr/lib/libpangocairo-1.0.so.0.4400.7
+7fb5e0cbb000-7fb5e0cbc000 rw-p 0000e000 08:02 40133731 /usr/lib/libpangocairo-1.0.so.0.4400.7
+7fb5e0cbc000-7fb5e0cc2000 r--p 00000000 08:02 40133281 /usr/lib/libgdk_pixbuf-2.0.so.0.4000.0
+7fb5e0cc2000-7fb5e0cd7000 r-xp 00006000 08:02 40133281 /usr/lib/libgdk_pixbuf-2.0.so.0.4000.0
+7fb5e0cd7000-7fb5e0cdf000 r--p 0001b000 08:02 40133281 /usr/lib/libgdk_pixbuf-2.0.so.0.4000.0
+7fb5e0cdf000-7fb5e0ce0000 ---p 00023000 08:02 40133281 /usr/lib/libgdk_pixbuf-2.0.so.0.4000.0
+7fb5e0ce0000-7fb5e0ce1000 r--p 00023000 08:02 40133281 /usr/lib/libgdk_pixbuf-2.0.so.0.4000.0
+7fb5e0ce1000-7fb5e0ce2000 rw-p 00024000 08:02 40133281 /usr/lib/libgdk_pixbuf-2.0.so.0.4000.0
+7fb5e0ce2000-7fb5e0ce5000 r--p 00000000 08:02 40142790 /usr/lib/libstartup-notification-1.so.0.0.0
+7fb5e0ce5000-7fb5e0ce9000 r-xp 00003000 08:02 40142790 /usr/lib/libstartup-notification-1.so.0.0.0
+7fb5e0ce9000-7fb5e0ceb000 r--p 00007000 08:02 40142790 /usr/lib/libstartup-notification-1.so.0.0.0
+7fb5e0ceb000-7fb5e0cec000 ---p 00009000 08:02 40142790 /usr/lib/libstartup-notification-1.so.0.0.0
+7fb5e0cec000-7fb5e0ced000 r--p 00009000 08:02 40142790 /usr/lib/libstartup-notification-1.so.0.0.0
+7fb5e0ced000-7fb5e0cee000 rw-p 0000a000 08:02 40142790 /usr/lib/libstartup-notification-1.so.0.0.0
+7fb5e0cee000-7fb5e0cf2000 r--p 00000000 08:02 40148330 /usr/lib/libgsettings-qt.so.1.0.0
+7fb5e0cf2000-7fb5e0cf8000 r-xp 00004000 08:02 40148330 /usr/lib/libgsettings-qt.so.1.0.0
+7fb5e0cf8000-7fb5e0cfa000 r--p 0000a000 08:02 40148330 /usr/lib/libgsettings-qt.so.1.0.0
+7fb5e0cfa000-7fb5e0cfb000 r--p 0000b000 08:02 40148330 /usr/lib/libgsettings-qt.so.1.0.0
+7fb5e0cfb000-7fb5e0cfc000 rw-p 0000c000 08:02 40148330 /usr/lib/libgsettings-qt.so.1.0.0
+7fb5e0cfc000-7fb5e0d00000 r--p 00000000 08:02 41424955 /usr/lib/qt/plugins/imageformats/libdsvg.so
+7fb5e0d00000-7fb5e0d02000 r-xp 00004000 08:02 41424955 /usr/lib/qt/plugins/imageformats/libdsvg.so
+7fb5e0d02000-7fb5e0d03000 r--p 00006000 08:02 41424955 /usr/lib/qt/plugins/imageformats/libdsvg.so
+7fb5e0d03000-7fb5e0d04000 ---p 00007000 08:02 41424955 /usr/lib/qt/plugins/imageformats/libdsvg.so
+7fb5e0d04000-7fb5e0d05000 r--p 00007000 08:02 41424955 /usr/lib/qt/plugins/imageformats/libdsvg.so
+7fb5e0d05000-7fb5e0d06000 rw-p 00008000 08:02 41424955 /usr/lib/qt/plugins/imageformats/libdsvg.so
+7fb5e0d06000-7fb5e0d0d000 r--p 00000000 08:02 41419320 /usr/lib/qt/plugins/xcbglintegrations/libqxcb-glx-integration.so
+7fb5e0d0d000-7fb5e0d13000 r-xp 00007000 08:02 41419320 /usr/lib/qt/plugins/xcbglintegrations/libqxcb-glx-integration.so
+7fb5e0d13000-7fb5e0d15000 r--p 0000d000 08:02 41419320 /usr/lib/qt/plugins/xcbglintegrations/libqxcb-glx-integration.so
+7fb5e0d15000-7fb5e0d16000 ---p 0000f000 08:02 41419320 /usr/lib/qt/plugins/xcbglintegrations/libqxcb-glx-integration.so
+7fb5e0d16000-7fb5e0d17000 r--p 0000f000 08:02 41419320 /usr/lib/qt/plugins/xcbglintegrations/libqxcb-glx-integration.so
+7fb5e0d17000-7fb5e0d18000 rw-p 00010000 08:02 41419320 /usr/lib/qt/plugins/xcbglintegrations/libqxcb-glx-integration.so
+7fb5e0d18000-7fb5e0d19000 ---p 00000000 00:00 0
+7fb5e0d19000-7fb5e1519000 rw-p 00000000 00:00 0
+7fb5e1519000-7fb5e1596000 r--p 00000000 08:02 40507812 /usr/share/fonts/noto/NotoSans-Regular.ttf
+7fb5e1596000-7fb5e1662000 r--s 00000000 08:02 25560382 /var/cache/fontconfig/923e285e415b1073c8df160bee08820f-le64.cache-7
+7fb5e1662000-7fb5e168e000 r--s 00000000 08:02 25560429 /var/cache/fontconfig/8d4af663993b81a124ee82e610bb31f9-le64.cache-7
+7fb5e168e000-7fb5e1690000 r--s 00000000 08:02 25561113 /var/cache/fontconfig/452f1fac34b224105d7acfae3034bcd5-le64.cache-7
+7fb5e1690000-7fb5e169e000 r--s 00000000 08:02 25560412 /var/cache/fontconfig/491f45a0a771fef1c10b9b647a97fb82-le64.cache-7
+7fb5e169e000-7fb5e16b1000 r--s 00000000 08:02 25560411 /var/cache/fontconfig/614d1caaa4d7914789410f6367de37ca-le64.cache-7
+7fb5e16b1000-7fb5e16b6000 r--s 00000000 08:02 25560384 /var/cache/fontconfig/6ba42ae0000f58711b5caaf10d690066-le64.cache-7
+7fb5e16b6000-7fb5e16b8000 r--s 00000000 08:02 25559730 /var/cache/fontconfig/bfb830de4b3e0bf031b5adbbfd7ab8e8-le64.cache-7
+7fb5e16b8000-7fb5e16c5000 r--s 00000000 08:02 25560383 /var/cache/fontconfig/210c0516121708a580e22e6b1f9a103a-le64.cache-7
+7fb5e16c5000-7fb5e16f2000 r--s 00000000 08:02 25560313 /var/cache/fontconfig/f6b893a7224233d96cb72fd88691c0b4-le64.cache-7
+7fb5e16f2000-7fb5e16f5000 r--s 00000000 08:02 25560381 /var/cache/fontconfig/7f984e21d59cc4c4a85b338460464565-le64.cache-7
+7fb5e16f5000-7fb5e177b000 r--s 00000000 08:02 25560275 /var/cache/fontconfig/17090aa38d5c6f09fb8c5c354938f1d7-le64.cache-7
+7fb5e177b000-7fb5e1801000 r--s 00000000 08:02 25559729 /var/cache/fontconfig/df311e82a1a24c41a75c2c930223552e-le64.cache-7
+7fb5e1801000-7fb5e2211000 rw-s 00000000 08:02 36308931 /home/carl/.cache/icon-cache.kcache
+7fb5e2211000-7fb5e2212000 ---p 00000000 00:00 0
+7fb5e2212000-7fb5e2a12000 rw-p 00000000 00:00 0
+7fb5e2a12000-7fb5e2a2a000 r--p 00000000 08:02 43654590 /usr/lib/qt/plugins/styles/breeze.so
+7fb5e2a2a000-7fb5e2a7d000 r-xp 00018000 08:02 43654590 /usr/lib/qt/plugins/styles/breeze.so
+7fb5e2a7d000-7fb5e2a90000 r--p 0006b000 08:02 43654590 /usr/lib/qt/plugins/styles/breeze.so
+7fb5e2a90000-7fb5e2a91000 ---p 0007e000 08:02 43654590 /usr/lib/qt/plugins/styles/breeze.so
+7fb5e2a91000-7fb5e2a96000 r--p 0007e000 08:02 43654590 /usr/lib/qt/plugins/styles/breeze.so
+7fb5e2a96000-7fb5e2a97000 rw-p 00083000 08:02 43654590 /usr/lib/qt/plugins/styles/breeze.so
+7fb5e2a97000-7fb5e2a99000 r--p 00000000 08:02 40135862 /usr/lib/libogg.so.0.8.4
+7fb5e2a99000-7fb5e2a9c000 r-xp 00002000 08:02 40135862 /usr/lib/libogg.so.0.8.4
+7fb5e2a9c000-7fb5e2a9f000 r--p 00005000 08:02 40135862 /usr/lib/libogg.so.0.8.4
+7fb5e2a9f000-7fb5e2aa0000 ---p 00008000 08:02 40135862 /usr/lib/libogg.so.0.8.4
+7fb5e2aa0000-7fb5e2aa1000 r--p 00008000 08:02 40135862 /usr/lib/libogg.so.0.8.4
+7fb5e2aa1000-7fb5e2aa2000 rw-p 00009000 08:02 40135862 /usr/lib/libogg.so.0.8.4
+7fb5e2aa2000-7fb5e2acc000 r-xp 00000000 08:02 40135866 /usr/lib/libvorbis.so.0.4.8
+7fb5e2acc000-7fb5e2ccc000 ---p 0002a000 08:02 40135866 /usr/lib/libvorbis.so.0.4.8
+7fb5e2ccc000-7fb5e2ccd000 r--p 0002a000 08:02 40135866 /usr/lib/libvorbis.so.0.4.8
+7fb5e2ccd000-7fb5e2cce000 rw-p 0002b000 08:02 40135866 /usr/lib/libvorbis.so.0.4.8
+7fb5e2cce000-7fb5e2cd2000 r--p 00000000 08:02 40111501 /usr/lib/libresolv-2.31.so
+7fb5e2cd2000-7fb5e2cdf000 r-xp 00004000 08:02 40111501 /usr/lib/libresolv-2.31.so
+7fb5e2cdf000-7fb5e2ce2000 r--p 00011000 08:02 40111501 /usr/lib/libresolv-2.31.so
+7fb5e2ce2000-7fb5e2ce3000 ---p 00014000 08:02 40111501 /usr/lib/libresolv-2.31.so
+7fb5e2ce3000-7fb5e2ce4000 r--p 00014000 08:02 40111501 /usr/lib/libresolv-2.31.so
+7fb5e2ce4000-7fb5e2ce5000 rw-p 00015000 08:02 40111501 /usr/lib/libresolv-2.31.so
+7fb5e2ce5000-7fb5e2ce7000 rw-p 00000000 00:00 0
+7fb5e2ce7000-7fb5e2ce9000 r--p 00000000 08:02 40122594 /usr/lib/libkeyutils.so.1.9
+7fb5e2ce9000-7fb5e2ceb000 r-xp 00002000 08:02 40122594 /usr/lib/libkeyutils.so.1.9
+7fb5e2ceb000-7fb5e2cec000 r--p 00004000 08:02 40122594 /usr/lib/libkeyutils.so.1.9
+7fb5e2cec000-7fb5e2ced000 r--p 00004000 08:02 40122594 /usr/lib/libkeyutils.so.1.9
+7fb5e2ced000-7fb5e2cee000 rw-p 00005000 08:02 40122594 /usr/lib/libkeyutils.so.1.9
+7fb5e2cee000-7fb5e2cf1000 r--p 00000000 08:02 40122709 /usr/lib/libkrb5support.so.0.1
+7fb5e2cf1000-7fb5e2cf8000 r-xp 00003000 08:02 40122709 /usr/lib/libkrb5support.so.0.1
+7fb5e2cf8000-7fb5e2cfb000 r--p 0000a000 08:02 40122709 /usr/lib/libkrb5support.so.0.1
+7fb5e2cfb000-7fb5e2cfc000 r--p 0000c000 08:02 40122709 /usr/lib/libkrb5support.so.0.1
+7fb5e2cfc000-7fb5e2cfd000 rw-p 0000d000 08:02 40122709 /usr/lib/libkrb5support.so.0.1
+7fb5e2cfd000-7fb5e2cff000 r--p 00000000 08:02 40122307 /usr/lib/libcom_err.so.2.1
+7fb5e2cff000-7fb5e2d00000 r-xp 00002000 08:02 40122307 /usr/lib/libcom_err.so.2.1
+7fb5e2d00000-7fb5e2d01000 r--p 00003000 08:02 40122307 /usr/lib/libcom_err.so.2.1
+7fb5e2d01000-7fb5e2d02000 r--p 00003000 08:02 40122307 /usr/lib/libcom_err.so.2.1
+7fb5e2d02000-7fb5e2d03000 rw-p 00004000 08:02 40122307 /usr/lib/libcom_err.so.2.1
+7fb5e2d03000-7fb5e2d08000 r--p 00000000 08:02 40122686 /usr/lib/libk5crypto.so.3.1
+7fb5e2d08000-7fb5e2d24000 r-xp 00005000 08:02 40122686 /usr/lib/libk5crypto.so.3.1
+7fb5e2d24000-7fb5e2d31000 r--p 00021000 08:02 40122686 /usr/lib/libk5crypto.so.3.1
+7fb5e2d31000-7fb5e2d33000 r--p 0002d000 08:02 40122686 /usr/lib/libk5crypto.so.3.1
+7fb5e2d33000-7fb5e2d34000 rw-p 0002f000 08:02 40122686 /usr/lib/libk5crypto.so.3.1
+7fb5e2d34000-7fb5e2d57000 r--p 00000000 08:02 40122706 /usr/lib/libkrb5.so.3.3
+7fb5e2d57000-7fb5e2dbf000 r-xp 00023000 08:02 40122706 /usr/lib/libkrb5.so.3.3
+7fb5e2dbf000-7fb5e2e08000 r--p 0008b000 08:02 40122706 /usr/lib/libkrb5.so.3.3
+7fb5e2e08000-7fb5e2e17000 r--p 000d3000 08:02 40122706 /usr/lib/libkrb5.so.3.3
+7fb5e2e17000-7fb5e2e19000 rw-p 000e2000 08:02 40122706 /usr/lib/libkrb5.so.3.3
+7fb5e2e19000-7fb5e2e1b000 r--p 00000000 08:02 40115269 /usr/lib/libattr.so.1.1.2448
+7fb5e2e1b000-7fb5e2e1d000 r-xp 00002000 08:02 40115269 /usr/lib/libattr.so.1.1.2448
+7fb5e2e1d000-7fb5e2e1e000 r--p 00004000 08:02 40115269 /usr/lib/libattr.so.1.1.2448
+7fb5e2e1e000-7fb5e2e1f000 r--p 00004000 08:02 40115269 /usr/lib/libattr.so.1.1.2448
+7fb5e2e1f000-7fb5e2e20000 rw-p 00005000 08:02 40115269 /usr/lib/libattr.so.1.1.2448
+7fb5e2e20000-7fb5e2e23000 r--p 00000000 08:02 40134928 /usr/lib/libXi.so.6.1.0
+7fb5e2e23000-7fb5e2e2e000 r-xp 00003000 08:02 40134928 /usr/lib/libXi.so.6.1.0
+7fb5e2e2e000-7fb5e2e31000 r--p 0000e000 08:02 40134928 /usr/lib/libXi.so.6.1.0
+7fb5e2e31000-7fb5e2e32000 r--p 00010000 08:02 40134928 /usr/lib/libXi.so.6.1.0
+7fb5e2e32000-7fb5e2e33000 rw-p 00011000 08:02 40134928 /usr/lib/libXi.so.6.1.0
+7fb5e2e33000-7fb5e2e37000 r--p 00000000 08:02 40133348 /usr/lib/libXext.so.6.4.0
+7fb5e2e37000-7fb5e2e42000 r-xp 00004000 08:02 40133348 /usr/lib/libXext.so.6.4.0
+7fb5e2e42000-7fb5e2e46000 r--p 0000f000 08:02 40133348 /usr/lib/libXext.so.6.4.0
+7fb5e2e46000-7fb5e2e47000 r--p 00012000 08:02 40133348 /usr/lib/libXext.so.6.4.0
+7fb5e2e47000-7fb5e2e48000 rw-p 00013000 08:02 40133348 /usr/lib/libXext.so.6.4.0
+7fb5e2e48000-7fb5e2e4a000 r--p 00000000 08:02 40129448 /usr/lib/libltdl.so.7.3.1
+7fb5e2e4a000-7fb5e2e4f000 r-xp 00002000 08:02 40129448 /usr/lib/libltdl.so.7.3.1
+7fb5e2e4f000-7fb5e2e51000 r--p 00007000 08:02 40129448 /usr/lib/libltdl.so.7.3.1
+7fb5e2e51000-7fb5e2e52000 ---p 00009000 08:02 40129448 /usr/lib/libltdl.so.7.3.1
+7fb5e2e52000-7fb5e2e53000 r--p 00009000 08:02 40129448 /usr/lib/libltdl.so.7.3.1
+7fb5e2e53000-7fb5e2e54000 rw-p 0000a000 08:02 40129448 /usr/lib/libltdl.so.7.3.1
+7fb5e2e54000-7fb5e2e58000 r--p 00000000 08:02 40135883 /usr/lib/libtdb.so.1.4.3
+7fb5e2e58000-7fb5e2e65000 r-xp 00004000 08:02 40135883 /usr/lib/libtdb.so.1.4.3
+7fb5e2e65000-7fb5e2e6b000 r--p 00011000 08:02 40135883 /usr/lib/libtdb.so.1.4.3
+7fb5e2e6b000-7fb5e2e6c000 r--p 00016000 08:02 40135883 /usr/lib/libtdb.so.1.4.3
+7fb5e2e6c000-7fb5e2e6d000 rw-p 00017000 08:02 40135883 /usr/lib/libtdb.so.1.4.3
+7fb5e2e6d000-7fb5e2e74000 r-xp 00000000 08:02 40135870 /usr/lib/libvorbisfile.so.3.3.7
+7fb5e2e74000-7fb5e3074000 ---p 00007000 08:02 40135870 /usr/lib/libvorbisfile.so.3.3.7
+7fb5e3074000-7fb5e3075000 r--p 00007000 08:02 40135870 /usr/lib/libvorbisfile.so.3.3.7
+7fb5e3075000-7fb5e3076000 rw-p 00008000 08:02 40135870 /usr/lib/libvorbisfile.so.3.3.7
+7fb5e3076000-7fb5e3082000 r--p 00000000 08:02 40122680 /usr/lib/libgssapi_krb5.so.2.2
+7fb5e3082000-7fb5e30ba000 r-xp 0000c000 08:02 40122680 /usr/lib/libgssapi_krb5.so.2.2
+7fb5e30ba000-7fb5e30c7000 r--p 00044000 08:02 40122680 /usr/lib/libgssapi_krb5.so.2.2
+7fb5e30c7000-7fb5e30c8000 ---p 00051000 08:02 40122680 /usr/lib/libgssapi_krb5.so.2.2
+7fb5e30c8000-7fb5e30ca000 r--p 00051000 08:02 40122680 /usr/lib/libgssapi_krb5.so.2.2
+7fb5e30ca000-7fb5e30cb000 rw-p 00053000 08:02 40122680 /usr/lib/libgssapi_krb5.so.2.2
+7fb5e30cb000-7fb5e30d0000 r--p 00000000 08:02 40121688 /usr/lib/libudev.so.1.6.17
+7fb5e30d0000-7fb5e30ea000 r-xp 00005000 08:02 40121688 /usr/lib/libudev.so.1.6.17
+7fb5e30ea000-7fb5e30f4000 r--p 0001f000 08:02 40121688 /usr/lib/libudev.so.1.6.17
+7fb5e30f4000-7fb5e30f5000 r--p 00028000 08:02 40121688 /usr/lib/libudev.so.1.6.17
+7fb5e30f5000-7fb5e30f6000 rw-p 00029000 08:02 40121688 /usr/lib/libudev.so.1.6.17
+7fb5e30f6000-7fb5e3115000 r--p 00000000 08:02 40138805 /usr/lib/libQt5QmlModels.so.5.14.2
+7fb5e3115000-7fb5e3178000 r-xp 0001f000 08:02 40138805 /usr/lib/libQt5QmlModels.so.5.14.2
+7fb5e3178000-7fb5e3194000 r--p 00082000 08:02 40138805 /usr/lib/libQt5QmlModels.so.5.14.2
+7fb5e3194000-7fb5e3195000 ---p 0009e000 08:02 40138805 /usr/lib/libQt5QmlModels.so.5.14.2
+7fb5e3195000-7fb5e319a000 r--p 0009e000 08:02 40138805 /usr/lib/libQt5QmlModels.so.5.14.2
+7fb5e319a000-7fb5e319b000 rw-p 000a3000 08:02 40138805 /usr/lib/libQt5QmlModels.so.5.14.2
+7fb5e319b000-7fb5e31a4000 r--p 00000000 08:02 40138767 /usr/lib/libKF5GuiAddons.so.5.69.0
+7fb5e31a4000-7fb5e31af000 r-xp 00009000 08:02 40138767 /usr/lib/libKF5GuiAddons.so.5.69.0
+7fb5e31af000-7fb5e31b3000 r--p 00014000 08:02 40138767 /usr/lib/libKF5GuiAddons.so.5.69.0
+7fb5e31b3000-7fb5e31b4000 ---p 00018000 08:02 40138767 /usr/lib/libKF5GuiAddons.so.5.69.0
+7fb5e31b4000-7fb5e31b5000 r--p 00018000 08:02 40138767 /usr/lib/libKF5GuiAddons.so.5.69.0
+7fb5e31b5000-7fb5e31b6000 rw-p 00019000 08:02 40138767 /usr/lib/libKF5GuiAddons.so.5.69.0
+7fb5e31b6000-7fb5e31c3000 r--p 00000000 08:02 40139016 /usr/lib/libKF5Archive.so.5.69.0
+7fb5e31c3000-7fb5e31ea000 r-xp 0000d000 08:02 40139016 /usr/lib/libKF5Archive.so.5.69.0
+7fb5e31ea000-7fb5e31f2000 r--p 00034000 08:02 40139016 /usr/lib/libKF5Archive.so.5.69.0
+7fb5e31f2000-7fb5e31f4000 r--p 0003b000 08:02 40139016 /usr/lib/libKF5Archive.so.5.69.0
+7fb5e31f4000-7fb5e31f5000 rw-p 0003d000 08:02 40139016 /usr/lib/libKF5Archive.so.5.69.0
+7fb5e31f5000-7fb5e320e000 r--p 00000000 08:02 40138660 /usr/lib/libQt5Svg.so.5.14.2
+7fb5e320e000-7fb5e323e000 r-xp 00019000 08:02 40138660 /usr/lib/libQt5Svg.so.5.14.2
+7fb5e323e000-7fb5e3249000 r--p 00049000 08:02 40138660 /usr/lib/libQt5Svg.so.5.14.2
+7fb5e3249000-7fb5e324a000 ---p 00054000 08:02 40138660 /usr/lib/libQt5Svg.so.5.14.2
+7fb5e324a000-7fb5e324d000 r--p 00054000 08:02 40138660 /usr/lib/libQt5Svg.so.5.14.2
+7fb5e324d000-7fb5e324e000 rw-p 00057000 08:02 40138660 /usr/lib/libQt5Svg.so.5.14.2
+7fb5e324e000-7fb5e3255000 r--p 00000000 08:02 40138613 /usr/lib/libKF5GlobalAccel.so.5.69.0
+7fb5e3255000-7fb5e326a000 r-xp 00007000 08:02 40138613 /usr/lib/libKF5GlobalAccel.so.5.69.0
+7fb5e326a000-7fb5e3270000 r--p 0001c000 08:02 40138613 /usr/lib/libKF5GlobalAccel.so.5.69.0
+7fb5e3270000-7fb5e3271000 r--p 00021000 08:02 40138613 /usr/lib/libKF5GlobalAccel.so.5.69.0
+7fb5e3271000-7fb5e3272000 rw-p 00022000 08:02 40138613 /usr/lib/libKF5GlobalAccel.so.5.69.0
+7fb5e3272000-7fb5e32a4000 r--p 00000000 08:02 40139063 /usr/lib/libKF5Attica.so.5.69.0
+7fb5e32a4000-7fb5e3319000 r-xp 00032000 08:02 40139063 /usr/lib/libKF5Attica.so.5.69.0
+7fb5e3319000-7fb5e3332000 r--p 000a7000 08:02 40139063 /usr/lib/libKF5Attica.so.5.69.0
+7fb5e3332000-7fb5e3338000 r--p 000bf000 08:02 40139063 /usr/lib/libKF5Attica.so.5.69.0
+7fb5e3338000-7fb5e3339000 rw-p 000c5000 08:02 40139063 /usr/lib/libKF5Attica.so.5.69.0
+7fb5e3339000-7fb5e335c000 r--p 00000000 08:02 40137594 /usr/lib/libQt5PrintSupport.so.5.14.2
+7fb5e335c000-7fb5e3391000 r-xp 00023000 08:02 40137594 /usr/lib/libQt5PrintSupport.so.5.14.2
+7fb5e3391000-7fb5e33a8000 r--p 00058000 08:02 40137594 /usr/lib/libQt5PrintSupport.so.5.14.2
+7fb5e33a8000-7fb5e33ad000 r--p 0006e000 08:02 40137594 /usr/lib/libQt5PrintSupport.so.5.14.2
+7fb5e33ad000-7fb5e33ae000 rw-p 00073000 08:02 40137594 /usr/lib/libQt5PrintSupport.so.5.14.2
+7fb5e33ae000-7fb5e33b0000 r--p 00000000 08:02 40115307 /usr/lib/libacl.so.1.1.2253
+7fb5e33b0000-7fb5e33b5000 r-xp 00002000 08:02 40115307 /usr/lib/libacl.so.1.1.2253
+7fb5e33b5000-7fb5e33b7000 r--p 00007000 08:02 40115307 /usr/lib/libacl.so.1.1.2253
+7fb5e33b7000-7fb5e33b8000 r--p 00008000 08:02 40115307 /usr/lib/libacl.so.1.1.2253
+7fb5e33b8000-7fb5e33b9000 rw-p 00009000 08:02 40115307 /usr/lib/libacl.so.1.1.2253
+7fb5e33b9000-7fb5e33c0000 r--p 00000000 08:02 40138681 /usr/lib/libKF5AuthCore.so.5.69.0
+7fb5e33c0000-7fb5e33d6000 r-xp 00007000 08:02 40138681 /usr/lib/libKF5AuthCore.so.5.69.0
+7fb5e33d6000-7fb5e33da000 r--p 0001d000 08:02 40138681 /usr/lib/libKF5AuthCore.so.5.69.0
+7fb5e33da000-7fb5e33db000 ---p 00021000 08:02 40138681 /usr/lib/libKF5AuthCore.so.5.69.0
+7fb5e33db000-7fb5e33dc000 r--p 00021000 08:02 40138681 /usr/lib/libKF5AuthCore.so.5.69.0
+7fb5e33dc000-7fb5e33dd000 rw-p 00022000 08:02 40138681 /usr/lib/libKF5AuthCore.so.5.69.0
+7fb5e33dd000-7fb5e33e4000 r--p 00000000 08:02 40138482 /usr/lib/libKF5DBusAddons.so.5.69.0
+7fb5e33e4000-7fb5e33ed000 r-xp 00007000 08:02 40138482 /usr/lib/libKF5DBusAddons.so.5.69.0
+7fb5e33ed000-7fb5e33f1000 r--p 00010000 08:02 40138482 /usr/lib/libKF5DBusAddons.so.5.69.0
+7fb5e33f1000-7fb5e33f2000 ---p 00014000 08:02 40138482 /usr/lib/libKF5DBusAddons.so.5.69.0
+7fb5e33f2000-7fb5e33f3000 r--p 00014000 08:02 40138482 /usr/lib/libKF5DBusAddons.so.5.69.0
+7fb5e33f3000-7fb5e33f4000 rw-p 00015000 08:02 40138482 /usr/lib/libKF5DBusAddons.so.5.69.0
+7fb5e33f4000-7fb5e33f8000 r--p 00000000 08:02 40138609 /usr/lib/libKF5Crash.so.5.69.0
+7fb5e33f8000-7fb5e33fc000 r-xp 00004000 08:02 40138609 /usr/lib/libKF5Crash.so.5.69.0
+7fb5e33fc000-7fb5e33fd000 r--p 00008000 08:02 40138609 /usr/lib/libKF5Crash.so.5.69.0
+7fb5e33fd000-7fb5e33fe000 ---p 00009000 08:02 40138609 /usr/lib/libKF5Crash.so.5.69.0
+7fb5e33fe000-7fb5e33ff000 r--p 00009000 08:02 40138609 /usr/lib/libKF5Crash.so.5.69.0
+7fb5e33ff000-7fb5e3400000 rw-p 0000a000 08:02 40138609 /usr/lib/libKF5Crash.so.5.69.0
+7fb5e3400000-7fb5e3406000 r--p 00000000 08:02 40135116 /usr/lib/libwayland-client.so.0.3.0
+7fb5e3406000-7fb5e340b000 r-xp 00006000 08:02 40135116 /usr/lib/libwayland-client.so.0.3.0
+7fb5e340b000-7fb5e340e000 r--p 0000b000 08:02 40135116 /usr/lib/libwayland-client.so.0.3.0
+7fb5e340e000-7fb5e3410000 r--p 0000d000 08:02 40135116 /usr/lib/libwayland-client.so.0.3.0
+7fb5e3410000-7fb5e3411000 rw-p 0000f000 08:02 40135116 /usr/lib/libwayland-client.so.0.3.0
+7fb5e3411000-7fb5e3419000 r--p 00000000 08:02 40139167 /usr/lib/libdbusmenu-qt5.so.2.6.0
+7fb5e3419000-7fb5e3443000 r-xp 00008000 08:02 40139167 /usr/lib/libdbusmenu-qt5.so.2.6.0
+7fb5e3443000-7fb5e344d000 r--p 00032000 08:02 40139167 /usr/lib/libdbusmenu-qt5.so.2.6.0
+7fb5e344d000-7fb5e344e000 ---p 0003c000 08:02 40139167 /usr/lib/libdbusmenu-qt5.so.2.6.0
+7fb5e344e000-7fb5e344f000 r--p 0003c000 08:02 40139167 /usr/lib/libdbusmenu-qt5.so.2.6.0
+7fb5e344f000-7fb5e3450000 rw-p 0003d000 08:02 40139167 /usr/lib/libdbusmenu-qt5.so.2.6.0
+7fb5e3450000-7fb5e3452000 r--p 00000000 08:02 40135040 /usr/lib/libXtst.so.6.1.0
+7fb5e3452000-7fb5e3455000 r-xp 00002000 08:02 40135040 /usr/lib/libXtst.so.6.1.0
+7fb5e3455000-7fb5e3456000 r--p 00005000 08:02 40135040 /usr/lib/libXtst.so.6.1.0
+7fb5e3456000-7fb5e3457000 r--p 00005000 08:02 40135040 /usr/lib/libXtst.so.6.1.0
+7fb5e3457000-7fb5e3458000 rw-p 00006000 08:02 40135040 /usr/lib/libXtst.so.6.1.0
+7fb5e3458000-7fb5e345d000 r--p 00000000 08:02 40139517 /usr/lib/libQt5TextToSpeech.so.5.14.2
+7fb5e345d000-7fb5e3463000 r-xp 00005000 08:02 40139517 /usr/lib/libQt5TextToSpeech.so.5.14.2
+7fb5e3463000-7fb5e3465000 r--p 0000b000 08:02 40139517 /usr/lib/libQt5TextToSpeech.so.5.14.2
+7fb5e3465000-7fb5e3466000 ---p 0000d000 08:02 40139517 /usr/lib/libQt5TextToSpeech.so.5.14.2
+7fb5e3466000-7fb5e3467000 r--p 0000d000 08:02 40139517 /usr/lib/libQt5TextToSpeech.so.5.14.2
+7fb5e3467000-7fb5e3468000 rw-p 0000e000 08:02 40139517 /usr/lib/libQt5TextToSpeech.so.5.14.2
+7fb5e3468000-7fb5e34a8000 r--p 00000000 08:02 40137580 /usr/lib/libQt5Network.so.5.14.2
+7fb5e34a8000-7fb5e35c7000 r-xp 00040000 08:02 40137580 /usr/lib/libQt5Network.so.5.14.2
+7fb5e35c7000-7fb5e3618000 r--p 0015f000 08:02 40137580 /usr/lib/libQt5Network.so.5.14.2
+7fb5e3618000-7fb5e3619000 ---p 001b0000 08:02 40137580 /usr/lib/libQt5Network.so.5.14.2
+7fb5e3619000-7fb5e3621000 r--p 001b0000 08:02 40137580 /usr/lib/libQt5Network.so.5.14.2
+7fb5e3621000-7fb5e3622000 rw-p 001b8000 08:02 40137580 /usr/lib/libQt5Network.so.5.14.2
+7fb5e3622000-7fb5e36bc000 r--p 00000000 08:02 40138796 /usr/lib/libQt5Qml.so.5.14.2
+7fb5e36bc000-7fb5e39c2000 r-xp 0009a000 08:02 40138796 /usr/lib/libQt5Qml.so.5.14.2
+7fb5e39c2000-7fb5e3a87000 r--p 003a0000 08:02 40138796 /usr/lib/libQt5Qml.so.5.14.2
+7fb5e3a87000-7fb5e3a88000 ---p 00465000 08:02 40138796 /usr/lib/libQt5Qml.so.5.14.2
+7fb5e3a88000-7fb5e3aa2000 r--p 00465000 08:02 40138796 /usr/lib/libQt5Qml.so.5.14.2
+7fb5e3aa2000-7fb5e3aa3000 rw-p 0047f000 08:02 40138796 /usr/lib/libQt5Qml.so.5.14.2
+7fb5e3aa3000-7fb5e3aa5000 rw-p 00000000 00:00 0
+7fb5e3aa5000-7fb5e3bac000 r--p 00000000 08:02 40138815 /usr/lib/libQt5Quick.so.5.14.2
+7fb5e3bac000-7fb5e3ebf000 r-xp 00107000 08:02 40138815 /usr/lib/libQt5Quick.so.5.14.2
+7fb5e3ebf000-7fb5e3fd1000 r--p 0041a000 08:02 40138815 /usr/lib/libQt5Quick.so.5.14.2
+7fb5e3fd1000-7fb5e3fd2000 ---p 0052c000 08:02 40138815 /usr/lib/libQt5Quick.so.5.14.2
+7fb5e3fd2000-7fb5e3ffe000 r--p 0052c000 08:02 40138815 /usr/lib/libQt5Quick.so.5.14.2
+7fb5e3ffe000-7fb5e3fff000 rw-p 00558000 08:02 40138815 /usr/lib/libQt5Quick.so.5.14.2
+7fb5e3fff000-7fb5e4000000 rw-p 00000000 00:00 0
+7fb5e4000000-7fb5e4021000 rw-p 00000000 00:00 0
+7fb5e4021000-7fb5e8000000 ---p 00000000 00:00 0
+7fb5e8000000-7fb5e8003000 r--p 00000000 08:02 40135902 /usr/lib/libcanberra.so.0.2.5
+7fb5e8003000-7fb5e800d000 r-xp 00003000 08:02 40135902 /usr/lib/libcanberra.so.0.2.5
+7fb5e800d000-7fb5e8011000 r--p 0000d000 08:02 40135902 /usr/lib/libcanberra.so.0.2.5
+7fb5e8011000-7fb5e8012000 ---p 00011000 08:02 40135902 /usr/lib/libcanberra.so.0.2.5
+7fb5e8012000-7fb5e8013000 r--p 00011000 08:02 40135902 /usr/lib/libcanberra.so.0.2.5
+7fb5e8013000-7fb5e8014000 rw-p 00012000 08:02 40135902 /usr/lib/libcanberra.so.0.2.5
+7fb5e8014000-7fb5e802f000 r--p 00000000 08:02 40139566 /usr/lib/libKF5Service.so.5.69.0
+7fb5e802f000-7fb5e80ab000 r-xp 0001b000 08:02 40139566 /usr/lib/libKF5Service.so.5.69.0
+7fb5e80ab000-7fb5e80c4000 r--p 00097000 08:02 40139566 /usr/lib/libKF5Service.so.5.69.0
+7fb5e80c4000-7fb5e80c8000 r--p 000af000 08:02 40139566 /usr/lib/libKF5Service.so.5.69.0
+7fb5e80c8000-7fb5e80c9000 rw-p 000b3000 08:02 40139566 /usr/lib/libKF5Service.so.5.69.0
+7fb5e80c9000-7fb5e80d2000 r--p 00000000 08:02 40139833 /usr/lib/libKF5KIOGui.so.5.69.0
+7fb5e80d2000-7fb5e80e6000 r-xp 00009000 08:02 40139833 /usr/lib/libKF5KIOGui.so.5.69.0
+7fb5e80e6000-7fb5e80ea000 r--p 0001d000 08:02 40139833 /usr/lib/libKF5KIOGui.so.5.69.0
+7fb5e80ea000-7fb5e80eb000 ---p 00021000 08:02 40139833 /usr/lib/libKF5KIOGui.so.5.69.0
+7fb5e80eb000-7fb5e80ec000 r--p 00021000 08:02 40139833 /usr/lib/libKF5KIOGui.so.5.69.0
+7fb5e80ec000-7fb5e80ed000 rw-p 00022000 08:02 40139833 /usr/lib/libKF5KIOGui.so.5.69.0
+7fb5e80ed000-7fb5e80fc000 r--p 00000000 08:02 40137627 /usr/lib/libQt5Xml.so.5.14.2
+7fb5e80fc000-7fb5e8121000 r-xp 0000f000 08:02 40137627 /usr/lib/libQt5Xml.so.5.14.2
+7fb5e8121000-7fb5e812b000 r--p 00034000 08:02 40137627 /usr/lib/libQt5Xml.so.5.14.2
+7fb5e812b000-7fb5e812c000 ---p 0003e000 08:02 40137627 /usr/lib/libQt5Xml.so.5.14.2
+7fb5e812c000-7fb5e812e000 r--p 0003e000 08:02 40137627 /usr/lib/libQt5Xml.so.5.14.2
+7fb5e812e000-7fb5e812f000 rw-p 00040000 08:02 40137627 /usr/lib/libQt5Xml.so.5.14.2
+7fb5e812f000-7fb5e813a000 r--p 00000000 08:02 40138724 /usr/lib/libKF5Codecs.so.5.69.0
+7fb5e813a000-7fb5e814e000 r-xp 0000b000 08:02 40138724 /usr/lib/libKF5Codecs.so.5.69.0
+7fb5e814e000-7fb5e8167000 r--p 0001f000 08:02 40138724 /usr/lib/libKF5Codecs.so.5.69.0
+7fb5e8167000-7fb5e8168000 ---p 00038000 08:02 40138724 /usr/lib/libKF5Codecs.so.5.69.0
+7fb5e8168000-7fb5e816b000 r--p 00038000 08:02 40138724 /usr/lib/libKF5Codecs.so.5.69.0
+7fb5e816b000-7fb5e816c000 rw-p 0003b000 08:02 40138724 /usr/lib/libKF5Codecs.so.5.69.0
+7fb5e816c000-7fb5e8181000 r--p 00000000 08:02 40138973 /usr/lib/libKF5ItemViews.so.5.69.0
+7fb5e8181000-7fb5e819b000 r-xp 00015000 08:02 40138973 /usr/lib/libKF5ItemViews.so.5.69.0
+7fb5e819b000-7fb5e81a3000 r--p 0002f000 08:02 40138973 /usr/lib/libKF5ItemViews.so.5.69.0
+7fb5e81a3000-7fb5e81a6000 r--p 00036000 08:02 40138973 /usr/lib/libKF5ItemViews.so.5.69.0
+7fb5e81a6000-7fb5e81a7000 rw-p 00039000 08:02 40138973 /usr/lib/libKF5ItemViews.so.5.69.0
+7fb5e81a7000-7fb5e81d3000 r--p 00000000 08:02 40138304 /usr/lib/libKF5Solid.so.5.69.0
+7fb5e81d3000-7fb5e8270000 r-xp 0002c000 08:02 40138304 /usr/lib/libKF5Solid.so.5.69.0
+7fb5e8270000-7fb5e829c000 r--p 000c9000 08:02 40138304 /usr/lib/libKF5Solid.so.5.69.0
+7fb5e829c000-7fb5e829d000 ---p 000f5000 08:02 40138304 /usr/lib/libKF5Solid.so.5.69.0
+7fb5e829d000-7fb5e82aa000 r--p 000f5000 08:02 40138304 /usr/lib/libKF5Solid.so.5.69.0
+7fb5e82aa000-7fb5e82ab000 rw-p 00102000 08:02 40138304 /usr/lib/libKF5Solid.so.5.69.0
+7fb5e82ab000-7fb5e82c4000 r--p 00000000 08:02 40139110 /usr/lib/libKF5Bookmarks.so.5.69.0
+7fb5e82c4000-7fb5e82ed000 r-xp 00019000 08:02 40139110 /usr/lib/libKF5Bookmarks.so.5.69.0
+7fb5e82ed000-7fb5e82fa000 r--p 00042000 08:02 40139110 /usr/lib/libKF5Bookmarks.so.5.69.0
+7fb5e82fa000-7fb5e82fe000 r--p 0004e000 08:02 40139110 /usr/lib/libKF5Bookmarks.so.5.69.0
+7fb5e82fe000-7fb5e82ff000 rw-p 00052000 08:02 40139110 /usr/lib/libKF5Bookmarks.so.5.69.0
+7fb5e82ff000-7fb5e837a000 r--p 00000000 08:02 40163593 /usr/lib/libQt5QuickTemplates2.so.5.14.2
+7fb5e837a000-7fb5e8416000 r-xp 0007b000 08:02 40163593 /usr/lib/libQt5QuickTemplates2.so.5.14.2
+7fb5e8416000-7fb5e845f000 r--p 00117000 08:02 40163593 /usr/lib/libQt5QuickTemplates2.so.5.14.2
+7fb5e845f000-7fb5e8460000 ---p 00160000 08:02 40163593 /usr/lib/libQt5QuickTemplates2.so.5.14.2
+7fb5e8460000-7fb5e8473000 r--p 00160000 08:02 40163593 /usr/lib/libQt5QuickTemplates2.so.5.14.2
+7fb5e8473000-7fb5e8474000 rw-p 00173000 08:02 40163593 /usr/lib/libQt5QuickTemplates2.so.5.14.2
+7fb5e8474000-7fb5e8492000 r--p 00000000 08:02 40138345 /usr/lib/libKF5CoreAddons.so.5.69.0
+7fb5e8492000-7fb5e84f9000 r-xp 0001e000 08:02 40138345 /usr/lib/libKF5CoreAddons.so.5.69.0
+7fb5e84f9000-7fb5e8519000 r--p 00085000 08:02 40138345 /usr/lib/libKF5CoreAddons.so.5.69.0
+7fb5e8519000-7fb5e851a000 ---p 000a5000 08:02 40138345 /usr/lib/libKF5CoreAddons.so.5.69.0
+7fb5e851a000-7fb5e851d000 r--p 000a5000 08:02 40138345 /usr/lib/libKF5CoreAddons.so.5.69.0
+7fb5e851d000-7fb5e851e000 rw-p 000a8000 08:02 40138345 /usr/lib/libKF5CoreAddons.so.5.69.0
+7fb5e851e000-7fb5e8520000 r--p 00000000 08:02 40138433 /usr/lib/libQt5X11Extras.so.5.14.2
+7fb5e8520000-7fb5e8522000 r-xp 00002000 08:02 40138433 /usr/lib/libQt5X11Extras.so.5.14.2
+7fb5e8522000-7fb5e8523000 r--p 00004000 08:02 40138433 /usr/lib/libQt5X11Extras.so.5.14.2
+7fb5e8523000-7fb5e8524000 r--p 00004000 08:02 40138433 /usr/lib/libQt5X11Extras.so.5.14.2
+7fb5e8524000-7fb5e8525000 rw-p 00005000 08:02 40138433 /usr/lib/libQt5X11Extras.so.5.14.2
+7fb5e8525000-7fb5e853c000 r--p 00000000 08:02 40138566 /usr/lib/libKF5WindowSystem.so.5.69.0
+7fb5e853c000-7fb5e8568000 r-xp 00017000 08:02 40138566 /usr/lib/libKF5WindowSystem.so.5.69.0
+7fb5e8568000-7fb5e8575000 r--p 00043000 08:02 40138566 /usr/lib/libKF5WindowSystem.so.5.69.0
+7fb5e8575000-7fb5e8578000 r--p 0004f000 08:02 40138566 /usr/lib/libKF5WindowSystem.so.5.69.0
+7fb5e8578000-7fb5e8579000 rw-p 00052000 08:02 40138566 /usr/lib/libKF5WindowSystem.so.5.69.0
+7fb5e8579000-7fb5e8593000 r--p 00000000 08:02 40138520 /usr/lib/libKF5ConfigCore.so.5.69.0
+7fb5e8593000-7fb5e85d4000 r-xp 0001a000 08:02 40138520 /usr/lib/libKF5ConfigCore.so.5.69.0
+7fb5e85d4000-7fb5e85e3000 r--p 0005b000 08:02 40138520 /usr/lib/libKF5ConfigCore.so.5.69.0
+7fb5e85e3000-7fb5e85e4000 ---p 0006a000 08:02 40138520 /usr/lib/libKF5ConfigCore.so.5.69.0
+7fb5e85e4000-7fb5e85e8000 r--p 0006a000 08:02 40138520 /usr/lib/libKF5ConfigCore.so.5.69.0
+7fb5e85e8000-7fb5e85e9000 rw-p 0006e000 08:02 40138520 /usr/lib/libKF5ConfigCore.so.5.69.0
+7fb5e85e9000-7fb5e8656000 r--p 00000000 08:02 40138388 /usr/lib/libKF5WidgetsAddons.so.5.69.0
+7fb5e8656000-7fb5e86fb000 r-xp 0006d000 08:02 40138388 /usr/lib/libKF5WidgetsAddons.so.5.69.0
+7fb5e86fb000-7fb5e8735000 r--p 00112000 08:02 40138388 /usr/lib/libKF5WidgetsAddons.so.5.69.0
+7fb5e8735000-7fb5e8736000 ---p 0014c000 08:02 40138388 /usr/lib/libKF5WidgetsAddons.so.5.69.0
+7fb5e8736000-7fb5e8746000 r--p 0014c000 08:02 40138388 /usr/lib/libKF5WidgetsAddons.so.5.69.0
+7fb5e8746000-7fb5e8747000 rw-p 0015c000 08:02 40138388 /usr/lib/libKF5WidgetsAddons.so.5.69.0
+7fb5e8747000-7fb5e874f000 r--p 00000000 08:02 40138845 /usr/lib/libKF5I18n.so.5.69.0
+7fb5e874f000-7fb5e8789000 r-xp 00008000 08:02 40138845 /usr/lib/libKF5I18n.so.5.69.0
+7fb5e8789000-7fb5e879b000 r--p 00042000 08:02 40138845 /usr/lib/libKF5I18n.so.5.69.0
+7fb5e879b000-7fb5e879c000 r--p 00053000 08:02 40138845 /usr/lib/libKF5I18n.so.5.69.0
+7fb5e879c000-7fb5e879d000 rw-p 00054000 08:02 40138845 /usr/lib/libKF5I18n.so.5.69.0
+7fb5e879d000-7fb5e87a7000 r--p 00000000 08:02 40138523 /usr/lib/libKF5ConfigGui.so.5.69.0
+7fb5e87a7000-7fb5e87b5000 r-xp 0000a000 08:02 40138523 /usr/lib/libKF5ConfigGui.so.5.69.0
+7fb5e87b5000-7fb5e87b9000 r--p 00018000 08:02 40138523 /usr/lib/libKF5ConfigGui.so.5.69.0
+7fb5e87b9000-7fb5e87ba000 ---p 0001c000 08:02 40138523 /usr/lib/libKF5ConfigGui.so.5.69.0
+7fb5e87ba000-7fb5e87bb000 r--p 0001c000 08:02 40138523 /usr/lib/libKF5ConfigGui.so.5.69.0
+7fb5e87bb000-7fb5e87bc000 rw-p 0001d000 08:02 40138523 /usr/lib/libKF5ConfigGui.so.5.69.0
+7fb5e87bc000-7fb5e87bd000 rw-p 00000000 00:00 0
+7fb5e87bd000-7fb5e87d9000 r--p 00000000 08:02 40138889 /usr/lib/libKF5ConfigWidgets.so.5.69.0
+7fb5e87d9000-7fb5e87ff000 r-xp 0001c000 08:02 40138889 /usr/lib/libKF5ConfigWidgets.so.5.69.0
+7fb5e87ff000-7fb5e8810000 r--p 00042000 08:02 40138889 /usr/lib/libKF5ConfigWidgets.so.5.69.0
+7fb5e8810000-7fb5e8814000 r--p 00052000 08:02 40138889 /usr/lib/libKF5ConfigWidgets.so.5.69.0
+7fb5e8814000-7fb5e8815000 rw-p 00056000 08:02 40138889 /usr/lib/libKF5ConfigWidgets.so.5.69.0
+7fb5e8815000-7fb5e8828000 r--p 00000000 08:02 40139020 /usr/lib/libKF5IconThemes.so.5.69.0
+7fb5e8828000-7fb5e8849000 r-xp 00013000 08:02 40139020 /usr/lib/libKF5IconThemes.so.5.69.0
+7fb5e8849000-7fb5e8853000 r--p 00034000 08:02 40139020 /usr/lib/libKF5IconThemes.so.5.69.0
+7fb5e8853000-7fb5e8856000 r--p 0003d000 08:02 40139020 /usr/lib/libKF5IconThemes.so.5.69.0
+7fb5e8856000-7fb5e8857000 rw-p 00040000 08:02 40139020 /usr/lib/libKF5IconThemes.so.5.69.0
+7fb5e8857000-7fb5e888e000 r--p 00000000 08:02 40139067 /usr/lib/libKF5XmlGui.so.5.69.0
+7fb5e888e000-7fb5e891b000 r-xp 00037000 08:02 40139067 /usr/lib/libKF5XmlGui.so.5.69.0
+7fb5e891b000-7fb5e8943000 r--p 000c4000 08:02 40139067 /usr/lib/libKF5XmlGui.so.5.69.0
+7fb5e8943000-7fb5e8944000 ---p 000ec000 08:02 40139067 /usr/lib/libKF5XmlGui.so.5.69.0
+7fb5e8944000-7fb5e894c000 r--p 000ec000 08:02 40139067 /usr/lib/libKF5XmlGui.so.5.69.0
+7fb5e894c000-7fb5e894d000 rw-p 000f4000 08:02 40139067 /usr/lib/libKF5XmlGui.so.5.69.0
+7fb5e894d000-7fb5e8961000 r--p 00000000 08:02 40139689 /usr/lib/libKF5Completion.so.5.69.0
+7fb5e8961000-7fb5e897b000 r-xp 00014000 08:02 40139689 /usr/lib/libKF5Completion.so.5.69.0
+7fb5e897b000-7fb5e8983000 r--p 0002e000 08:02 40139689 /usr/lib/libKF5Completion.so.5.69.0
+7fb5e8983000-7fb5e8986000 r--p 00035000 08:02 40139689 /usr/lib/libKF5Completion.so.5.69.0
+7fb5e8986000-7fb5e8987000 rw-p 00038000 08:02 40139689 /usr/lib/libKF5Completion.so.5.69.0
+7fb5e8987000-7fb5e8994000 r--p 00000000 08:02 40138438 /usr/lib/libKF5JobWidgets.so.5.69.0
+7fb5e8994000-7fb5e89a5000 r-xp 0000d000 08:02 40138438 /usr/lib/libKF5JobWidgets.so.5.69.0
+7fb5e89a5000-7fb5e89ad000 r--p 0001e000 08:02 40138438 /usr/lib/libKF5JobWidgets.so.5.69.0
+7fb5e89ad000-7fb5e89af000 r--p 00025000 08:02 40138438 /usr/lib/libKF5JobWidgets.so.5.69.0
+7fb5e89af000-7fb5e89b0000 rw-p 00027000 08:02 40138438 /usr/lib/libKF5JobWidgets.so.5.69.0
+7fb5e89b0000-7fb5e89f5000 r--p 00000000 08:02 40139827 /usr/lib/libKF5KIOCore.so.5.69.0
+7fb5e89f5000-7fb5e8b2f000 r-xp 00045000 08:02 40139827 /usr/lib/libKF5KIOCore.so.5.69.0
+7fb5e8b2f000-7fb5e8b73000 r--p 0017f000 08:02 40139827 /usr/lib/libKF5KIOCore.so.5.69.0
+7fb5e8b73000-7fb5e8b7c000 r--p 001c2000 08:02 40139827 /usr/lib/libKF5KIOCore.so.5.69.0
+7fb5e8b7c000-7fb5e8b7d000 rw-p 001cb000 08:02 40139827 /usr/lib/libKF5KIOCore.so.5.69.0
+7fb5e8b7d000-7fb5e8bd4000 r--p 00000000 08:02 40169372 /usr/lib/libKF5WaylandClient.so.5.69.0
+7fb5e8bd4000-7fb5e8c26000 r-xp 00057000 08:02 40169372 /usr/lib/libKF5WaylandClient.so.5.69.0
+7fb5e8c26000-7fb5e8c55000 r--p 000a9000 08:02 40169372 /usr/lib/libKF5WaylandClient.so.5.69.0
+7fb5e8c55000-7fb5e8c56000 ---p 000d8000 08:02 40169372 /usr/lib/libKF5WaylandClient.so.5.69.0
+7fb5e8c56000-7fb5e8c64000 r--p 000d8000 08:02 40169372 /usr/lib/libKF5WaylandClient.so.5.69.0
+7fb5e8c64000-7fb5e8c65000 rw-p 000e6000 08:02 40169372 /usr/lib/libKF5WaylandClient.so.5.69.0
+7fb5e8c65000-7fb5e8c7a000 r--p 00000000 08:02 40139522 /usr/lib/libKF5Notifications.so.5.69.0
+7fb5e8c7a000-7fb5e8cb6000 r-xp 00015000 08:02 40139522 /usr/lib/libKF5Notifications.so.5.69.0
+7fb5e8cb6000-7fb5e8cc6000 r--p 00051000 08:02 40139522 /usr/lib/libKF5Notifications.so.5.69.0
+7fb5e8cc6000-7fb5e8cc7000 ---p 00061000 08:02 40139522 /usr/lib/libKF5Notifications.so.5.69.0
+7fb5e8cc7000-7fb5e8cca000 r--p 00061000 08:02 40139522 /usr/lib/libKF5Notifications.so.5.69.0
+7fb5e8cca000-7fb5e8ccb000 rw-p 00064000 08:02 40139522 /usr/lib/libKF5Notifications.so.5.69.0
+7fb5e8ccb000-7fb5e8d21000 r--p 00000000 08:02 40139839 /usr/lib/libKF5KIOWidgets.so.5.69.0
+7fb5e8d21000-7fb5e8de0000 r-xp 00056000 08:02 40139839 /usr/lib/libKF5KIOWidgets.so.5.69.0
+7fb5e8de0000-7fb5e8e10000 r--p 00115000 08:02 40139839 /usr/lib/libKF5KIOWidgets.so.5.69.0
+7fb5e8e10000-7fb5e8e11000 ---p 00145000 08:02 40139839 /usr/lib/libKF5KIOWidgets.so.5.69.0
+7fb5e8e11000-7fb5e8e1d000 r--p 00145000 08:02 40139839 /usr/lib/libKF5KIOWidgets.so.5.69.0
+7fb5e8e1d000-7fb5e8e1e000 rw-p 00151000 08:02 40139839 /usr/lib/libKF5KIOWidgets.so.5.69.0
+7fb5e8e1e000-7fb5e8e5a000 r--p 00000000 08:02 40139830 /usr/lib/libKF5KIOFileWidgets.so.5.69.0
+7fb5e8e5a000-7fb5e8ed1000 r-xp 0003c000 08:02 40139830 /usr/lib/libKF5KIOFileWidgets.so.5.69.0
+7fb5e8ed1000-7fb5e8f02000 r--p 000b3000 08:02 40139830 /usr/lib/libKF5KIOFileWidgets.so.5.69.0
+7fb5e8f02000-7fb5e8f0b000 r--p 000e3000 08:02 40139830 /usr/lib/libKF5KIOFileWidgets.so.5.69.0
+7fb5e8f0b000-7fb5e8f0c000 rw-p 000ec000 08:02 40139830 /usr/lib/libKF5KIOFileWidgets.so.5.69.0
+7fb5e8f0c000-7fb5e8f22000 r--p 00000000 08:02 40163588 /usr/lib/libQt5QuickControls2.so.5.14.2
+7fb5e8f22000-7fb5e8f34000 r-xp 00016000 08:02 40163588 /usr/lib/libQt5QuickControls2.so.5.14.2
+7fb5e8f34000-7fb5e8f3b000 r--p 00028000 08:02 40163588 /usr/lib/libQt5QuickControls2.so.5.14.2
+7fb5e8f3b000-7fb5e8f3c000 ---p 0002f000 08:02 40163588 /usr/lib/libQt5QuickControls2.so.5.14.2
+7fb5e8f3c000-7fb5e8f3f000 r--p 0002f000 08:02 40163588 /usr/lib/libQt5QuickControls2.so.5.14.2
+7fb5e8f3f000-7fb5e8f40000 rw-p 00032000 08:02 40163588 /usr/lib/libQt5QuickControls2.so.5.14.2
+7fb5e8f40000-7fb5e8f58000 r--p 00000000 08:02 41427088 /usr/lib/qt/plugins/platformthemes/KDEPlasmaPlatformTheme.so
+7fb5e8f58000-7fb5e8f9b000 r-xp 00018000 08:02 41427088 /usr/lib/qt/plugins/platformthemes/KDEPlasmaPlatformTheme.so
+7fb5e8f9b000-7fb5e8fab000 r--p 0005b000 08:02 41427088 /usr/lib/qt/plugins/platformthemes/KDEPlasmaPlatformTheme.so
+7fb5e8fab000-7fb5e8faf000 r--p 0006a000 08:02 41427088 /usr/lib/qt/plugins/platformthemes/KDEPlasmaPlatformTheme.so
+7fb5e8faf000-7fb5e8fb0000 rw-p 0006e000 08:02 41427088 /usr/lib/qt/plugins/platformthemes/KDEPlasmaPlatformTheme.so
+7fb5e8fb0000-7fb5e8fb2000 r--p 00000000 08:02 40134859 /usr/lib/libXfixes.so.3.1.0
+7fb5e8fb2000-7fb5e8fb5000 r-xp 00002000 08:02 40134859 /usr/lib/libXfixes.so.3.1.0
+7fb5e8fb5000-7fb5e8fb6000 r--p 00005000 08:02 40134859 /usr/lib/libXfixes.so.3.1.0
+7fb5e8fb6000-7fb5e8fb7000 ---p 00006000 08:02 40134859 /usr/lib/libXfixes.so.3.1.0
+7fb5e8fb7000-7fb5e8fb8000 r--p 00006000 08:02 40134859 /usr/lib/libXfixes.so.3.1.0
+7fb5e8fb8000-7fb5e8fb9000 rw-p 00007000 08:02 40134859 /usr/lib/libXfixes.so.3.1.0
+7fb5e8fb9000-7fb5e8fbb000 r--p 00000000 08:02 40133344 /usr/lib/libXrender.so.1.3.0
+7fb5e8fbb000-7fb5e8fc2000 r-xp 00002000 08:02 40133344 /usr/lib/libXrender.so.1.3.0
+7fb5e8fc2000-7fb5e8fc4000 r--p 00009000 08:02 40133344 /usr/lib/libXrender.so.1.3.0
+7fb5e8fc4000-7fb5e8fc5000 r--p 0000a000 08:02 40133344 /usr/lib/libXrender.so.1.3.0
+7fb5e8fc5000-7fb5e8fc6000 rw-p 0000b000 08:02 40133344 /usr/lib/libXrender.so.1.3.0
+7fb5e8fc6000-7fb5e8fc9000 r--p 00000000 08:02 40134864 /usr/lib/libXcursor.so.1.0.2
+7fb5e8fc9000-7fb5e8fce000 r-xp 00003000 08:02 40134864 /usr/lib/libXcursor.so.1.0.2
+7fb5e8fce000-7fb5e8fd0000 r--p 00008000 08:02 40134864 /usr/lib/libXcursor.so.1.0.2
+7fb5e8fd0000-7fb5e8fd1000 r--p 00009000 08:02 40134864 /usr/lib/libXcursor.so.1.0.2
+7fb5e8fd1000-7fb5e8fd2000 rw-p 0000a000 08:02 40134864 /usr/lib/libXcursor.so.1.0.2
+7fb5e8fd2000-7fb5e8fd3000 ---p 00000000 00:00 0
+7fb5e8fd3000-7fb5e97d3000 rw-p 00000000 00:00 0
+7fb5e97d3000-7fb5e97d5000 r--p 00000000 08:02 40121841 /usr/lib/libuuid.so.1.3.0
+7fb5e97d5000-7fb5e97d9000 r-xp 00002000 08:02 40121841 /usr/lib/libuuid.so.1.3.0
+7fb5e97d9000-7fb5e97da000 r--p 00006000 08:02 40121841 /usr/lib/libuuid.so.1.3.0
+7fb5e97da000-7fb5e97db000 r--p 00006000 08:02 40121841 /usr/lib/libuuid.so.1.3.0
+7fb5e97db000-7fb5e97dc000 rw-p 00007000 08:02 40121841 /usr/lib/libuuid.so.1.3.0
+7fb5e97dc000-7fb5e97e0000 r-xp 00000000 08:02 40137387 /usr/lib/libxcb-util.so.1.0.0
+7fb5e97e0000-7fb5e99e0000 ---p 00004000 08:02 40137387 /usr/lib/libxcb-util.so.1.0.0
+7fb5e99e0000-7fb5e99e1000 r--p 00004000 08:02 40137387 /usr/lib/libxcb-util.so.1.0.0
+7fb5e99e1000-7fb5e99e2000 rw-p 00005000 08:02 40137387 /usr/lib/libxcb-util.so.1.0.0
+7fb5e99e2000-7fb5e99f0000 r--p 00000000 08:02 40123839 /usr/lib/libdbus-1.so.3.19.11
+7fb5e99f0000-7fb5e9a18000 r-xp 0000e000 08:02 40123839 /usr/lib/libdbus-1.so.3.19.11
+7fb5e9a18000-7fb5e9a29000 r--p 00036000 08:02 40123839 /usr/lib/libdbus-1.so.3.19.11
+7fb5e9a29000-7fb5e9a2b000 r--p 00046000 08:02 40123839 /usr/lib/libdbus-1.so.3.19.11
+7fb5e9a2b000-7fb5e9a2c000 rw-p 00048000 08:02 40123839 /usr/lib/libdbus-1.so.3.19.11
+7fb5e9a2c000-7fb5e9a31000 r--p 00000000 08:02 40135172 /usr/lib/libxkbcommon.so.0.0.0
+7fb5e9a31000-7fb5e9a4c000 r-xp 00005000 08:02 40135172 /usr/lib/libxkbcommon.so.0.0.0
+7fb5e9a4c000-7fb5e9a6a000 r--p 00020000 08:02 40135172 /usr/lib/libxkbcommon.so.0.0.0
+7fb5e9a6a000-7fb5e9a6c000 r--p 0003d000 08:02 40135172 /usr/lib/libxkbcommon.so.0.0.0
+7fb5e9a6c000-7fb5e9a6d000 rw-p 0003f000 08:02 40135172 /usr/lib/libxkbcommon.so.0.0.0
+7fb5e9a6d000-7fb5e9a70000 r--p 00000000 08:02 40137487 /usr/lib/libxkbcommon-x11.so.0.0.0
+7fb5e9a70000-7fb5e9a73000 r-xp 00003000 08:02 40137487 /usr/lib/libxkbcommon-x11.so.0.0.0
+7fb5e9a73000-7fb5e9a74000 r--p 00006000 08:02 40137487 /usr/lib/libxkbcommon-x11.so.0.0.0
+7fb5e9a74000-7fb5e9a75000 ---p 00007000 08:02 40137487 /usr/lib/libxkbcommon-x11.so.0.0.0
+7fb5e9a75000-7fb5e9a76000 r--p 00007000 08:02 40137487 /usr/lib/libxkbcommon-x11.so.0.0.0
+7fb5e9a76000-7fb5e9a77000 rw-p 00008000 08:02 40137487 /usr/lib/libxkbcommon-x11.so.0.0.0
+7fb5e9a77000-7fb5e9a7c000 r--p 00000000 08:02 40137071 /usr/lib/libICE.so.6.3.0
+7fb5e9a7c000-7fb5e9a8a000 r-xp 00005000 08:02 40137071 /usr/lib/libICE.so.6.3.0
+7fb5e9a8a000-7fb5e9a8f000 r--p 00013000 08:02 40137071 /usr/lib/libICE.so.6.3.0
+7fb5e9a8f000-7fb5e9a90000 r--p 00017000 08:02 40137071 /usr/lib/libICE.so.6.3.0
+7fb5e9a90000-7fb5e9a91000 rw-p 00018000 08:02 40137071 /usr/lib/libICE.so.6.3.0
+7fb5e9a91000-7fb5e9a94000 rw-p 00000000 00:00 0
+7fb5e9a94000-7fb5e9a96000 r--p 00000000 08:02 40137075 /usr/lib/libSM.so.6.0.1
+7fb5e9a96000-7fb5e9a9b000 r-xp 00002000 08:02 40137075 /usr/lib/libSM.so.6.0.1
+7fb5e9a9b000-7fb5e9a9d000 r--p 00007000 08:02 40137075 /usr/lib/libSM.so.6.0.1
+7fb5e9a9d000-7fb5e9a9e000 r--p 00008000 08:02 40137075 /usr/lib/libSM.so.6.0.1
+7fb5e9a9e000-7fb5e9a9f000 rw-p 00009000 08:02 40137075 /usr/lib/libSM.so.6.0.1
+7fb5e9a9f000-7fb5e9aaa000 r--p 00000000 08:02 40129792 /usr/lib/libxcb-xkb.so.1.0.0
+7fb5e9aaa000-7fb5e9ab6000 r-xp 0000b000 08:02 40129792 /usr/lib/libxcb-xkb.so.1.0.0
+7fb5e9ab6000-7fb5e9abb000 r--p 00017000 08:02 40129792 /usr/lib/libxcb-xkb.so.1.0.0
+7fb5e9abb000-7fb5e9abc000 r--p 0001b000 08:02 40129792 /usr/lib/libxcb-xkb.so.1.0.0
+7fb5e9abc000-7fb5e9abd000 rw-p 0001c000 08:02 40129792 /usr/lib/libxcb-xkb.so.1.0.0
+7fb5e9abd000-7fb5e9abe000 r--p 00000000 08:02 40129786 /usr/lib/libxcb-xinerama.so.0.0.0
+7fb5e9abe000-7fb5e9abf000 r-xp 00001000 08:02 40129786 /usr/lib/libxcb-xinerama.so.0.0.0
+7fb5e9abf000-7fb5e9ac0000 r--p 00002000 08:02 40129786 /usr/lib/libxcb-xinerama.so.0.0.0
+7fb5e9ac0000-7fb5e9ac1000 r--p 00002000 08:02 40129786 /usr/lib/libxcb-xinerama.so.0.0.0
+7fb5e9ac1000-7fb5e9ac2000 rw-p 00003000 08:02 40129786 /usr/lib/libxcb-xinerama.so.0.0.0
+7fb5e9ac2000-7fb5e9ac5000 r--p 00000000 08:02 40129783 /usr/lib/libxcb-xfixes.so.0.0.0
+7fb5e9ac5000-7fb5e9ac8000 r-xp 00003000 08:02 40129783 /usr/lib/libxcb-xfixes.so.0.0.0
+7fb5e9ac8000-7fb5e9ac9000 r--p 00006000 08:02 40129783 /usr/lib/libxcb-xfixes.so.0.0.0
+7fb5e9ac9000-7fb5e9aca000 ---p 00007000 08:02 40129783 /usr/lib/libxcb-xfixes.so.0.0.0
+7fb5e9aca000-7fb5e9acb000 r--p 00007000 08:02 40129783 /usr/lib/libxcb-xfixes.so.0.0.0
+7fb5e9acb000-7fb5e9acc000 rw-p 00008000 08:02 40129783 /usr/lib/libxcb-xfixes.so.0.0.0
+7fb5e9acc000-7fb5e9acf000 r--p 00000000 08:02 40129777 /usr/lib/libxcb-sync.so.1.0.0
+7fb5e9acf000-7fb5e9ad2000 r-xp 00003000 08:02 40129777 /usr/lib/libxcb-sync.so.1.0.0
+7fb5e9ad2000-7fb5e9ad3000 r--p 00006000 08:02 40129777 /usr/lib/libxcb-sync.so.1.0.0
+7fb5e9ad3000-7fb5e9ad4000 ---p 00007000 08:02 40129777 /usr/lib/libxcb-sync.so.1.0.0
+7fb5e9ad4000-7fb5e9ad5000 r--p 00007000 08:02 40129777 /usr/lib/libxcb-sync.so.1.0.0
+7fb5e9ad5000-7fb5e9ad6000 rw-p 00008000 08:02 40129777 /usr/lib/libxcb-sync.so.1.0.0
+7fb5e9ad6000-7fb5e9adc000 r--p 00000000 08:02 40129762 /usr/lib/libxcb-render.so.0.0.0
+7fb5e9adc000-7fb5e9ae1000 r-xp 00006000 08:02 40129762 /usr/lib/libxcb-render.so.0.0.0
+7fb5e9ae1000-7fb5e9ae3000 r--p 0000b000 08:02 40129762 /usr/lib/libxcb-render.so.0.0.0
+7fb5e9ae3000-7fb5e9ae4000 ---p 0000d000 08:02 40129762 /usr/lib/libxcb-render.so.0.0.0
+7fb5e9ae4000-7fb5e9ae5000 r--p 0000d000 08:02 40129762 /usr/lib/libxcb-render.so.0.0.0
+7fb5e9ae5000-7fb5e9ae6000 rw-p 0000e000 08:02 40129762 /usr/lib/libxcb-render.so.0.0.0
+7fb5e9ae6000-7fb5e9ae9000 r-xp 00000000 08:02 40137067 /usr/lib/libxcb-render-util.so.0.0.0
+7fb5e9ae9000-7fb5e9ce8000 ---p 00003000 08:02 40137067 /usr/lib/libxcb-render-util.so.0.0.0
+7fb5e9ce8000-7fb5e9ce9000 r--p 00002000 08:02 40137067 /usr/lib/libxcb-render-util.so.0.0.0
+7fb5e9ce9000-7fb5e9cea000 rw-p 00003000 08:02 40137067 /usr/lib/libxcb-render-util.so.0.0.0
+7fb5e9cea000-7fb5e9cf1000 r--p 00000000 08:02 40129756 /usr/lib/libxcb-randr.so.0.1.0
+7fb5e9cf1000-7fb5e9cf6000 r-xp 00007000 08:02 40129756 /usr/lib/libxcb-randr.so.0.1.0
+7fb5e9cf6000-7fb5e9cf9000 r--p 0000c000 08:02 40129756 /usr/lib/libxcb-randr.so.0.1.0
+7fb5e9cf9000-7fb5e9cfa000 ---p 0000f000 08:02 40129756 /usr/lib/libxcb-randr.so.0.1.0
+7fb5e9cfa000-7fb5e9cfb000 r--p 0000f000 08:02 40129756 /usr/lib/libxcb-randr.so.0.1.0
+7fb5e9cfb000-7fb5e9cfc000 rw-p 00010000 08:02 40129756 /usr/lib/libxcb-randr.so.0.1.0
+7fb5e9cfc000-7fb5e9cfe000 r-xp 00000000 08:02 40137063 /usr/lib/libxcb-keysyms.so.1.0.0
+7fb5e9cfe000-7fb5e9efd000 ---p 00002000 08:02 40137063 /usr/lib/libxcb-keysyms.so.1.0.0
+7fb5e9efd000-7fb5e9efe000 r--p 00001000 08:02 40137063 /usr/lib/libxcb-keysyms.so.1.0.0
+7fb5e9efe000-7fb5e9eff000 rw-p 00002000 08:02 40137063 /usr/lib/libxcb-keysyms.so.1.0.0
+7fb5e9eff000-7fb5e9f02000 r-xp 00000000 08:02 40137394 /usr/lib/libxcb-image.so.0.0.0
+7fb5e9f02000-7fb5ea102000 ---p 00003000 08:02 40137394 /usr/lib/libxcb-image.so.0.0.0
+7fb5ea102000-7fb5ea103000 r--p 00003000 08:02 40137394 /usr/lib/libxcb-image.so.0.0.0
+7fb5ea103000-7fb5ea104000 rw-p 00004000 08:02 40137394 /usr/lib/libxcb-image.so.0.0.0
+7fb5ea104000-7fb5ea108000 r-xp 00000000 08:02 40137382 /usr/lib/libxcb-icccm.so.4.0.0
+7fb5ea108000-7fb5ea307000 ---p 00004000 08:02 40137382 /usr/lib/libxcb-icccm.so.4.0.0
+7fb5ea307000-7fb5ea308000 r--p 00003000 08:02 40137382 /usr/lib/libxcb-icccm.so.4.0.0
+7fb5ea308000-7fb5ea309000 rw-p 00004000 08:02 40137382 /usr/lib/libxcb-icccm.so.4.0.0
+7fb5ea309000-7fb5ea318000 r--p 00000000 08:02 40129789 /usr/lib/libxcb-xinput.so.0.1.0
+7fb5ea318000-7fb5ea324000 r-xp 0000f000 08:02 40129789 /usr/lib/libxcb-xinput.so.0.1.0
+7fb5ea324000-7fb5ea32a000 r--p 0001b000 08:02 40129789 /usr/lib/libxcb-xinput.so.0.1.0
+7fb5ea32a000-7fb5ea32b000 ---p 00021000 08:02 40129789 /usr/lib/libxcb-xinput.so.0.1.0
+7fb5ea32b000-7fb5ea32d000 r--p 00021000 08:02 40129789 /usr/lib/libxcb-xinput.so.0.1.0
+7fb5ea32d000-7fb5ea32e000 rw-p 00023000 08:02 40129789 /usr/lib/libxcb-xinput.so.0.1.0
+7fb5ea32e000-7fb5ea343000 r--p 00000000 08:02 40137540 /usr/lib/libQt5DBus.so.5.14.2
+7fb5ea343000-7fb5ea3ad000 r-xp 00015000 08:02 40137540 /usr/lib/libQt5DBus.so.5.14.2
+7fb5ea3ad000-7fb5ea3c5000 r--p 0007f000 08:02 40137540 /usr/lib/libQt5DBus.so.5.14.2
+7fb5ea3c5000-7fb5ea3c6000 ---p 00097000 08:02 40137540 /usr/lib/libQt5DBus.so.5.14.2
+7fb5ea3c6000-7fb5ea3c8000 r--p 00097000 08:02 40137540 /usr/lib/libQt5DBus.so.5.14.2
+7fb5ea3c8000-7fb5ea3c9000 rw-p 00099000 08:02 40137540 /usr/lib/libQt5DBus.so.5.14.2
+7fb5ea3c9000-7fb5ea3d1000 r--p 00000000 08:02 40133447 /usr/lib/libfontconfig.so.1.12.0
+7fb5ea3d1000-7fb5ea3f5000 r-xp 00008000 08:02 40133447 /usr/lib/libfontconfig.so.1.12.0
+7fb5ea3f5000-7fb5ea40d000 r--p 0002c000 08:02 40133447 /usr/lib/libfontconfig.so.1.12.0
+7fb5ea40d000-7fb5ea40e000 ---p 00044000 08:02 40133447 /usr/lib/libfontconfig.so.1.12.0
+7fb5ea40e000-7fb5ea410000 r--p 00044000 08:02 40133447 /usr/lib/libfontconfig.so.1.12.0
+7fb5ea410000-7fb5ea411000 rw-p 00046000 08:02 40133447 /usr/lib/libfontconfig.so.1.12.0
+7fb5ea411000-7fb5ea445000 r--p 00000000 08:02 40137620 /usr/lib/libQt5XcbQpa.so.5.14.2
+7fb5ea445000-7fb5ea50a000 r-xp 00034000 08:02 40137620 /usr/lib/libQt5XcbQpa.so.5.14.2
+7fb5ea50a000-7fb5ea569000 r--p 000f9000 08:02 40137620 /usr/lib/libQt5XcbQpa.so.5.14.2
+7fb5ea569000-7fb5ea56a000 ---p 00158000 08:02 40137620 /usr/lib/libQt5XcbQpa.so.5.14.2
+7fb5ea56a000-7fb5ea571000 r--p 00158000 08:02 40137620 /usr/lib/libQt5XcbQpa.so.5.14.2
+7fb5ea571000-7fb5ea572000 rw-p 0015f000 08:02 40137620 /usr/lib/libQt5XcbQpa.so.5.14.2
+7fb5ea572000-7fb5ea573000 rw-p 00000000 00:00 0
+7fb5ea573000-7fb5ea57d000 r--s 00000000 08:02 25560276 /var/cache/fontconfig/f349e9996a5320f6dd491cedd2b1f964-le64.cache-7
+7fb5ea57d000-7fb5ea5bd000 rw-p 00000000 00:00 0
+7fb5ea5bd000-7fb5ea5c1000 r--p 00000000 08:02 40169645 /usr/lib/libKF5Style.so.5.69.0
+7fb5ea5c1000-7fb5ea5c5000 r-xp 00004000 08:02 40169645 /usr/lib/libKF5Style.so.5.69.0
+7fb5ea5c5000-7fb5ea5c7000 r--p 00008000 08:02 40169645 /usr/lib/libKF5Style.so.5.69.0
+7fb5ea5c7000-7fb5ea5c8000 ---p 0000a000 08:02 40169645 /usr/lib/libKF5Style.so.5.69.0
+7fb5ea5c8000-7fb5ea5c9000 r--p 0000a000 08:02 40169645 /usr/lib/libKF5Style.so.5.69.0
+7fb5ea5c9000-7fb5ea5ca000 rw-p 0000b000 08:02 40169645 /usr/lib/libKF5Style.so.5.69.0
+7fb5ea5ca000-7fb5ea5cc000 r--p 00000000 08:02 40169681 /usr/lib/libbreezecommon5.so.5.18.4
+7fb5ea5cc000-7fb5ea5ce000 r-xp 00002000 08:02 40169681 /usr/lib/libbreezecommon5.so.5.18.4
+7fb5ea5ce000-7fb5ea5cf000 r--p 00004000 08:02 40169681 /usr/lib/libbreezecommon5.so.5.18.4
+7fb5ea5cf000-7fb5ea5d0000 r--p 00004000 08:02 40169681 /usr/lib/libbreezecommon5.so.5.18.4
+7fb5ea5d0000-7fb5ea5d1000 rw-p 00005000 08:02 40169681 /usr/lib/libbreezecommon5.so.5.18.4
+7fb5ea5d1000-7fb5ea5d2000 r--p 00000000 08:02 40503758 /usr/share/locale/en/LC_MESSAGES/kcoreaddons5_qt.qm
+7fb5ea5d2000-7fb5ea5d3000 r--p 00000000 08:02 40503758 /usr/share/locale/en/LC_MESSAGES/kcoreaddons5_qt.qm
+7fb5ea5d3000-7fb5ea5d4000 r--p 00000000 08:02 45101296 /usr/share/qt/translations/qt_en.qm
+7fb5ea5d4000-7fb5ea5d5000 r--p 00000000 08:02 45101296 /usr/share/qt/translations/qt_en.qm
+7fb5ea5d5000-7fb5ea5d8000 r--p 00000000 08:02 41419296 /usr/lib/qt/plugins/platforminputcontexts/libcomposeplatforminputcontextplugin.so
+7fb5ea5d8000-7fb5ea5d9000 r-xp 00003000 08:02 41419296 /usr/lib/qt/plugins/platforminputcontexts/libcomposeplatforminputcontextplugin.so
+7fb5ea5d9000-7fb5ea5da000 r--p 00004000 08:02 41419296 /usr/lib/qt/plugins/platforminputcontexts/libcomposeplatforminputcontextplugin.so
+7fb5ea5da000-7fb5ea5db000 r--p 00004000 08:02 41419296 /usr/lib/qt/plugins/platforminputcontexts/libcomposeplatforminputcontextplugin.so
+7fb5ea5db000-7fb5ea5dc000 rw-p 00005000 08:02 41419296 /usr/lib/qt/plugins/platforminputcontexts/libcomposeplatforminputcontextplugin.so
+7fb5ea5dc000-7fb5ea71c000 rw-p 00000000 00:00 0
+7fb5ea71c000-7fb5ea71f000 r--p 00000000 08:02 40641868 /usr/lib/python3.8/lib-dynload/unicodedata.cpython-38-x86_64-linux-gnu.so
+7fb5ea71f000-7fb5ea724000 r-xp 00003000 08:02 40641868 /usr/lib/python3.8/lib-dynload/unicodedata.cpython-38-x86_64-linux-gnu.so
+7fb5ea724000-7fb5ea826000 r--p 00008000 08:02 40641868 /usr/lib/python3.8/lib-dynload/unicodedata.cpython-38-x86_64-linux-gnu.so
+7fb5ea826000-7fb5ea827000 r--p 00109000 08:02 40641868 /usr/lib/python3.8/lib-dynload/unicodedata.cpython-38-x86_64-linux-gnu.so
+7fb5ea827000-7fb5ea828000 rw-p 0010a000 08:02 40641868 /usr/lib/python3.8/lib-dynload/unicodedata.cpython-38-x86_64-linux-gnu.so
+7fb5ea828000-7fb5eaa68000 rw-p 00000000 00:00 0
+7fb5eaa68000-7fb5eaa92000 r--p 00000000 08:02 42212359 /usr/lib/python3.8/site-packages/cryptography/hazmat/bindings/_openssl.abi3.so
+7fb5eaa92000-7fb5eaaf2000 r-xp 0002a000 08:02 42212359 /usr/lib/python3.8/site-packages/cryptography/hazmat/bindings/_openssl.abi3.so
+7fb5eaaf2000-7fb5eab12000 r--p 0008a000 08:02 42212359 /usr/lib/python3.8/site-packages/cryptography/hazmat/bindings/_openssl.abi3.so
+7fb5eab12000-7fb5eab13000 ---p 000aa000 08:02 42212359 /usr/lib/python3.8/site-packages/cryptography/hazmat/bindings/_openssl.abi3.so
+7fb5eab13000-7fb5eab23000 r--p 000aa000 08:02 42212359 /usr/lib/python3.8/site-packages/cryptography/hazmat/bindings/_openssl.abi3.so
+7fb5eab23000-7fb5eab2a000 rw-p 000ba000 08:02 42212359 /usr/lib/python3.8/site-packages/cryptography/hazmat/bindings/_openssl.abi3.so
+7fb5eab2a000-7fb5eab6a000 rw-p 00000000 00:00 0
+7fb5eab6a000-7fb5eab6c000 r--p 00000000 08:02 40121820 /usr/lib/libffi.so.7.1.0
+7fb5eab6c000-7fb5eab72000 r-xp 00002000 08:02 40121820 /usr/lib/libffi.so.7.1.0
+7fb5eab72000-7fb5eab73000 r--p 00008000 08:02 40121820 /usr/lib/libffi.so.7.1.0
+7fb5eab73000-7fb5eab74000 ---p 00009000 08:02 40121820 /usr/lib/libffi.so.7.1.0
+7fb5eab74000-7fb5eab75000 r--p 00009000 08:02 40121820 /usr/lib/libffi.so.7.1.0
+7fb5eab75000-7fb5eab76000 rw-p 0000a000 08:02 40121820 /usr/lib/libffi.so.7.1.0
+7fb5eab76000-7fb5eab77000 r--p 00000000 08:02 40503759 /usr/share/locale/en/LC_MESSAGES/kwidgetsaddons5_qt.qm
+7fb5eab77000-7fb5eab78000 r--p 00000000 08:02 40503759 /usr/share/locale/en/LC_MESSAGES/kwidgetsaddons5_qt.qm
+7fb5eab78000-7fb5eab79000 r--p 00000000 08:02 40503763 /usr/share/locale/en/LC_MESSAGES/kjobwidgets5_qt.qm
+7fb5eab79000-7fb5eab7a000 r--p 00000000 08:02 40129771 /usr/lib/libxcb-shape.so.0.0.0
+7fb5eab7a000-7fb5eab7b000 r-xp 00001000 08:02 40129771 /usr/lib/libxcb-shape.so.0.0.0
+7fb5eab7b000-7fb5eab7c000 r--p 00002000 08:02 40129771 /usr/lib/libxcb-shape.so.0.0.0
+7fb5eab7c000-7fb5eab7d000 r--p 00002000 08:02 40129771 /usr/lib/libxcb-shape.so.0.0.0
+7fb5eab7d000-7fb5eab7e000 rw-p 00003000 08:02 40129771 /usr/lib/libxcb-shape.so.0.0.0
+7fb5eab7e000-7fb5eab7f000 r--p 00000000 08:02 40129774 /usr/lib/libxcb-shm.so.0.0.0
+7fb5eab7f000-7fb5eab80000 r-xp 00001000 08:02 40129774 /usr/lib/libxcb-shm.so.0.0.0
+7fb5eab80000-7fb5eab81000 r--p 00002000 08:02 40129774 /usr/lib/libxcb-shm.so.0.0.0
+7fb5eab81000-7fb5eab82000 r--p 00002000 08:02 40129774 /usr/lib/libxcb-shm.so.0.0.0
+7fb5eab82000-7fb5eab83000 rw-p 00003000 08:02 40129774 /usr/lib/libxcb-shm.so.0.0.0
+7fb5eab83000-7fb5eab84000 r--p 00000000 08:02 40132103 /usr/lib/libX11-xcb.so.1.0.0
+7fb5eab84000-7fb5eab85000 r-xp 00001000 08:02 40132103 /usr/lib/libX11-xcb.so.1.0.0
+7fb5eab85000-7fb5eab86000 r--p 00002000 08:02 40132103 /usr/lib/libX11-xcb.so.1.0.0
+7fb5eab86000-7fb5eab87000 r--p 00002000 08:02 40132103 /usr/lib/libX11-xcb.so.1.0.0
+7fb5eab87000-7fb5eab88000 rw-p 00003000 08:02 40132103 /usr/lib/libX11-xcb.so.1.0.0
+7fb5eab88000-7fb5eab8a000 r--p 00000000 08:02 41419305 /usr/lib/qt/plugins/platforms/libqxcb.so
+7fb5eab8a000-7fb5eab8b000 r-xp 00002000 08:02 41419305 /usr/lib/qt/plugins/platforms/libqxcb.so
+7fb5eab8b000-7fb5eab8c000 r--p 00003000 08:02 41419305 /usr/lib/qt/plugins/platforms/libqxcb.so
+7fb5eab8c000-7fb5eab8d000 r--p 00003000 08:02 41419305 /usr/lib/qt/plugins/platforms/libqxcb.so
+7fb5eab8d000-7fb5eab8e000 rw-p 00004000 08:02 41419305 /usr/lib/qt/plugins/platforms/libqxcb.so
+7fb5eab8e000-7fb5eab90000 r--p 00000000 08:02 40641855 /usr/lib/python3.8/lib-dynload/grp.cpython-38-x86_64-linux-gnu.so
+7fb5eab90000-7fb5eab91000 r-xp 00002000 08:02 40641855 /usr/lib/python3.8/lib-dynload/grp.cpython-38-x86_64-linux-gnu.so
+7fb5eab91000-7fb5eab92000 r--p 00003000 08:02 40641855 /usr/lib/python3.8/lib-dynload/grp.cpython-38-x86_64-linux-gnu.so
+7fb5eab92000-7fb5eab93000 r--p 00003000 08:02 40641855 /usr/lib/python3.8/lib-dynload/grp.cpython-38-x86_64-linux-gnu.so
+7fb5eab93000-7fb5eab94000 rw-p 00004000 08:02 40641855 /usr/lib/python3.8/lib-dynload/grp.cpython-38-x86_64-linux-gnu.so
+7fb5eab94000-7fb5eab96000 r--p 00000000 08:02 40641822 /usr/lib/python3.8/lib-dynload/_lzma.cpython-38-x86_64-linux-gnu.so
+7fb5eab96000-7fb5eab9a000 r-xp 00002000 08:02 40641822 /usr/lib/python3.8/lib-dynload/_lzma.cpython-38-x86_64-linux-gnu.so
+7fb5eab9a000-7fb5eab9d000 r--p 00006000 08:02 40641822 /usr/lib/python3.8/lib-dynload/_lzma.cpython-38-x86_64-linux-gnu.so
+7fb5eab9d000-7fb5eab9e000 r--p 00008000 08:02 40641822 /usr/lib/python3.8/lib-dynload/_lzma.cpython-38-x86_64-linux-gnu.so
+7fb5eab9e000-7fb5eab9f000 rw-p 00009000 08:02 40641822 /usr/lib/python3.8/lib-dynload/_lzma.cpython-38-x86_64-linux-gnu.so
+7fb5eab9f000-7fb5eae70000 rw-p 00000000 00:00 0
+7fb5eae70000-7fb5eae72000 r--p 00000000 08:02 40641834 /usr/lib/python3.8/lib-dynload/_sha3.cpython-38-x86_64-linux-gnu.so
+7fb5eae72000-7fb5eae90000 r-xp 00002000 08:02 40641834 /usr/lib/python3.8/lib-dynload/_sha3.cpython-38-x86_64-linux-gnu.so
+7fb5eae90000-7fb5eae92000 r--p 00020000 08:02 40641834 /usr/lib/python3.8/lib-dynload/_sha3.cpython-38-x86_64-linux-gnu.so
+7fb5eae92000-7fb5eae93000 r--p 00021000 08:02 40641834 /usr/lib/python3.8/lib-dynload/_sha3.cpython-38-x86_64-linux-gnu.so
+7fb5eae93000-7fb5eae94000 rw-p 00022000 08:02 40641834 /usr/lib/python3.8/lib-dynload/_sha3.cpython-38-x86_64-linux-gnu.so
+7fb5eae94000-7fb5eae96000 r--p 00000000 08:02 40641798 /usr/lib/python3.8/lib-dynload/_blake2.cpython-38-x86_64-linux-gnu.so
+7fb5eae96000-7fb5eaea8000 r-xp 00002000 08:02 40641798 /usr/lib/python3.8/lib-dynload/_blake2.cpython-38-x86_64-linux-gnu.so
+7fb5eaea8000-7fb5eaeaa000 r--p 00014000 08:02 40641798 /usr/lib/python3.8/lib-dynload/_blake2.cpython-38-x86_64-linux-gnu.so
+7fb5eaeaa000-7fb5eaeab000 r--p 00015000 08:02 40641798 /usr/lib/python3.8/lib-dynload/_blake2.cpython-38-x86_64-linux-gnu.so
+7fb5eaeab000-7fb5eaeac000 rw-p 00016000 08:02 40641798 /usr/lib/python3.8/lib-dynload/_blake2.cpython-38-x86_64-linux-gnu.so
+7fb5eaeac000-7fb5eaeaf000 r--p 00000000 08:02 40641818 /usr/lib/python3.8/lib-dynload/_hashlib.cpython-38-x86_64-linux-gnu.so
+7fb5eaeaf000-7fb5eaeb3000 r-xp 00003000 08:02 40641818 /usr/lib/python3.8/lib-dynload/_hashlib.cpython-38-x86_64-linux-gnu.so
+7fb5eaeb3000-7fb5eaeb5000 r--p 00007000 08:02 40641818 /usr/lib/python3.8/lib-dynload/_hashlib.cpython-38-x86_64-linux-gnu.so
+7fb5eaeb5000-7fb5eaeb6000 ---p 00009000 08:02 40641818 /usr/lib/python3.8/lib-dynload/_hashlib.cpython-38-x86_64-linux-gnu.so
+7fb5eaeb6000-7fb5eaeb7000 r--p 00009000 08:02 40641818 /usr/lib/python3.8/lib-dynload/_hashlib.cpython-38-x86_64-linux-gnu.so
+7fb5eaeb7000-7fb5eaeb8000 rw-p 0000a000 08:02 40641818 /usr/lib/python3.8/lib-dynload/_hashlib.cpython-38-x86_64-linux-gnu.so
+7fb5eaeb8000-7fb5eaeba000 r--p 00000000 08:02 40641830 /usr/lib/python3.8/lib-dynload/_queue.cpython-38-x86_64-linux-gnu.so
+7fb5eaeba000-7fb5eaebb000 r-xp 00002000 08:02 40641830 /usr/lib/python3.8/lib-dynload/_queue.cpython-38-x86_64-linux-gnu.so
+7fb5eaebb000-7fb5eaebc000 r--p 00003000 08:02 40641830 /usr/lib/python3.8/lib-dynload/_queue.cpython-38-x86_64-linux-gnu.so
+7fb5eaebc000-7fb5eaebd000 r--p 00003000 08:02 40641830 /usr/lib/python3.8/lib-dynload/_queue.cpython-38-x86_64-linux-gnu.so
+7fb5eaebd000-7fb5eaebe000 rw-p 00004000 08:02 40641830 /usr/lib/python3.8/lib-dynload/_queue.cpython-38-x86_64-linux-gnu.so
+7fb5eaebe000-7fb5eaf3e000 rw-p 00000000 00:00 0
+7fb5eaf3e000-7fb5eaf43000 r--p 00000000 08:02 40641813 /usr/lib/python3.8/lib-dynload/_datetime.cpython-38-x86_64-linux-gnu.so
+7fb5eaf43000-7fb5eaf55000 r-xp 00005000 08:02 40641813 /usr/lib/python3.8/lib-dynload/_datetime.cpython-38-x86_64-linux-gnu.so
+7fb5eaf55000-7fb5eaf5b000 r--p 00017000 08:02 40641813 /usr/lib/python3.8/lib-dynload/_datetime.cpython-38-x86_64-linux-gnu.so
+7fb5eaf5b000-7fb5eaf5c000 r--p 0001c000 08:02 40641813 /usr/lib/python3.8/lib-dynload/_datetime.cpython-38-x86_64-linux-gnu.so
+7fb5eaf5c000-7fb5eaf5e000 rw-p 0001d000 08:02 40641813 /usr/lib/python3.8/lib-dynload/_datetime.cpython-38-x86_64-linux-gnu.so
+7fb5eaf5e000-7fb5eafde000 rw-p 00000000 00:00 0
+7fb5eafde000-7fb5eb053000 r--p 00000000 08:02 40117010 /usr/lib/libcrypto.so.1.1
+7fb5eb053000-7fb5eb1f2000 r-xp 00075000 08:02 40117010 /usr/lib/libcrypto.so.1.1
+7fb5eb1f2000-7fb5eb283000 r--p 00214000 08:02 40117010 /usr/lib/libcrypto.so.1.1
+7fb5eb283000-7fb5eb2af000 r--p 002a4000 08:02 40117010 /usr/lib/libcrypto.so.1.1
+7fb5eb2af000-7fb5eb2b1000 rw-p 002d0000 08:02 40117010 /usr/lib/libcrypto.so.1.1
+7fb5eb2b1000-7fb5eb2b5000 rw-p 00000000 00:00 0
+7fb5eb2b5000-7fb5eb2d2000 r--p 00000000 08:02 40117012 /usr/lib/libssl.so.1.1
+7fb5eb2d2000-7fb5eb31e000 r-xp 0001d000 08:02 40117012 /usr/lib/libssl.so.1.1
+7fb5eb31e000-7fb5eb338000 r--p 00069000 08:02 40117012 /usr/lib/libssl.so.1.1
+7fb5eb338000-7fb5eb339000 ---p 00083000 08:02 40117012 /usr/lib/libssl.so.1.1
+7fb5eb339000-7fb5eb342000 r--p 00083000 08:02 40117012 /usr/lib/libssl.so.1.1
+7fb5eb342000-7fb5eb346000 rw-p 0008c000 08:02 40117012 /usr/lib/libssl.so.1.1
+7fb5eb346000-7fb5eb348000 r--p 00000000 08:02 40641831 /usr/lib/python3.8/lib-dynload/_random.cpython-38-x86_64-linux-gnu.so
+7fb5eb348000-7fb5eb349000 r-xp 00002000 08:02 40641831 /usr/lib/python3.8/lib-dynload/_random.cpython-38-x86_64-linux-gnu.so
+7fb5eb349000-7fb5eb34a000 r--p 00003000 08:02 40641831 /usr/lib/python3.8/lib-dynload/_random.cpython-38-x86_64-linux-gnu.so
+7fb5eb34a000-7fb5eb34b000 r--p 00003000 08:02 40641831 /usr/lib/python3.8/lib-dynload/_random.cpython-38-x86_64-linux-gnu.so
+7fb5eb34b000-7fb5eb34c000 rw-p 00004000 08:02 40641831 /usr/lib/python3.8/lib-dynload/_random.cpython-38-x86_64-linux-gnu.so
+7fb5eb34c000-7fb5eb34d000 r--p 00000000 08:02 40641835 /usr/lib/python3.8/lib-dynload/_sha512.cpython-38-x86_64-linux-gnu.so
+7fb5eb34d000-7fb5eb354000 r-xp 00001000 08:02 40641835 /usr/lib/python3.8/lib-dynload/_sha512.cpython-38-x86_64-linux-gnu.so
+7fb5eb354000-7fb5eb355000 r--p 00008000 08:02 40641835 /usr/lib/python3.8/lib-dynload/_sha512.cpython-38-x86_64-linux-gnu.so
+7fb5eb355000-7fb5eb356000 r--p 00008000 08:02 40641835 /usr/lib/python3.8/lib-dynload/_sha512.cpython-38-x86_64-linux-gnu.so
+7fb5eb356000-7fb5eb357000 rw-p 00009000 08:02 40641835 /usr/lib/python3.8/lib-dynload/_sha512.cpython-38-x86_64-linux-gnu.so
+7fb5eb357000-7fb5eb397000 rw-p 00000000 00:00 0
+7fb5eb397000-7fb5eb399000 r--p 00000000 08:02 40641852 /usr/lib/python3.8/lib-dynload/binascii.cpython-38-x86_64-linux-gnu.so
+7fb5eb399000-7fb5eb39d000 r-xp 00002000 08:02 40641852 /usr/lib/python3.8/lib-dynload/binascii.cpython-38-x86_64-linux-gnu.so
+7fb5eb39d000-7fb5eb39f000 r--p 00006000 08:02 40641852 /usr/lib/python3.8/lib-dynload/binascii.cpython-38-x86_64-linux-gnu.so
+7fb5eb39f000-7fb5eb3a0000 r--p 00007000 08:02 40641852 /usr/lib/python3.8/lib-dynload/binascii.cpython-38-x86_64-linux-gnu.so
+7fb5eb3a0000-7fb5eb3a1000 rw-p 00008000 08:02 40641852 /usr/lib/python3.8/lib-dynload/binascii.cpython-38-x86_64-linux-gnu.so
+7fb5eb3a1000-7fb5eb3a4000 r--p 00000000 08:02 40641840 /usr/lib/python3.8/lib-dynload/_struct.cpython-38-x86_64-linux-gnu.so
+7fb5eb3a4000-7fb5eb3a9000 r-xp 00003000 08:02 40641840 /usr/lib/python3.8/lib-dynload/_struct.cpython-38-x86_64-linux-gnu.so
+7fb5eb3a9000-7fb5eb3ad000 r--p 00008000 08:02 40641840 /usr/lib/python3.8/lib-dynload/_struct.cpython-38-x86_64-linux-gnu.so
+7fb5eb3ad000-7fb5eb3ae000 r--p 0000b000 08:02 40641840 /usr/lib/python3.8/lib-dynload/_struct.cpython-38-x86_64-linux-gnu.so
+7fb5eb3ae000-7fb5eb3af000 rw-p 0000c000 08:02 40641840 /usr/lib/python3.8/lib-dynload/_struct.cpython-38-x86_64-linux-gnu.so
+7fb5eb3af000-7fb5eb3b9000 r--p 00000000 08:02 40641838 /usr/lib/python3.8/lib-dynload/_ssl.cpython-38-x86_64-linux-gnu.so
+7fb5eb3b9000-7fb5eb3c2000 r-xp 0000a000 08:02 40641838 /usr/lib/python3.8/lib-dynload/_ssl.cpython-38-x86_64-linux-gnu.so
+7fb5eb3c2000-7fb5eb3ca000 r--p 00013000 08:02 40641838 /usr/lib/python3.8/lib-dynload/_ssl.cpython-38-x86_64-linux-gnu.so
+7fb5eb3ca000-7fb5eb3cb000 ---p 0001b000 08:02 40641838 /usr/lib/python3.8/lib-dynload/_ssl.cpython-38-x86_64-linux-gnu.so
+7fb5eb3cb000-7fb5eb3cc000 r--p 0001b000 08:02 40641838 /usr/lib/python3.8/lib-dynload/_ssl.cpython-38-x86_64-linux-gnu.so
+7fb5eb3cc000-7fb5eb3cf000 rw-p 0001c000 08:02 40641838 /usr/lib/python3.8/lib-dynload/_ssl.cpython-38-x86_64-linux-gnu.so
+7fb5eb3cf000-7fb5eb40f000 rw-p 00000000 00:00 0
+7fb5eb40f000-7fb5eb411000 r--p 00000000 08:02 40641864 /usr/lib/python3.8/lib-dynload/select.cpython-38-x86_64-linux-gnu.so
+7fb5eb411000-7fb5eb414000 r-xp 00002000 08:02 40641864 /usr/lib/python3.8/lib-dynload/select.cpython-38-x86_64-linux-gnu.so
+7fb5eb414000-7fb5eb416000 r--p 00005000 08:02 40641864 /usr/lib/python3.8/lib-dynload/select.cpython-38-x86_64-linux-gnu.so
+7fb5eb416000-7fb5eb417000 r--p 00006000 08:02 40641864 /usr/lib/python3.8/lib-dynload/select.cpython-38-x86_64-linux-gnu.so
+7fb5eb417000-7fb5eb418000 rw-p 00007000 08:02 40641864 /usr/lib/python3.8/lib-dynload/select.cpython-38-x86_64-linux-gnu.so
+7fb5eb418000-7fb5eb458000 rw-p 00000000 00:00 0
+7fb5eb458000-7fb5eb45c000 r--p 00000000 08:02 40641836 /usr/lib/python3.8/lib-dynload/_socket.cpython-38-x86_64-linux-gnu.so
+7fb5eb45c000-7fb5eb465000 r-xp 00004000 08:02 40641836 /usr/lib/python3.8/lib-dynload/_socket.cpython-38-x86_64-linux-gnu.so
+7fb5eb465000-7fb5eb46e000 r--p 0000d000 08:02 40641836 /usr/lib/python3.8/lib-dynload/_socket.cpython-38-x86_64-linux-gnu.so
+7fb5eb46e000-7fb5eb46f000 r--p 00015000 08:02 40641836 /usr/lib/python3.8/lib-dynload/_socket.cpython-38-x86_64-linux-gnu.so
+7fb5eb46f000-7fb5eb470000 rw-p 00016000 08:02 40641836 /usr/lib/python3.8/lib-dynload/_socket.cpython-38-x86_64-linux-gnu.so
+7fb5eb470000-7fb5eb4b0000 rw-p 00000000 00:00 0
+7fb5eb4b0000-7fb5eb4b4000 r--p 00000000 08:02 40123563 /usr/lib/libexpat.so.1.6.11
+7fb5eb4b4000-7fb5eb4d2000 r-xp 00004000 08:02 40123563 /usr/lib/libexpat.so.1.6.11
+7fb5eb4d2000-7fb5eb4dc000 r--p 00022000 08:02 40123563 /usr/lib/libexpat.so.1.6.11
+7fb5eb4dc000-7fb5eb4dd000 ---p 0002c000 08:02 40123563 /usr/lib/libexpat.so.1.6.11
+7fb5eb4dd000-7fb5eb4df000 r--p 0002c000 08:02 40123563 /usr/lib/libexpat.so.1.6.11
+7fb5eb4df000-7fb5eb4e0000 rw-p 0002e000 08:02 40123563 /usr/lib/libexpat.so.1.6.11
+7fb5eb4e0000-7fb5eb4e1000 r--p 00000000 08:02 40641797 /usr/lib/python3.8/lib-dynload/_bisect.cpython-38-x86_64-linux-gnu.so
+7fb5eb4e1000-7fb5eb4e2000 r-xp 00001000 08:02 40641797 /usr/lib/python3.8/lib-dynload/_bisect.cpython-38-x86_64-linux-gnu.so
+7fb5eb4e2000-7fb5eb4e3000 r--p 00002000 08:02 40641797 /usr/lib/python3.8/lib-dynload/_bisect.cpython-38-x86_64-linux-gnu.so
+7fb5eb4e3000-7fb5eb4e4000 r--p 00002000 08:02 40641797 /usr/lib/python3.8/lib-dynload/_bisect.cpython-38-x86_64-linux-gnu.so
+7fb5eb4e4000-7fb5eb4e5000 rw-p 00003000 08:02 40641797 /usr/lib/python3.8/lib-dynload/_bisect.cpython-38-x86_64-linux-gnu.so
+7fb5eb4e5000-7fb5eb4e8000 r--p 00000000 08:02 40641856 /usr/lib/python3.8/lib-dynload/math.cpython-38-x86_64-linux-gnu.so
+7fb5eb4e8000-7fb5eb4f0000 r-xp 00003000 08:02 40641856 /usr/lib/python3.8/lib-dynload/math.cpython-38-x86_64-linux-gnu.so
+7fb5eb4f0000-7fb5eb4f4000 r--p 0000b000 08:02 40641856 /usr/lib/python3.8/lib-dynload/math.cpython-38-x86_64-linux-gnu.so
+7fb5eb4f4000-7fb5eb4f5000 r--p 0000e000 08:02 40641856 /usr/lib/python3.8/lib-dynload/math.cpython-38-x86_64-linux-gnu.so
+7fb5eb4f5000-7fb5eb4f6000 rw-p 0000f000 08:02 40641856 /usr/lib/python3.8/lib-dynload/math.cpython-38-x86_64-linux-gnu.so
+7fb5eb4f6000-7fb5eb4f8000 r--p 00000000 08:02 40641820 /usr/lib/python3.8/lib-dynload/_json.cpython-38-x86_64-linux-gnu.so
+7fb5eb4f8000-7fb5eb505000 r-xp 00002000 08:02 40641820 /usr/lib/python3.8/lib-dynload/_json.cpython-38-x86_64-linux-gnu.so
+7fb5eb505000-7fb5eb507000 r--p 0000f000 08:02 40641820 /usr/lib/python3.8/lib-dynload/_json.cpython-38-x86_64-linux-gnu.so
+7fb5eb507000-7fb5eb508000 r--p 00010000 08:02 40641820 /usr/lib/python3.8/lib-dynload/_json.cpython-38-x86_64-linux-gnu.so
+7fb5eb508000-7fb5eb509000 rw-p 00011000 08:02 40641820 /usr/lib/python3.8/lib-dynload/_json.cpython-38-x86_64-linux-gnu.so
+7fb5eb509000-7fb5eb609000 rw-p 00000000 00:00 0
+7fb5eb609000-7fb5eb60a000 r--p 00000000 08:02 40503763 /usr/share/locale/en/LC_MESSAGES/kjobwidgets5_qt.qm
+7fb5eb60a000-7fb5eb60b000 r--p 00000000 08:02 40503763 /usr/share/locale/en/LC_MESSAGES/kjobwidgets5_qt.qm
+7fb5eb60b000-7fb5eb60d000 r--p 00000000 08:02 40641799 /usr/lib/python3.8/lib-dynload/_bz2.cpython-38-x86_64-linux-gnu.so
+7fb5eb60d000-7fb5eb60f000 r-xp 00002000 08:02 40641799 /usr/lib/python3.8/lib-dynload/_bz2.cpython-38-x86_64-linux-gnu.so
+7fb5eb60f000-7fb5eb611000 r--p 00004000 08:02 40641799 /usr/lib/python3.8/lib-dynload/_bz2.cpython-38-x86_64-linux-gnu.so
+7fb5eb611000-7fb5eb612000 r--p 00005000 08:02 40641799 /usr/lib/python3.8/lib-dynload/_bz2.cpython-38-x86_64-linux-gnu.so
+7fb5eb612000-7fb5eb613000 rw-p 00006000 08:02 40641799 /usr/lib/python3.8/lib-dynload/_bz2.cpython-38-x86_64-linux-gnu.so
+7fb5eb613000-7fb5eb61a000 r--p 00000000 08:02 40248274 /usr/lib/python3.8/site-packages/_cffi_backend.cpython-38-x86_64-linux-gnu.so
+7fb5eb61a000-7fb5eb630000 r-xp 00007000 08:02 40248274 /usr/lib/python3.8/site-packages/_cffi_backend.cpython-38-x86_64-linux-gnu.so
+7fb5eb630000-7fb5eb63b000 r--p 0001d000 08:02 40248274 /usr/lib/python3.8/site-packages/_cffi_backend.cpython-38-x86_64-linux-gnu.so
+7fb5eb63b000-7fb5eb63d000 r--p 00027000 08:02 40248274 /usr/lib/python3.8/site-packages/_cffi_backend.cpython-38-x86_64-linux-gnu.so
+7fb5eb63d000-7fb5eb640000 rw-p 00029000 08:02 40248274 /usr/lib/python3.8/site-packages/_cffi_backend.cpython-38-x86_64-linux-gnu.so
+7fb5eb640000-7fb5eb643000 rw-p 00000000 00:00 0
+7fb5eb643000-7fb5eb644000 r--p 00000000 08:02 42212358 /usr/lib/python3.8/site-packages/cryptography/hazmat/bindings/_constant_time.abi3.so
+7fb5eb644000-7fb5eb645000 r-xp 00001000 08:02 42212358 /usr/lib/python3.8/site-packages/cryptography/hazmat/bindings/_constant_time.abi3.so
+7fb5eb645000-7fb5eb646000 r--p 00002000 08:02 42212358 /usr/lib/python3.8/site-packages/cryptography/hazmat/bindings/_constant_time.abi3.so
+7fb5eb646000-7fb5eb647000 r--p 00002000 08:02 42212358 /usr/lib/python3.8/site-packages/cryptography/hazmat/bindings/_constant_time.abi3.so
+7fb5eb647000-7fb5eb648000 rw-p 00003000 08:02 42212358 /usr/lib/python3.8/site-packages/cryptography/hazmat/bindings/_constant_time.abi3.so
+7fb5eb648000-7fb5eb64a000 r--p 00000000 08:02 40641870 /usr/lib/python3.8/lib-dynload/zlib.cpython-38-x86_64-linux-gnu.so
+7fb5eb64a000-7fb5eb64d000 r-xp 00002000 08:02 40641870 /usr/lib/python3.8/lib-dynload/zlib.cpython-38-x86_64-linux-gnu.so
+7fb5eb64d000-7fb5eb650000 r--p 00005000 08:02 40641870 /usr/lib/python3.8/lib-dynload/zlib.cpython-38-x86_64-linux-gnu.so
+7fb5eb650000-7fb5eb651000 r--p 00007000 08:02 40641870 /usr/lib/python3.8/lib-dynload/zlib.cpython-38-x86_64-linux-gnu.so
+7fb5eb651000-7fb5eb652000 rw-p 00008000 08:02 40641870 /usr/lib/python3.8/lib-dynload/zlib.cpython-38-x86_64-linux-gnu.so
+7fb5eb652000-7fb5eb692000 rw-p 00000000 00:00 0
+7fb5eb692000-7fb5eb693000 r--p 00000000 08:02 40641826 /usr/lib/python3.8/lib-dynload/_opcode.cpython-38-x86_64-linux-gnu.so
+7fb5eb693000-7fb5eb694000 r-xp 00001000 08:02 40641826 /usr/lib/python3.8/lib-dynload/_opcode.cpython-38-x86_64-linux-gnu.so
+7fb5eb694000-7fb5eb695000 r--p 00002000 08:02 40641826 /usr/lib/python3.8/lib-dynload/_opcode.cpython-38-x86_64-linux-gnu.so
+7fb5eb695000-7fb5eb696000 r--p 00002000 08:02 40641826 /usr/lib/python3.8/lib-dynload/_opcode.cpython-38-x86_64-linux-gnu.so
+7fb5eb696000-7fb5eb697000 rw-p 00003000 08:02 40641826 /usr/lib/python3.8/lib-dynload/_opcode.cpython-38-x86_64-linux-gnu.so
+7fb5eb697000-7fb5eb7d7000 rw-p 00000000 00:00 0
+7fb5eb7d7000-7fb5eb8a0000 r--p 00000000 08:02 41950248 /usr/lib/python3.8/site-packages/PyQt5/QtGui.abi3.so
+7fb5eb8a0000-7fb5eb9f9000 r-xp 000c9000 08:02 41950248 /usr/lib/python3.8/site-packages/PyQt5/QtGui.abi3.so
+7fb5eb9f9000-7fb5ebab8000 r--p 00222000 08:02 41950248 /usr/lib/python3.8/site-packages/PyQt5/QtGui.abi3.so
+7fb5ebab8000-7fb5ebab9000 ---p 002e1000 08:02 41950248 /usr/lib/python3.8/site-packages/PyQt5/QtGui.abi3.so
+7fb5ebab9000-7fb5ebad7000 r--p 002e1000 08:02 41950248 /usr/lib/python3.8/site-packages/PyQt5/QtGui.abi3.so
+7fb5ebad7000-7fb5ebb16000 rw-p 002ff000 08:02 41950248 /usr/lib/python3.8/site-packages/PyQt5/QtGui.abi3.so
+7fb5ebb16000-7fb5ebb57000 rw-p 00000000 00:00 0
+7fb5ebb57000-7fb5ebbfd000 r--p 00000000 08:02 41950245 /usr/lib/python3.8/site-packages/PyQt5/QtCore.abi3.so
+7fb5ebbfd000-7fb5ebd71000 r-xp 000a6000 08:02 41950245 /usr/lib/python3.8/site-packages/PyQt5/QtCore.abi3.so
+7fb5ebd71000-7fb5ebe14000 r--p 0021a000 08:02 41950245 /usr/lib/python3.8/site-packages/PyQt5/QtCore.abi3.so
+7fb5ebe14000-7fb5ebe1f000 r--p 002bc000 08:02 41950245 /usr/lib/python3.8/site-packages/PyQt5/QtCore.abi3.so
+7fb5ebe1f000-7fb5ebe61000 rw-p 002c7000 08:02 41950245 /usr/lib/python3.8/site-packages/PyQt5/QtCore.abi3.so
+7fb5ebe61000-7fb5ebe62000 rw-p 00000000 00:00 0
+7fb5ebe62000-7fb5ebe64000 r--p 00000000 08:02 40129718 /usr/lib/libXdmcp.so.6.0.0
+7fb5ebe64000-7fb5ebe66000 r-xp 00002000 08:02 40129718 /usr/lib/libXdmcp.so.6.0.0
+7fb5ebe66000-7fb5ebe68000 r--p 00004000 08:02 40129718 /usr/lib/libXdmcp.so.6.0.0
+7fb5ebe68000-7fb5ebe69000 r--p 00005000 08:02 40129718 /usr/lib/libXdmcp.so.6.0.0
+7fb5ebe69000-7fb5ebe6a000 rw-p 00006000 08:02 40129718 /usr/lib/libXdmcp.so.6.0.0
+7fb5ebe6a000-7fb5ebe6b000 r--p 00000000 08:02 40129722 /usr/lib/libXau.so.6.0.0
+7fb5ebe6b000-7fb5ebe6c000 r-xp 00001000 08:02 40129722 /usr/lib/libXau.so.6.0.0
+7fb5ebe6c000-7fb5ebe6d000 r--p 00002000 08:02 40129722 /usr/lib/libXau.so.6.0.0
+7fb5ebe6d000-7fb5ebe6e000 r--p 00002000 08:02 40129722 /usr/lib/libXau.so.6.0.0
+7fb5ebe6e000-7fb5ebe6f000 rw-p 00003000 08:02 40129722 /usr/lib/libXau.so.6.0.0
+7fb5ebe6f000-7fb5ebe7b000 r--p 00000000 08:02 40129804 /usr/lib/libxcb.so.1.1.0
+7fb5ebe7b000-7fb5ebe8e000 r-xp 0000c000 08:02 40129804 /usr/lib/libxcb.so.1.1.0
+7fb5ebe8e000-7fb5ebe97000 r--p 0001f000 08:02 40129804 /usr/lib/libxcb.so.1.1.0
+7fb5ebe97000-7fb5ebe98000 r--p 00027000 08:02 40129804 /usr/lib/libxcb.so.1.1.0
+7fb5ebe98000-7fb5ebe99000 rw-p 00028000 08:02 40129804 /usr/lib/libxcb.so.1.1.0
+7fb5ebe99000-7fb5ebe9d000 r--p 00000000 08:02 40121626 /usr/lib/libgpg-error.so.0.28.0
+7fb5ebe9d000-7fb5ebeaf000 r-xp 00004000 08:02 40121626 /usr/lib/libgpg-error.so.0.28.0
+7fb5ebeaf000-7fb5ebeb9000 r--p 00016000 08:02 40121626 /usr/lib/libgpg-error.so.0.28.0
+7fb5ebeb9000-7fb5ebeba000 r--p 0001f000 08:02 40121626 /usr/lib/libgpg-error.so.0.28.0
+7fb5ebeba000-7fb5ebebb000 rw-p 00020000 08:02 40121626 /usr/lib/libgpg-error.so.0.28.0
+7fb5ebebb000-7fb5ebebd000 r--p 00000000 08:02 40121307 /usr/lib/libbz2.so.1.0.8
+7fb5ebebd000-7fb5ebeca000 r-xp 00002000 08:02 40121307 /usr/lib/libbz2.so.1.0.8
+7fb5ebeca000-7fb5ebecc000 r--p 0000f000 08:02 40121307 /usr/lib/libbz2.so.1.0.8
+7fb5ebecc000-7fb5ebecd000 r--p 00010000 08:02 40121307 /usr/lib/libbz2.so.1.0.8
+7fb5ebecd000-7fb5ebece000 rw-p 00011000 08:02 40121307 /usr/lib/libbz2.so.1.0.8
+7fb5ebece000-7fb5ebeea000 r--p 00000000 08:02 40132106 /usr/lib/libX11.so.6.3.0
+7fb5ebeea000-7fb5ebf73000 r-xp 0001c000 08:02 40132106 /usr/lib/libX11.so.6.3.0
+7fb5ebf73000-7fb5ec007000 r--p 000a5000 08:02 40132106 /usr/lib/libX11.so.6.3.0
+7fb5ec007000-7fb5ec00a000 r--p 00138000 08:02 40132106 /usr/lib/libX11.so.6.3.0
+7fb5ec00a000-7fb5ec00e000 rw-p 0013b000 08:02 40132106 /usr/lib/libX11.so.6.3.0
+7fb5ec00e000-7fb5ec010000 r--p 00000000 08:02 40121452 /usr/lib/libpcre.so.1.2.12
+7fb5ec010000-7fb5ec060000 r-xp 00002000 08:02 40121452 /usr/lib/libpcre.so.1.2.12
+7fb5ec060000-7fb5ec07e000 r--p 00052000 08:02 40121452 /usr/lib/libpcre.so.1.2.12
+7fb5ec07e000-7fb5ec07f000 r--p 0006f000 08:02 40121452 /usr/lib/libpcre.so.1.2.12
+7fb5ec07f000-7fb5ec080000 rw-p 00070000 08:02 40121452 /usr/lib/libpcre.so.1.2.12
+7fb5ec080000-7fb5edb30000 r--p 00000000 08:02 40121973 /usr/lib/libicudata.so.65.1
+7fb5edb30000-7fb5edb31000 r--p 01aaf000 08:02 40121973 /usr/lib/libicudata.so.65.1
+7fb5edb31000-7fb5edb3d000 r--p 00000000 08:02 40121657 /usr/lib/libgcrypt.so.20.2.5
+7fb5edb3d000-7fb5edc0b000 r-xp 0000c000 08:02 40121657 /usr/lib/libgcrypt.so.20.2.5
+7fb5edc0b000-7fb5edc47000 r--p 000da000 08:02 40121657 /usr/lib/libgcrypt.so.20.2.5
+7fb5edc47000-7fb5edc48000 ---p 00116000 08:02 40121657 /usr/lib/libgcrypt.so.20.2.5
+7fb5edc48000-7fb5edc4a000 r--p 00116000 08:02 40121657 /usr/lib/libgcrypt.so.20.2.5
+7fb5edc4a000-7fb5edc4f000 rw-p 00118000 08:02 40121657 /usr/lib/libgcrypt.so.20.2.5
+7fb5edc4f000-7fb5edc52000 r--p 00000000 08:02 40121673 /usr/lib/liblz4.so.1.9.2
+7fb5edc52000-7fb5edc6c000 r-xp 00003000 08:02 40121673 /usr/lib/liblz4.so.1.9.2
+7fb5edc6c000-7fb5edc6f000 r--p 0001d000 08:02 40121673 /usr/lib/liblz4.so.1.9.2
+7fb5edc6f000-7fb5edc70000 r--p 0001f000 08:02 40121673 /usr/lib/liblz4.so.1.9.2
+7fb5edc70000-7fb5edc71000 rw-p 00020000 08:02 40121673 /usr/lib/liblz4.so.1.9.2
+7fb5edc71000-7fb5edc74000 r--p 00000000 08:02 40121259 /usr/lib/liblzma.so.5.2.5
+7fb5edc74000-7fb5edc8b000 r-xp 00003000 08:02 40121259 /usr/lib/liblzma.so.5.2.5
+7fb5edc8b000-7fb5edc96000 r--p 0001a000 08:02 40121259 /usr/lib/liblzma.so.5.2.5
+7fb5edc96000-7fb5edc97000 ---p 00025000 08:02 40121259 /usr/lib/liblzma.so.5.2.5
+7fb5edc97000-7fb5edc98000 r--p 00025000 08:02 40121259 /usr/lib/liblzma.so.5.2.5
+7fb5edc98000-7fb5edc99000 rw-p 00026000 08:02 40121259 /usr/lib/liblzma.so.5.2.5
+7fb5edc99000-7fb5edc9c000 r--p 00000000 08:02 40111505 /usr/lib/librt-2.31.so
+7fb5edc9c000-7fb5edca0000 r-xp 00003000 08:02 40111505 /usr/lib/librt-2.31.so
+7fb5edca0000-7fb5edca1000 r--p 00007000 08:02 40111505 /usr/lib/librt-2.31.so
+7fb5edca1000-7fb5edca2000 ---p 00008000 08:02 40111505 /usr/lib/librt-2.31.so
+7fb5edca2000-7fb5edca3000 r--p 00008000 08:02 40111505 /usr/lib/librt-2.31.so
+7fb5edca3000-7fb5edca4000 rw-p 00009000 08:02 40111505 /usr/lib/librt-2.31.so
+7fb5edca4000-7fb5edca7000 r--p 00000000 08:02 40133414 /usr/lib/libgraphite2.so.3.2.1
+7fb5edca7000-7fb5edcc1000 r-xp 00003000 08:02 40133414 /usr/lib/libgraphite2.so.3.2.1
+7fb5edcc1000-7fb5edcc6000 r--p 0001d000 08:02 40133414 /usr/lib/libgraphite2.so.3.2.1
+7fb5edcc6000-7fb5edcc8000 r--p 00021000 08:02 40133414 /usr/lib/libgraphite2.so.3.2.1
+7fb5edcc8000-7fb5edcc9000 rw-p 00023000 08:02 40133414 /usr/lib/libgraphite2.so.3.2.1
+7fb5edcc9000-7fb5edcd6000 r--p 00000000 08:02 40133434 /usr/lib/libfreetype.so.6.17.1
+7fb5edcd6000-7fb5edd57000 r-xp 0000d000 08:02 40133434 /usr/lib/libfreetype.so.6.17.1
+7fb5edd57000-7fb5edd8e000 r--p 0008e000 08:02 40133434 /usr/lib/libfreetype.so.6.17.1
+7fb5edd8e000-7fb5edd8f000 ---p 000c5000 08:02 40133434 /usr/lib/libfreetype.so.6.17.1
+7fb5edd8f000-7fb5edd96000 r--p 000c5000 08:02 40133434 /usr/lib/libfreetype.so.6.17.1
+7fb5edd96000-7fb5edd97000 rw-p 000cc000 08:02 40133434 /usr/lib/libfreetype.so.6.17.1
+7fb5edd97000-7fb5edd9a000 r--p 00000000 08:02 40135464 /usr/lib/libGLX.so.0.0.0
+7fb5edd9a000-7fb5eddb4000 r-xp 00003000 08:02 40135464 /usr/lib/libGLX.so.0.0.0
+7fb5eddb4000-7fb5eddb7000 r--p 0001d000 08:02 40135464 /usr/lib/libGLX.so.0.0.0
+7fb5eddb7000-7fb5eddb8000 ---p 00020000 08:02 40135464 /usr/lib/libGLX.so.0.0.0
+7fb5eddb8000-7fb5eddb9000 r--p 00020000 08:02 40135464 /usr/lib/libGLX.so.0.0.0
+7fb5eddb9000-7fb5eddba000 rw-p 00021000 08:02 40135464 /usr/lib/libGLX.so.0.0.0
+7fb5eddba000-7fb5eddca000 rw-p 00000000 00:00 0
+7fb5eddca000-7fb5ede0a000 r--p 00000000 08:02 40135467 /usr/lib/libGLdispatch.so.0.0.0
+7fb5ede0a000-7fb5ede48000 r-xp 00040000 08:02 40135467 /usr/lib/libGLdispatch.so.0.0.0
+7fb5ede48000-7fb5ede5b000 r--p 0007e000 08:02 40135467 /usr/lib/libGLdispatch.so.0.0.0
+7fb5ede5b000-7fb5ede5c000 ---p 00091000 08:02 40135467 /usr/lib/libGLdispatch.so.0.0.0
+7fb5ede5c000-7fb5ede78000 r--p 00091000 08:02 40135467 /usr/lib/libGLdispatch.so.0.0.0
+7fb5ede78000-7fb5ede79000 rw-p 000ad000 08:02 40135467 /usr/lib/libGLdispatch.so.0.0.0
+7fb5ede79000-7fb5ede81000 rw-p 00000000 00:00 0
+7fb5ede81000-7fb5ede9d000 r--p 00000000 08:02 40121863 /usr/lib/libglib-2.0.so.0.6400.2
+7fb5ede9d000-7fb5edf20000 r-xp 0001c000 08:02 40121863 /usr/lib/libglib-2.0.so.0.6400.2
+7fb5edf20000-7fb5edfa5000 r--p 0009f000 08:02 40121863 /usr/lib/libglib-2.0.so.0.6400.2
+7fb5edfa5000-7fb5edfa6000 ---p 00124000 08:02 40121863 /usr/lib/libglib-2.0.so.0.6400.2
+7fb5edfa6000-7fb5edfa7000 r--p 00124000 08:02 40121863 /usr/lib/libglib-2.0.so.0.6400.2
+7fb5edfa7000-7fb5edfa8000 rw-p 00125000 08:02 40121863 /usr/lib/libglib-2.0.so.0.6400.2
+7fb5edfa8000-7fb5edfa9000 rw-p 00000000 00:00 0
+7fb5edfa9000-7fb5edfae000 r--p 00000000 08:02 40123578 /usr/lib/libzstd.so.1.4.4
+7fb5edfae000-7fb5ee040000 r-xp 00005000 08:02 40123578 /usr/lib/libzstd.so.1.4.4
+7fb5ee040000-7fb5ee051000 r--p 00097000 08:02 40123578 /usr/lib/libzstd.so.1.4.4
+7fb5ee051000-7fb5ee052000 r--p 000a7000 08:02 40123578 /usr/lib/libzstd.so.1.4.4
+7fb5ee052000-7fb5ee053000 rw-p 000a8000 08:02 40123578 /usr/lib/libzstd.so.1.4.4
+7fb5ee053000-7fb5ee056000 r--p 00000000 08:02 40124267 /usr/lib/libpcre2-16.so.0.9.0
+7fb5ee056000-7fb5ee0ad000 r-xp 00003000 08:02 40124267 /usr/lib/libpcre2-16.so.0.9.0
+7fb5ee0ad000-7fb5ee0d4000 r--p 0005a000 08:02 40124267 /usr/lib/libpcre2-16.so.0.9.0
+7fb5ee0d4000-7fb5ee0d5000 ---p 00081000 08:02 40124267 /usr/lib/libpcre2-16.so.0.9.0
+7fb5ee0d5000-7fb5ee0d6000 r--p 00081000 08:02 40124267 /usr/lib/libpcre2-16.so.0.9.0
+7fb5ee0d6000-7fb5ee0d7000 rw-p 00082000 08:02 40124267 /usr/lib/libpcre2-16.so.0.9.0
+7fb5ee0d7000-7fb5ee13b000 r--p 00000000 08:02 40121988 /usr/lib/libicuuc.so.65.1
+7fb5ee13b000-7fb5ee21e000 r-xp 00064000 08:02 40121988 /usr/lib/libicuuc.so.65.1
+7fb5ee21e000-7fb5ee2a3000 r--p 00147000 08:02 40121988 /usr/lib/libicuuc.so.65.1
+7fb5ee2a3000-7fb5ee2a4000 ---p 001cc000 08:02 40121988 /usr/lib/libicuuc.so.65.1
+7fb5ee2a4000-7fb5ee2b6000 r--p 001cc000 08:02 40121988 /usr/lib/libicuuc.so.65.1
+7fb5ee2b6000-7fb5ee2b7000 rw-p 001de000 08:02 40121988 /usr/lib/libicuuc.so.65.1
+7fb5ee2b7000-7fb5ee2b9000 rw-p 00000000 00:00 0
+7fb5ee2b9000-7fb5ee39d000 r--p 00000000 08:02 40121976 /usr/lib/libicui18n.so.65.1
+7fb5ee39d000-7fb5ee513000 r-xp 000e4000 08:02 40121976 /usr/lib/libicui18n.so.65.1
+7fb5ee513000-7fb5ee599000 r--p 0025a000 08:02 40121976 /usr/lib/libicui18n.so.65.1
+7fb5ee599000-7fb5ee59a000 ---p 002e0000 08:02 40121976 /usr/lib/libicui18n.so.65.1
+7fb5ee59a000-7fb5ee5aa000 r--p 002e0000 08:02 40121976 /usr/lib/libicui18n.so.65.1
+7fb5ee5aa000-7fb5ee5ab000 rw-p 002f0000 08:02 40121976 /usr/lib/libicui18n.so.65.1
+7fb5ee5ab000-7fb5ee5ac000 rw-p 00000000 00:00 0
+7fb5ee5ac000-7fb5ee5af000 r--p 00000000 08:02 40137492 /usr/lib/libdouble-conversion.so.3.1.5
+7fb5ee5af000-7fb5ee5bb000 r-xp 00003000 08:02 40137492 /usr/lib/libdouble-conversion.so.3.1.5
+7fb5ee5bb000-7fb5ee5c1000 r--p 0000f000 08:02 40137492 /usr/lib/libdouble-conversion.so.3.1.5
+7fb5ee5c1000-7fb5ee5c2000 r--p 00014000 08:02 40137492 /usr/lib/libdouble-conversion.so.3.1.5
+7fb5ee5c2000-7fb5ee5c3000 rw-p 00015000 08:02 40137492 /usr/lib/libdouble-conversion.so.3.1.5
+7fb5ee5c3000-7fb5ee5d5000 r--p 00000000 08:02 40121685 /usr/lib/libsystemd.so.0.28.0
+7fb5ee5d5000-7fb5ee646000 r-xp 00012000 08:02 40121685 /usr/lib/libsystemd.so.0.28.0
+7fb5ee646000-7fb5ee66b000 r--p 00083000 08:02 40121685 /usr/lib/libsystemd.so.0.28.0
+7fb5ee66b000-7fb5ee66f000 r--p 000a7000 08:02 40121685 /usr/lib/libsystemd.so.0.28.0
+7fb5ee66f000-7fb5ee670000 rw-p 000ab000 08:02 40121685 /usr/lib/libsystemd.so.0.28.0
+7fb5ee670000-7fb5ee671000 rw-p 00000000 00:00 0
+7fb5ee671000-7fb5ee674000 r--p 00000000 08:02 40112247 /usr/lib/libgcc_s.so.1
+7fb5ee674000-7fb5ee685000 r-xp 00003000 08:02 40112247 /usr/lib/libgcc_s.so.1
+7fb5ee685000-7fb5ee689000 r--p 00014000 08:02 40112247 /usr/lib/libgcc_s.so.1
+7fb5ee689000-7fb5ee68a000 r--p 00017000 08:02 40112247 /usr/lib/libgcc_s.so.1
+7fb5ee68a000-7fb5ee68b000 rw-p 00018000 08:02 40112247 /usr/lib/libgcc_s.so.1
+7fb5ee68b000-7fb5ee68d000 r--p 00000000 08:02 40137497 /usr/lib/libmd4c.so.0.4.3
+7fb5ee68d000-7fb5ee69b000 r-xp 00002000 08:02 40137497 /usr/lib/libmd4c.so.0.4.3
+7fb5ee69b000-7fb5ee69e000 r--p 00010000 08:02 40137497 /usr/lib/libmd4c.so.0.4.3
+7fb5ee69e000-7fb5ee69f000 ---p 00013000 08:02 40137497 /usr/lib/libmd4c.so.0.4.3
+7fb5ee69f000-7fb5ee6a0000 r--p 00013000 08:02 40137497 /usr/lib/libmd4c.so.0.4.3
+7fb5ee6a0000-7fb5ee6a1000 rw-p 00014000 08:02 40137497 /usr/lib/libmd4c.so.0.4.3
+7fb5ee6a1000-7fb5ee6ab000 r--p 00000000 08:02 40133428 /usr/lib/libharfbuzz.so.0.20600.5
+7fb5ee6ab000-7fb5ee76f000 r-xp 0000a000 08:02 40133428 /usr/lib/libharfbuzz.so.0.20600.5
+7fb5ee76f000-7fb5ee7a2000 r--p 000ce000 08:02 40133428 /usr/lib/libharfbuzz.so.0.20600.5
+7fb5ee7a2000-7fb5ee7a3000 ---p 00101000 08:02 40133428 /usr/lib/libharfbuzz.so.0.20600.5
+7fb5ee7a3000-7fb5ee7a4000 r--p 00101000 08:02 40133428 /usr/lib/libharfbuzz.so.0.20600.5
+7fb5ee7a4000-7fb5ee7a5000 rw-p 00102000 08:02 40133428 /usr/lib/libharfbuzz.so.0.20600.5
+7fb5ee7a5000-7fb5ee7a8000 r--p 00000000 08:02 40121230 /usr/lib/libz.so.1.2.11
+7fb5ee7a8000-7fb5ee7b6000 r-xp 00003000 08:02 40121230 /usr/lib/libz.so.1.2.11
+7fb5ee7b6000-7fb5ee7bc000 r--p 00011000 08:02 40121230 /usr/lib/libz.so.1.2.11
+7fb5ee7bc000-7fb5ee7bd000 ---p 00017000 08:02 40121230 /usr/lib/libz.so.1.2.11
+7fb5ee7bd000-7fb5ee7be000 r--p 00017000 08:02 40121230 /usr/lib/libz.so.1.2.11
+7fb5ee7be000-7fb5ee7bf000 rw-p 00018000 08:02 40121230 /usr/lib/libz.so.1.2.11
+7fb5ee7bf000-7fb5ee7c5000 r--p 00000000 08:02 40133105 /usr/lib/libpng16.so.16.37.0
+7fb5ee7c5000-7fb5ee7e9000 r-xp 00006000 08:02 40133105 /usr/lib/libpng16.so.16.37.0
+7fb5ee7e9000-7fb5ee7f5000 r--p 0002a000 08:02 40133105 /usr/lib/libpng16.so.16.37.0
+7fb5ee7f5000-7fb5ee7f6000 r--p 00035000 08:02 40133105 /usr/lib/libpng16.so.16.37.0
+7fb5ee7f6000-7fb5ee7f7000 rw-p 00036000 08:02 40133105 /usr/lib/libpng16.so.16.37.0
+7fb5ee7f7000-7fb5ee839000 r--p 00000000 08:02 40135458 /usr/lib/libGL.so.1.7.0
+7fb5ee839000-7fb5ee858000 r-xp 00042000 08:02 40135458 /usr/lib/libGL.so.1.7.0
+7fb5ee858000-7fb5ee86d000 r--p 00061000 08:02 40135458 /usr/lib/libGL.so.1.7.0
+7fb5ee86d000-7fb5ee87b000 r--p 00075000 08:02 40135458 /usr/lib/libGL.so.1.7.0
+7fb5ee87b000-7fb5ee87c000 rw-p 00083000 08:02 40135458 /usr/lib/libGL.so.1.7.0
+7fb5ee87c000-7fb5ee87d000 rw-p 00000000 00:00 0
+7fb5ee87d000-7fb5ee913000 r--p 00000000 08:02 40112277 /usr/lib/libstdc++.so.6.0.28
+7fb5ee913000-7fb5eea0c000 r-xp 00096000 08:02 40112277 /usr/lib/libstdc++.so.6.0.28
+7fb5eea0c000-7fb5eea55000 r--p 0018f000 08:02 40112277 /usr/lib/libstdc++.so.6.0.28
+7fb5eea55000-7fb5eea62000 r--p 001d7000 08:02 40112277 /usr/lib/libstdc++.so.6.0.28
+7fb5eea62000-7fb5eea63000 rw-p 001e4000 08:02 40112277 /usr/lib/libstdc++.so.6.0.28
+7fb5eea63000-7fb5eea66000 rw-p 00000000 00:00 0
+7fb5eea66000-7fb5eeaf3000 r--p 00000000 08:02 40137535 /usr/lib/libQt5Core.so.5.14.2
+7fb5eeaf3000-7fb5eedec000 r-xp 0008d000 08:02 40137535 /usr/lib/libQt5Core.so.5.14.2
+7fb5eedec000-7fb5eef8c000 r--p 00386000 08:02 40137535 /usr/lib/libQt5Core.so.5.14.2
+7fb5eef8c000-7fb5eef9a000 r--p 00525000 08:02 40137535 /usr/lib/libQt5Core.so.5.14.2
+7fb5eef9a000-7fb5eef9b000 rw-p 00533000 08:02 40137535 /usr/lib/libQt5Core.so.5.14.2
+7fb5eef9b000-7fb5eef9f000 rw-p 00000000 00:00 0
+7fb5eef9f000-7fb5ef082000 r--p 00000000 08:02 40137569 /usr/lib/libQt5Gui.so.5.14.2
+7fb5ef082000-7fb5ef532000 r-xp 000e3000 08:02 40137569 /usr/lib/libQt5Gui.so.5.14.2
+7fb5ef532000-7fb5ef62a000 r--p 00593000 08:02 40137569 /usr/lib/libQt5Gui.so.5.14.2
+7fb5ef62a000-7fb5ef63e000 r--p 0068a000 08:02 40137569 /usr/lib/libQt5Gui.so.5.14.2
+7fb5ef63e000-7fb5ef644000 rw-p 0069e000 08:02 40137569 /usr/lib/libQt5Gui.so.5.14.2
+7fb5ef644000-7fb5ef64b000 rw-p 00000000 00:00 0
+7fb5ef64b000-7fb5ef79a000 r--p 00000000 08:02 40137615 /usr/lib/libQt5Widgets.so.5.14.2
+7fb5ef79a000-7fb5efb5e000 r-xp 0014f000 08:02 40137615 /usr/lib/libQt5Widgets.so.5.14.2
+7fb5efb5e000-7fb5efcb7000 r--p 00513000 08:02 40137615 /usr/lib/libQt5Widgets.so.5.14.2
+7fb5efcb7000-7fb5efcb8000 ---p 0066c000 08:02 40137615 /usr/lib/libQt5Widgets.so.5.14.2
+7fb5efcb8000-7fb5efcea000 r--p 0066c000 08:02 40137615 /usr/lib/libQt5Widgets.so.5.14.2
+7fb5efcea000-7fb5efceb000 rw-p 0069e000 08:02 40137615 /usr/lib/libQt5Widgets.so.5.14.2
+7fb5efceb000-7fb5efcec000 r--p 00000000 08:02 40503763 /usr/share/locale/en/LC_MESSAGES/kjobwidgets5_qt.qm
+7fb5efcec000-7fb5efced000 r--p 00000000 08:02 40503759 /usr/share/locale/en/LC_MESSAGES/kwidgetsaddons5_qt.qm
+7fb5efced000-7fb5efcee000 r--p 00000000 08:02 40503759 /usr/share/locale/en/LC_MESSAGES/kwidgetsaddons5_qt.qm
+7fb5efcee000-7fb5efd2e000 rw-p 00000000 00:00 0
+7fb5efd2e000-7fb5efd34000 r--p 00000000 08:02 41950233 /usr/lib/python3.8/site-packages/PyQt5/sip.cpython-38-x86_64-linux-gnu.so
+7fb5efd34000-7fb5efd49000 r-xp 00006000 08:02 41950233 /usr/lib/python3.8/site-packages/PyQt5/sip.cpython-38-x86_64-linux-gnu.so
+7fb5efd49000-7fb5efd50000 r--p 0001b000 08:02 41950233 /usr/lib/python3.8/site-packages/PyQt5/sip.cpython-38-x86_64-linux-gnu.so
+7fb5efd50000-7fb5efd51000 ---p 00022000 08:02 41950233 /usr/lib/python3.8/site-packages/PyQt5/sip.cpython-38-x86_64-linux-gnu.so
+7fb5efd51000-7fb5efd52000 r--p 00022000 08:02 41950233 /usr/lib/python3.8/site-packages/PyQt5/sip.cpython-38-x86_64-linux-gnu.so
+7fb5efd52000-7fb5efd54000 rw-p 00023000 08:02 41950233 /usr/lib/python3.8/site-packages/PyQt5/sip.cpython-38-x86_64-linux-gnu.so
+7fb5efd54000-7fb5efe7a000 r--p 00000000 08:02 41950272 /usr/lib/python3.8/site-packages/PyQt5/QtWidgets.abi3.so
+7fb5efe7a000-7fb5f0108000 r-xp 00126000 08:02 41950272 /usr/lib/python3.8/site-packages/PyQt5/QtWidgets.abi3.so
+7fb5f0108000-7fb5f0224000 r--p 003b4000 08:02 41950272 /usr/lib/python3.8/site-packages/PyQt5/QtWidgets.abi3.so
+7fb5f0224000-7fb5f0243000 r--p 004cf000 08:02 41950272 /usr/lib/python3.8/site-packages/PyQt5/QtWidgets.abi3.so
+7fb5f0243000-7fb5f0291000 rw-p 004ee000 08:02 41950272 /usr/lib/python3.8/site-packages/PyQt5/QtWidgets.abi3.so
+7fb5f0291000-7fb5f02d1000 rw-p 00000000 00:00 0
+7fb5f02d1000-7fb5f02d2000 r--p 00000000 08:02 40641819 /usr/lib/python3.8/lib-dynload/_heapq.cpython-38-x86_64-linux-gnu.so
+7fb5f02d2000-7fb5f02d5000 r-xp 00001000 08:02 40641819 /usr/lib/python3.8/lib-dynload/_heapq.cpython-38-x86_64-linux-gnu.so
+7fb5f02d5000-7fb5f02d8000 r--p 00004000 08:02 40641819 /usr/lib/python3.8/lib-dynload/_heapq.cpython-38-x86_64-linux-gnu.so
+7fb5f02d8000-7fb5f02d9000 r--p 00006000 08:02 40641819 /usr/lib/python3.8/lib-dynload/_heapq.cpython-38-x86_64-linux-gnu.so
+7fb5f02d9000-7fb5f02da000 rw-p 00007000 08:02 40641819 /usr/lib/python3.8/lib-dynload/_heapq.cpython-38-x86_64-linux-gnu.so
+7fb5f02da000-7fb5f045a000 rw-p 00000000 00:00 0
+7fb5f045a000-7fb5f0740000 r--p 00000000 08:02 40167336 /usr/lib/locale/locale-archive
+7fb5f0740000-7fb5f0743000 rw-p 00000000 00:00 0
+7fb5f0743000-7fb5f0752000 r--p 00000000 08:02 40111469 /usr/lib/libm-2.31.so
+7fb5f0752000-7fb5f07ee000 r-xp 0000f000 08:02 40111469 /usr/lib/libm-2.31.so
+7fb5f07ee000-7fb5f0887000 r--p 000ab000 08:02 40111469 /usr/lib/libm-2.31.so
+7fb5f0887000-7fb5f0888000 r--p 00143000 08:02 40111469 /usr/lib/libm-2.31.so
+7fb5f0888000-7fb5f0889000 rw-p 00144000 08:02 40111469 /usr/lib/libm-2.31.so
+7fb5f0889000-7fb5f088b000 rw-p 00000000 00:00 0
+7fb5f088b000-7fb5f088c000 r--p 00000000 08:02 40111512 /usr/lib/libutil-2.31.so
+7fb5f088c000-7fb5f088d000 r-xp 00001000 08:02 40111512 /usr/lib/libutil-2.31.so
+7fb5f088d000-7fb5f088e000 r--p 00002000 08:02 40111512 /usr/lib/libutil-2.31.so
+7fb5f088e000-7fb5f088f000 r--p 00002000 08:02 40111512 /usr/lib/libutil-2.31.so
+7fb5f088f000-7fb5f0890000 rw-p 00003000 08:02 40111512 /usr/lib/libutil-2.31.so
+7fb5f0890000-7fb5f0891000 r--p 00000000 08:02 40111463 /usr/lib/libdl-2.31.so
+7fb5f0891000-7fb5f0892000 r-xp 00001000 08:02 40111463 /usr/lib/libdl-2.31.so
+7fb5f0892000-7fb5f0893000 r--p 00002000 08:02 40111463 /usr/lib/libdl-2.31.so
+7fb5f0893000-7fb5f0894000 r--p 00002000 08:02 40111463 /usr/lib/libdl-2.31.so
+7fb5f0894000-7fb5f0895000 rw-p 00003000 08:02 40111463 /usr/lib/libdl-2.31.so
+7fb5f0895000-7fb5f089c000 r--p 00000000 08:02 40111497 /usr/lib/libpthread-2.31.so
+7fb5f089c000-7fb5f08ac000 r-xp 00007000 08:02 40111497 /usr/lib/libpthread-2.31.so
+7fb5f08ac000-7fb5f08b1000 r--p 00017000 08:02 40111497 /usr/lib/libpthread-2.31.so
+7fb5f08b1000-7fb5f08b2000 r--p 0001b000 08:02 40111497 /usr/lib/libpthread-2.31.so
+7fb5f08b2000-7fb5f08b3000 rw-p 0001c000 08:02 40111497 /usr/lib/libpthread-2.31.so
+7fb5f08b3000-7fb5f08b7000 rw-p 00000000 00:00 0
+7fb5f08b7000-7fb5f0914000 r--p 00000000 08:02 40133817 /usr/lib/libpython3.8.so.1.0
+7fb5f0914000-7fb5f0b2f000 r-xp 0005d000 08:02 40133817 /usr/lib/libpython3.8.so.1.0
+7fb5f0b2f000-7fb5f0c19000 r--p 00278000 08:02 40133817 /usr/lib/libpython3.8.so.1.0
+7fb5f0c19000-7fb5f0c1f000 r--p 00361000 08:02 40133817 /usr/lib/libpython3.8.so.1.0
+7fb5f0c1f000-7fb5f0c57000 rw-p 00367000 08:02 40133817 /usr/lib/libpython3.8.so.1.0
+7fb5f0c57000-7fb5f0c77000 rw-p 00000000 00:00 0
+7fb5f0c77000-7fb5f0c9c000 r--p 00000000 08:02 40111454 /usr/lib/libc-2.31.so
+7fb5f0c9c000-7fb5f0de8000 r-xp 00025000 08:02 40111454 /usr/lib/libc-2.31.so
+7fb5f0de8000-7fb5f0e33000 r--p 00171000 08:02 40111454 /usr/lib/libc-2.31.so
+7fb5f0e33000-7fb5f0e36000 r--p 001bb000 08:02 40111454 /usr/lib/libc-2.31.so
+7fb5f0e36000-7fb5f0e39000 rw-p 001be000 08:02 40111454 /usr/lib/libc-2.31.so
+7fb5f0e39000-7fb5f0e3d000 rw-p 00000000 00:00 0
+7fb5f0e3d000-7fb5f0e3e000 r--p 00000000 08:02 45101296 /usr/share/qt/translations/qt_en.qm
+7fb5f0e3e000-7fb5f0e3f000 r--p 00000000 08:02 45101296 /usr/share/qt/translations/qt_en.qm
+7fb5f0e3f000-7fb5f0e40000 r--p 00000000 08:02 40503758 /usr/share/locale/en/LC_MESSAGES/kcoreaddons5_qt.qm
+7fb5f0e40000-7fb5f0e44000 r--p 00000000 08:02 40641861 /usr/lib/python3.8/lib-dynload/pyexpat.cpython-38-x86_64-linux-gnu.so
+7fb5f0e44000-7fb5f0e4b000 r-xp 00004000 08:02 40641861 /usr/lib/python3.8/lib-dynload/pyexpat.cpython-38-x86_64-linux-gnu.so
+7fb5f0e4b000-7fb5f0e4e000 r--p 0000b000 08:02 40641861 /usr/lib/python3.8/lib-dynload/pyexpat.cpython-38-x86_64-linux-gnu.so
+7fb5f0e4e000-7fb5f0e4f000 ---p 0000e000 08:02 40641861 /usr/lib/python3.8/lib-dynload/pyexpat.cpython-38-x86_64-linux-gnu.so
+7fb5f0e4f000-7fb5f0e50000 r--p 0000e000 08:02 40641861 /usr/lib/python3.8/lib-dynload/pyexpat.cpython-38-x86_64-linux-gnu.so
+7fb5f0e50000-7fb5f0e52000 rw-p 0000f000 08:02 40641861 /usr/lib/python3.8/lib-dynload/pyexpat.cpython-38-x86_64-linux-gnu.so
+7fb5f0e52000-7fb5f0e56000 r--p 00000000 08:02 40641816 /usr/lib/python3.8/lib-dynload/_elementtree.cpython-38-x86_64-linux-gnu.so
+7fb5f0e56000-7fb5f0e5f000 r-xp 00004000 08:02 40641816 /usr/lib/python3.8/lib-dynload/_elementtree.cpython-38-x86_64-linux-gnu.so
+7fb5f0e5f000-7fb5f0e63000 r--p 0000d000 08:02 40641816 /usr/lib/python3.8/lib-dynload/_elementtree.cpython-38-x86_64-linux-gnu.so
+7fb5f0e63000-7fb5f0e64000 r--p 00010000 08:02 40641816 /usr/lib/python3.8/lib-dynload/_elementtree.cpython-38-x86_64-linux-gnu.so
+7fb5f0e64000-7fb5f0e66000 rw-p 00011000 08:02 40641816 /usr/lib/python3.8/lib-dynload/_elementtree.cpython-38-x86_64-linux-gnu.so
+7fb5f0e66000-7fb5f0ea6000 rw-p 00000000 00:00 0
+7fb5f0ea6000-7fb5f0ea7000 r--p 00000000 08:02 40111449 /usr/lib/libSegFault.so
+7fb5f0ea7000-7fb5f0eaa000 r-xp 00001000 08:02 40111449 /usr/lib/libSegFault.so
+7fb5f0eaa000-7fb5f0eab000 r--p 00004000 08:02 40111449 /usr/lib/libSegFault.so
+7fb5f0eab000-7fb5f0eac000 r--p 00004000 08:02 40111449 /usr/lib/libSegFault.so
+7fb5f0eac000-7fb5f0ead000 rw-p 00005000 08:02 40111449 /usr/lib/libSegFault.so
+7fb5f0ead000-7fb5f0eaf000 rw-p 00000000 00:00 0
+7fb5f0eaf000-7fb5f0eb1000 r--p 00000000 08:02 40111443 /usr/lib/ld-2.31.so
+7fb5f0eb1000-7fb5f0ed1000 r-xp 00002000 08:02 40111443 /usr/lib/ld-2.31.so
+7fb5f0ed1000-7fb5f0ed9000 r--p 00022000 08:02 40111443 /usr/lib/ld-2.31.so
+7fb5f0ed9000-7fb5f0eda000 r--p 00000000 08:02 40503758 /usr/share/locale/en/LC_MESSAGES/kcoreaddons5_qt.qm
+7fb5f0eda000-7fb5f0edb000 r--p 0002a000 08:02 40111443 /usr/lib/ld-2.31.so
+7fb5f0edb000-7fb5f0edc000 rw-p 0002b000 08:02 40111443 /usr/lib/ld-2.31.so
+7fb5f0edc000-7fb5f0edd000 rw-p 00000000 00:00 0
+7ffe79144000-7ffe79165000 rw-p 00000000 00:00 0 [stack]
+7ffe791d9000-7ffe791dc000 r--p 00000000 00:00 0 [vvar]
+7ffe791dc000-7ffe791dd000 r-xp 00000000 00:00 0 [vdso]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0 [vsyscall]

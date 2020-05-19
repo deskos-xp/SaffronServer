@@ -1,26 +1,12 @@
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 274-883-122
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:25] "[37mGET /admin/new HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:25] "[37mPOST /department/new HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:26] "[37mPOST /address/new HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:27] "[37mPOST /user/new HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:27] "[37mGET /user/update/1/add/department/1 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:28] "[37mget /user/update/1/add/address/1 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:29] "[37mPOST /vendor/new HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:29] "[37mPOST /manufacturer/new HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:30] "[37mPOST /brand/new HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:30] "[37mGET /vendor/update/1/add/address/1 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:31] "[37mGET /manufacturer/update/1/add/address/1 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:31] "[37mGET /brand/update/1/add/address/1 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:32] "[37mPOST /product/new HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:32] "[37mGET /product/update/1/add/manufacturer/1 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:33] "[37mGET /product/update/1/add/brand/1 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:33] "[37mGET /product/update/1/add/department/1 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:34] "[37mGET /product/update/1/add/vendor/1 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:35] "[37mPOST /productCount/new HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:35] "[37mGET /productCount/update/1/add/product/1 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:36] "[37mPOST /productCount/update/1 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:36] "[37mPOST /productCount/get HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:37] "[37mPOST /ledger/new HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:37] "[37mget /ledger/update/1/add/user/1 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [13/May/2020 08:59:38] "[37mget /ledger/update/1/add/productCount/1 HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [19/May/2020 11:50:54] "[37mPOST /user/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [19/May/2020 11:50:54] "[37mPOST /brand/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [19/May/2020 11:50:55] "[37mPOST /department/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [19/May/2020 11:50:55] "[37mPOST /vendor/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [19/May/2020 11:50:55] "[37mPOST /manufacturer/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [19/May/2020 11:50:58] "[37mPOST /product/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [19/May/2020 11:51:02] "[33mGET /product/get/12/upc_image HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [19/May/2020 11:51:02] "[33mGET /product/get/12/product_image HTTP/1.1[0m" 404 -
+INFO:root:user is uploading ean13 for product ID'd by 12
+INFO:werkzeug:127.0.0.1 - - [19/May/2020 11:51:03] "[37mGET /product/barcode/12/ean13 HTTP/1.1[0m" 200 -

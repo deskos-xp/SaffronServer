@@ -14,6 +14,54 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="2" column="1">
+    <widget class="QFrame" name="frame_2">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
+       <widget class="QSplitter" name="splitter">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <widget class="QPushButton" name="back">
+         <property name="text">
+          <string>Back</string>
+         </property>
+        </widget>
+        <widget class="QSpinBox" name="page">
+         <property name="toolTip">
+          <string>page number for limit</string>
+         </property>
+         <property name="maximum">
+          <number>999999999</number>
+         </property>
+        </widget>
+        <widget class="QSpinBox" name="limit">
+         <property name="toolTip">
+          <string>amount of items per search</string>
+         </property>
+         <property name="maximum">
+          <number>999999999</number>
+         </property>
+         <property name="value">
+          <number>15</number>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="next">
+         <property name="text">
+          <string>Next</string>
+         </property>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item row="0" column="1">
     <widget class="QFrame" name="frame">
      <property name="frameShape">
@@ -136,7 +184,7 @@
         <x>0</x>
         <y>0</y>
         <width>624</width>
-        <height>480</height>
+        <height>448</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
@@ -147,52 +195,14 @@
      </widget>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QFrame" name="frame_2">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+   <item row="4" column="1">
+    <widget class="QProgressBar" name="progressBar">
+     <property name="maximum">
+      <number>0</number>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+     <property name="value">
+      <number>0</number>
      </property>
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="0">
-       <widget class="QSplitter" name="splitter">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <widget class="QPushButton" name="back">
-         <property name="text">
-          <string>Back</string>
-         </property>
-        </widget>
-        <widget class="QSpinBox" name="page">
-         <property name="toolTip">
-          <string>page number for limit</string>
-         </property>
-         <property name="maximum">
-          <number>999999999</number>
-         </property>
-        </widget>
-        <widget class="QSpinBox" name="limit">
-         <property name="toolTip">
-          <string>amount of items per search</string>
-         </property>
-         <property name="maximum">
-          <number>999999999</number>
-         </property>
-         <property name="value">
-          <number>15</number>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="next">
-         <property name="text">
-          <string>Next</string>
-         </property>
-        </widget>
-       </widget>
-      </item>
-     </layout>
     </widget>
    </item>
   </layout>

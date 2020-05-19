@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QWidget
 import requests,os,sys,json,ast
 
 class NewProductWorkerSignals(QObject):
-    finished:pyqtSignal=pyqtSignal(bool)
+    finished:pyqtSignal=pyqtSignal()
     killMe:bool=False
     hasResponse:pyqtSignal=pyqtSignal(requests.Response)
     hasProductId:pyqtSignal=pyqtSignal(int)
@@ -41,3 +41,4 @@ class NewProductWorker(QRunnable):
         except Exception as e:
             self.signals.hasError.emit(e)
             print(e)
+        self.signals.finished.emit()

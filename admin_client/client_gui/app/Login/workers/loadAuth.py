@@ -5,10 +5,11 @@ from PyQt5.QtCore import QRunnable,QObject,pyqtSignal
 class LoadAuthSignals(QObject):
     finished:pyqtSignal=pyqtSignal()
     hasError:pyqtSignal=pyqtSignal(Exception)
+    hasField:pyqtSignal=pyqtSignal(str,str)
+    rememberMe:pyqtSignal=pyqtSignal(bool)
 
 class LoadAuth(QRunnable):
-    def __init__(self,widget,credfile):
-        self.widget=widget
+    def __init__(self,credfile):
         self.credfile=credfile
         self.signals=LoadAuthSignals()
         super(LoadAuth,self).__init__()
@@ -19,8 +20,8 @@ class LoadAuth(QRunnable):
                 self.auth=json.load(fd)
                 for k in self.auth.keys():
                     if self.auth.get(k) != None:
-                        getattr(self.widget,k).setText(self.auth.get(k))
-                        self.widget.rememberMe.setChecked(True)
+                        self.signals.hasField.emit(k,self.auth.get(k))
+                        self.signals.rememberMe.emit(True)
         except Exception as e:
             print(e)
             self.signals.hasError.emit(e)

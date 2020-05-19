@@ -62,6 +62,7 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <addaction name="actionLogout"/>
     <addaction name="action_Exit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -100,6 +101,11 @@
   <action name="actionEdit_DB">
    <property name="text">
     <string>&amp;Edit DB</string>
+   </property>
+  </action>
+  <action name="actionLogout">
+   <property name="text">
+    <string>&amp;Logout</string>
    </property>
   </action>
  </widget>

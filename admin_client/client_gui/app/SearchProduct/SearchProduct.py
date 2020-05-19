@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QWidget,QListView,QCheckBox
-from PyQt5.QtCore import QCoreApplication,QObject,QRunnable,QThreadPool,QThread,pyqtSignal,pyqtSlot,QTimer
+from PyQt5.QtCore import QCoreApplication,QObject,QRunnable,QThreadPool,QThread,pyqtSignal,pyqtSlot,QTimer,QModelIndex
 from PyQt5 import uic
 import ast,json,os,sys,enum
 
@@ -30,8 +30,15 @@ class SearchProduct(QWidget):
         
         self.widget.page.valueChanged.connect(self.searchWrap)
         self.widget.limit.valueChanged.connect(self.searchWrap)
+    
+        self.widget.progressBar.hide()
+        self.widget.progressBar.setMaximum(self.widget.limit.value())
+
+        self.widget.back.clicked.connect(self.SearchWrapMinus)
+        self.widget.next.clicked.connect(self.SearchWrapPlus)
 
         self.qtp=QThreadPool.globalInstance() 
+        self.backControlled()
 
         ''' 
         self.updateTimer:QTimer=QTimer()
@@ -43,18 +50,47 @@ class SearchProduct(QWidget):
     def updateModel(self):
         print("updating model {count}".format(**dict(count=len(self.model.items))))
         self.model.layoutChanged.emit()
-        '''
+    '''
+    @pyqtSlot()
+    def backControlled(self):
+        if self.widget.page.value() < 1:
+            self.widget.back.setEnabled(False)
+        else:
+            self.widget.back.setEnabled(True)
+    
+    @pyqtSlot()
+    def nextControlled(self,data):
+        print(data)
+        if not data:
+            self.widget.next.setEnabled(False)
+            self.widget.page.setValue(self.widget.page.value()-1)
+        else:
+            self.widget.next.setEnabled(True)
+
+    @pyqtSlot()
+    def SearchWrapMinus(self):
+        self.widget.page.setValue(self.widget.page.value()-1)
+        self.searchWrap()
+
+    @pyqtSlot()
+    def SearchWrapPlus(self):
+        self.widget.page.setValue(self.widget.page.value()+1)
+        self.searchWrap()
+
+    @pyqtSlot()
     def searchWrap(self):
         #so debugging can be perf'd
-        print(len(self.model.items))
+        #self.progressBar.setMaximum(self.widget.limit.value())
+        #print(len(self.model.items))
+        self.backControlled()
         self.search()
 
-
+    @pyqtSlot(QModelIndex)
     def showData(self,item):
         if self.model.items[item.row()] in [None,{}]:
             self.clearModel()
         else:
-            print(item)
+            #print(item)
             dialog=DataViewDialog(self.auth,self.model.items[item.row()],self)
             #dialog.exec_()
             #now its time for the dataview dialog to be made
@@ -66,6 +102,7 @@ class SearchProduct(QWidget):
             getattr(self.widget,'{n}_le'.format(**dict(n=self.sender().objectName()))).setEnabled(state)
 
     def search(self):
+        self.widget.progressBar.show()
         self.clearModel()
         #print(mode(self.checked),self.checked)
         get=mode(self.checked)
@@ -99,6 +136,9 @@ class SearchProduct(QWidget):
             getWorker.signals.finished.connect(self.stateProgress)
             self.qtp.start(getWorker)
 
+        #self.nextControlled(self.model.items)    
+
+    @pyqtSlot()
     def clearModel(self):
         self.model.items.clear()
         self.model.layoutChanged.emit()
@@ -114,8 +154,11 @@ class SearchProduct(QWidget):
             # Clear the selection (as it is no longer valid).
             self.widget.listView.clearSelection()
 
+    @pyqtSlot(dict)
     def itemUpdate(self,data):
-        #print(data,"----------------->")
+        print("----------------->",self.widget.progressBar.value())
+        self.widget.progressBar.setValue(self.widget.progressBar.value()+1)
+        
         if data == {}:
             self.model.items.clear()
             self.model.layoutChanged.emit()
@@ -123,8 +166,14 @@ class SearchProduct(QWidget):
             self.model.items.append(data)
             self.model.layoutChanged.emit()
 
+    @pyqtSlot(Exception)
     def displayError(self,error):
         print(error)
 
+    @pyqtSlot()
     def stateProgress(self):
+        self.widget.progressBar.hide()
+        self.widget.progressBar.setValue(0)
         print(self.sender(),"state complete")
+        self.nextControlled(self.model.items)    
+

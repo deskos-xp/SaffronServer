@@ -2,7 +2,7 @@ from PyQt5 import uic
 from PyQt5.QtCore import QThreadPool,QObject,QRunnable,pyqtSignal,pyqtSlot
 from PyQt5.QtWidgets import QWidget,QComboBox,QFileDialog
 from PyQt5.QtGui import QPixmap
-
+from PyQt5.QtWidgets import QProgressBar
 
 import json,ast,os
 from dotenv import load_dotenv
@@ -54,6 +54,8 @@ class NewProduct(QWidget):
         self.widget.nav_upc_img.clicked.connect(self.getUPCImg)
 
         self.widget.save.clicked.connect(self.construct_and_send)
+        
+        self.widget.progressBar.hide()
 
         self.widget.product_img_path.textChanged.connect(self.tryPath)
         self.widget.upc_img_path.textChanged.connect(self.tryPath)
@@ -99,29 +101,38 @@ class NewProduct(QWidget):
         self.widget.upc_img_path.setText(path)
 
     def construct_and_send(self):
+        self.widget.progressBar.show()
+
+        self.widget.progressBar.setMaximum(0)
+        self.widget.progressBar.setMaximum(self.widget.progressBar.maximum()+1)
         newProductData=self.constructNewProductData()
         #make new product worker
         response=NewProductWorker(self.auth,newProductData)
         response.signals.hasProductId.connect(self.updateProduct)
+        response.signals.finished.connect(self.status)
         #response.signals.hasResponse.connect(lambda x:print(x))
         self.qtp.start(response)
         
     def updateProduct(self,product_id):
+        self.widget.progressBar.setMaximum(self.widget.progressBar.maximum()+1)
         manufacturer_uri=self.constructUpdateAdd(self.widget.manufacturer,"product",product_id)
         m_worker=NewProductUpdateWorker(self.auth,manufacturer_uri)
         m_worker.signals.hasError.connect(self.errorHandler)
         m_worker.signals.finished.connect(self.status)
 
+        self.widget.progressBar.setMaximum(self.widget.progressBar.maximum()+1)
         vendor_uri=self.constructUpdateAdd(self.widget.vendor,"product",product_id)
         v_worker=NewProductUpdateWorker(self.auth,vendor_uri)
         v_worker.signals.hasError.connect(self.errorHandler)
         v_worker.signals.finished.connect(self.status)
 
+        self.widget.progressBar.setMaximum(self.widget.progressBar.maximum()+1)
         brand_uri=self.constructUpdateAdd(self.widget.brand,"product",product_id)
         b_worker=NewProductUpdateWorker(self.auth,brand_uri)
         b_worker.signals.hasError.connect(self.errorHandler)
         b_worker.signals.finished.connect(self.status)
 
+        self.widget.progressBar.setMaximum(self.widget.progressBar.maximum()+1)
         department_uri=self.constructUpdateAdd(self.widget.department,"product",product_id)
         d_worker=NewProductUpdateWorker(self.auth,department_uri)
         d_worker.signals.hasError.connect(self.errorHandler)
@@ -129,6 +140,7 @@ class NewProduct(QWidget):
 
         #upload images
         if self.product_img != None:
+            self.widget.progressBar.setMaximum(self.widget.progressBar.maximum()+1)
             product_img_worker=UploaderWorker(self.auth,"product_image",self.product_img,product_id)
             product_img_worker.signals.uploaded.connect(self.status) 
             product_img_worker.signals.finished.connect(self.status)
@@ -136,6 +148,7 @@ class NewProduct(QWidget):
             self.qtp.start(product_img_worker)
 
         if self.upc_img != None:
+            self.widget.progressBar.setMaximum(self.widget.progressBar.maximum()+1)
             upc_img_worker=UploaderWorker(self.auth,"upc_image",self.upc_img,product_id)
             upc_img_worker.signals.uploaded.connect(self.status) 
             upc_img_worker.signals.finished.connect(self.status)
@@ -154,6 +167,9 @@ class NewProduct(QWidget):
         print(response,WHAT)
 
     def status(self):
+        self.widget.progressBar.setValue(self.widget.progressBar.value()+1)
+        if self.widget.progressBar.value() >= self.widget.progressBar.maximum():
+            self.widget.progressBar.hide()
         print(self.sender(),"stage completed!")
 
     def errorHandler(self,error):

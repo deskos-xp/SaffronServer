@@ -102,7 +102,9 @@ class Product(db.Model,AsDict):
             upc="{}",
             home_code="{}",
             upc_image="{}",
-            product_image="{}"            
+            product_image="{}",
+            weightUnit={},
+            priceUnit={}
             )
         """.format(
                 self.name,
@@ -122,7 +124,9 @@ class Product(db.Model,AsDict):
                 self.upc,
                 self.home_code,
                 self.upc_image,
-                self.product_image
+                self.product_image,
+                self.weightUnit,
+                self.priceUnit
                 )
     def defaultdict():
         return dict(
@@ -137,6 +141,8 @@ class Product(db.Model,AsDict):
                 departments=self.departments,
                 id=self.id,
                 price=self.price,
+                priceUnit=self.priceUnit,
+                weightUnit=self.weightUnit,
                 weight=self.weight,
                 comment=self.comment,
                 upc=self.upc,
@@ -157,6 +163,8 @@ class ProductSchema(ma.SQLAlchemySchema):
     brands=ma.List(ma.Nested(BrandSchema))
     #department_id=ma.auto_field()
     departments=ma.List(ma.Nested(DepartmentSchema))
+    weightUnit=ma.auto_field()
+    priceUnit=ma.auto_field()
     price=ma.auto_field()
     weight=ma.auto_field()
     comment=ma.auto_field()

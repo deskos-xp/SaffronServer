@@ -11,6 +11,7 @@ class Login(QWidget):
     auth:dict=dict(username=None,password=None,server_address=None)
     widget:QWidget=None
     loggedIn:pyqtSignal=pyqtSignal(dict)
+    logInFail:pyqtSignal=pyqtSignal()
     credfile="creds.json"
     def __init__(self,widget):
         super(Login,self).__init__()
@@ -25,20 +26,36 @@ class Login(QWidget):
         
         self.qtp=QThreadPool.globalInstance() 
         
-        l=LoadAuth(self.widget,self.credfile)
-        self.qtp.start(l)
+        self.l=LoadAuth(self.credfile)
+        self.l.signals.hasField.connect(self.authLoaded)
+        self.l.signals.rememberMe.connect(self.rememberMe)
+        QThreadPool.globalInstance().start(self.l)
 
+
+    @pyqtSlot(bool)
+    def rememberMe(self,state):
+        self.widget.rememberMe.setChecked(state)
+
+    @pyqtSlot(str,str)
+    def authLoaded(self,widgetName,data):
+        print(data,widgetName)
+        getattr(self.widget,widgetName).setText(data)
+
+    @pyqtSlot(Exception)
     def notify(self,error):
         print(error)
 
+
+    @pyqtSlot(bool)
     def handleSave(self,state):
         if state == False:
             a=dict(self.auth)
             for i in a.keys():
                 a[i]=None
             sauth=SaveAuth(a,self.credfile)
-            self.qtp.start(sauth)
-
+            QThreadPool.globalInstance().start(sauth)
+    
+    @pyqtSlot()
     def attemptLogin(self):
         if self.widget.rememberMe.isChecked() == True:
             sauth=SaveAuth(self.auth,self.credfile)
@@ -46,13 +63,15 @@ class Login(QWidget):
         self.worker=Worker(self.auth)
         self.worker.signals.state.connect(self.loginState)
         self.worker.signals.hasError.connect(self.notify)
-        self.qtp.start(self.worker)
+        QThreadPool.globalInstance().start(self.worker)
 
+    @pyqtSlot(bool)
     def loginState(self,boolean):
         print(boolean)
         if boolean == True:
             self.loggedIn.emit(self.auth)
-
+        else:
+            self.logInFail.emit()
     @pyqtSlot(str)
     def saveLogin(self,text):
         self.auth[self.sender().objectName()]=text
