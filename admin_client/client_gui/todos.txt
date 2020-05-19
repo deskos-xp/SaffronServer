@@ -8,4 +8,12 @@ rewrite main app to use QThreadPool
 		-- widget search grid [module like delete dialog] <<<<<<<< priority
 			--create a dialog to view the data stored in the listView's data model
 				--make it qthreadable
+
+				--add a worker thread to get generated upc image and display it in dialog
+				--need to get aspect ratio's correct
 		--login page needs enter key mapped to login button
+
+add dialogs and menus to filemenu
+add warning stylesheets to ui's and prevent save/search until all needed fields have been filled
+add delete dialog
+create new edit dialog

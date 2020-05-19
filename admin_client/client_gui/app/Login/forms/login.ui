@@ -25,7 +25,7 @@
         </size>
        </property>
        <property name="text">
-        <string>Login</string>
+        <string>&amp;Login</string>
        </property>
       </widget>
      </item>
