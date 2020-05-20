@@ -60,7 +60,7 @@ class SearchProduct(QWidget):
     
     @pyqtSlot()
     def nextControlled(self,data):
-        print(data)
+        #print(data)
         if not data:
             self.widget.next.setEnabled(False)
             self.widget.page.setValue(self.widget.page.value()-1)
@@ -91,7 +91,18 @@ class SearchProduct(QWidget):
             self.clearModel()
         else:
             #print(item)
-            dialog=DataViewDialog(self.auth,self.model.items[item.row()],self)
+            pkt=dict()
+            it=dict(self.model.items[item.row()])
+            for removeable in self.model.items[item.row()].keys():
+                #print(removeable,"*"*3+" removeable")
+                if removeable in ['departments','vendors','brands','manufacturers']:
+                    print(removeable,"removeable {}".format("*"*30))
+                    it.__delitem__(removeable)
+                    pkt[removeable]=self.model.items[item.row()]
+
+            self.model.items[item.row()]=it
+            print(pkt.keys(),"*/*"*33)
+            dialog=DataViewDialog(self.auth,self.model.items[item.row()],pkt,self)
             #dialog.exec_()
             #now its time for the dataview dialog to be made
         #print(self.model.items[item.row()])

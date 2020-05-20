@@ -24,13 +24,14 @@ class NewProductUpdateWorker(QRunnable):
 
     def run(self):
         try:
-            self.response=self.signals.session.post(self.data,
+            self.response=self.signals.session.get(self.data,
                 auth=(
                     self.auth.get("username"),
                     self.auth.get("password")
                 )
                 )
             if self.response != None:
+                print(self.response.json())
                 self.signals.hasResponse.emit(self.response)
         except Exception as e:
             self.signals.hasError.emit(e)
