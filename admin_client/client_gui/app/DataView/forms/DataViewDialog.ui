@@ -30,22 +30,22 @@
         </property>
         <widget class="QPushButton" name="departments">
          <property name="text">
-          <string>Department</string>
+          <string>&amp;Department</string>
          </property>
         </widget>
         <widget class="QPushButton" name="vendors">
          <property name="text">
-          <string>Vendor</string>
+          <string>&amp;Vendor</string>
          </property>
         </widget>
         <widget class="QPushButton" name="manufacturers">
          <property name="text">
-          <string>Manufacturer</string>
+          <string>&amp;Manufacturer</string>
          </property>
         </widget>
         <widget class="QPushButton" name="brands">
          <property name="text">
-          <string>Brand</string>
+          <string>&amp;Brand</string>
          </property>
         </widget>
        </widget>
