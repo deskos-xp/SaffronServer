@@ -3,24 +3,35 @@ from PyQt5.QtCore import QThreadPool,QObject,pyqtSignal,QRunnable,pyqtSlot,QCore
 from PyQt5.QtWidgets import QTextEdit,QPushButton,QStackedWidget,QMainWindow,QApplication
 import sys
 from .MenuBar.MenuBar import MenuBar
+from PyQt5.QtGui import QIcon,QPixmap,QImage
 
 from ..Login.login import Login 
 from ..NewProduct.NewProduct import NewProduct
 from ..SearchProduct.SearchProduct import SearchProduct
 from ..drm import drm,drmEnum
 from PyQt5.QtCore import QCoreApplication
-
+import json
+from ..Icons import *
 
 class Main(QMainWindow,QObject):
     auth:dict=dict(server_address=None,username=None,password=None)
     EXIT_CODE_REBOOT = 33333333
+    def loadFromAbout(self,file):
+        buff=dict()
+        with open(file,"r") as fd:
+            buff=json.load(fd)
+        return buff
+
+
     def __init__(self):
         super(Main,self).__init__()
         uic.loadUi("app/MainWindow/forms/app.ui",self)
         self.loggin=Login(self.login)
-        self.setWindowTitle("SaffronClient 2")
-        #self.setWindowIcon(Icon(PATH))
-        #self.qtp=QThreadPool.globalInstance()
+        self.setWindowTitle(self.loadFromAbout("app/About/about.json").get("Name"))
+        pix=getProgram_image(self.loadFromAbout("app/About/about.json").get("icon"))
+        
+        icon=QIcon(QPixmap.fromImage(QImage.fromData(pix.read())))
+        self.setWindowIcon(icon)
         self.sb=self.statusBar()
         self.loggin.loggedIn.connect(self.stackChange)
         self.loggin.logInFail.connect(self.logInFailed)
