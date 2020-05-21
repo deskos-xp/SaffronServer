@@ -4,4 +4,4 @@ def getLocalizedPath():
         filename = inspect.getframeinfo(inspect.currentframe()).filename
         path = os.path.dirname(os.path.abspath(filename))
         return filename,path
-
+from . import Icons

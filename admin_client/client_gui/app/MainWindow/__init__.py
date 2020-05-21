@@ -10,6 +10,7 @@ from ..SearchProduct.SearchProduct import SearchProduct
 from ..drm import drm,drmEnum
 from PyQt5.QtCore import QCoreApplication
 
+
 class Main(QMainWindow,QObject):
     auth:dict=dict(server_address=None,username=None,password=None)
     EXIT_CODE_REBOOT = 33333333
