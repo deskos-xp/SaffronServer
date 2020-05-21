@@ -1,0 +1,4 @@
+python-dotenv
+PyQt5
+requests
+colored

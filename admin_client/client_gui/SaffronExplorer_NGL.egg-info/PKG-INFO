@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: SaffronExplorer-NGL
+Version: 0.0.3
+Summary: a tool to access server
+Home-page: https://github.com/deskos-xp/saffronserver
+Author: Karl Josef Wisdom
+Author-email: k.j.hirner.wisdom@gmail.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
