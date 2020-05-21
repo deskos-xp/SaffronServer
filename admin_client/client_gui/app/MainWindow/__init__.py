@@ -37,7 +37,7 @@ class Main(QMainWindow,QObject):
         self.loggin.logInFail.connect(self.logInFailed)
         self.application.currentChanged.connect(self.readyToWork)
         
-        self.menubar=MenuBar(self)        
+        self.menubar=MenuBar(self,self.auth)        
        
         d=drm()
         if d.state == drmEnum.LOCKED:
@@ -59,6 +59,7 @@ class Main(QMainWindow,QObject):
     def stackChange(self,auth:dict):
         self.auth=auth
         self.application.setCurrentIndex(1)
+        self.menubar.auth=auth
 
 '''
 def main():

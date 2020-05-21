@@ -75,8 +75,8 @@
     <property name="title">
      <string>&amp;Edit</string>
     </property>
-    <addaction name="actionDelete_Entities"/>
-    <addaction name="actionEdit_DB"/>
+    <addaction name="actionDelete"/>
+    <addaction name="actionEdit"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -93,12 +93,18 @@
     <string>&amp;About</string>
    </property>
   </action>
-  <action name="actionDelete_Entities">
+  <action name="actionDelete">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
-    <string>&amp;Delete Entities</string>
+    <string>&amp;Delete</string>
    </property>
   </action>
-  <action name="actionEdit_DB">
+  <action name="actionEdit">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>&amp;Edit DB</string>
    </property>
