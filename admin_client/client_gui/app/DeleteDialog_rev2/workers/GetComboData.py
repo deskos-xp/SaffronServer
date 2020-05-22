@@ -31,6 +31,7 @@ class GetComboData(QRunnable):
                     for i in d:
                         if self.name == "address":
                             i['name']="{street_number} {street_name}, {city}, {state} {ZIP}".format(**i)
+                        #i['name']="{TYPE}:{ID}"
                         self.signals.hasItems.emit(i,self.name)
             print(address)
             #self.signals.session.post()
