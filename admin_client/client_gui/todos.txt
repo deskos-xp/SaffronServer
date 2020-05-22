@@ -17,14 +17,14 @@ add dialogs and menus to filemenu
 	--add logout action [done]
 
 
-create about dialog ----------> priority 2
+[done] create about dialog ----------> priority 2
 
 [done] find out why weight unit field is missing from dataViewDialog -----> CRITICAL PRIORITY [god LEVEL] 
 [done] fuck! need to ensure the data for brand,manufacturer,vendor,department reach the server to be stored... too late this morn'!
 add warning stylesheets to ui's and prevent save until all needed fields have been filled
 
-add delete dialog
-create new edit dialog
+[done] add delete dialog
+create new edit dialog -------------> priority 1
 add progress bar to app.ui for progress view for user comfort
 	--new product [done]
 	--searchproduct [done]
