@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QObject,QRunnable,pyqtSignal,pyqtSignal,QThreadPool,pyqtSlot,QModelIndex
 from PyQt5.QtWidgets import QWidget,QDialog,QListView,QStackedWidget,QComboBox,QHeaderView,QTableView
 
-import os,sys,json,ast,requests
+import os,sys,json,ast,requests,re
 from PyQt5 import uic
 from .DeleteDialogModel import DeleteDialogModel
 from .DeleteDialogTableModel import DeleteDialogTableModel
@@ -54,6 +54,23 @@ class DeleteDialog(QDialog):
 
         self.dialog.exec_()
 
+    def regexThisShit(self,text):
+        try:
+            p=re.compile('^\d*:\w*')
+            result=p.match(text)
+            s2=result.group()
+
+            p=re.compile('^\d*:')
+            ID=p.match(s2)
+            ID=int(ID.group()[:-1])
+
+            p=re.compile(':[\w]*')
+            TYPE=p.search(s2).group()
+            TYPE=TYPE[1:]
+            return dict(ID=ID,TYPE=TYPE)
+        except Exception as e:
+            print(e)
+
     def DeleteFromServer(self):
         offspring=self.sender().parent().children()
         for child in offspring:
@@ -62,9 +79,14 @@ class DeleteDialog(QDialog):
                 #clear model
             if type(child) == type(QComboBox()):
                 text=child.currentText()
+                tmp=self.regexThisShit(text)
+                ID=tmp.get('ID')
+                TYPE=tmp.get('TYPE')
+                '''
                 ID=text.split(" - ")[0]
                 TYPE=ID.split(":")[1]
                 ID=ID.split(":")[0]
+                '''
                 del_address="{server_address}/{TYPE}/delete/{ID}".format(**dict(server_address=self.auth.get("server_address"),TYPE=TYPE,ID=ID))
                 #delete worker needs to be made
                 print(del_address)
@@ -107,6 +129,7 @@ class DeleteDialog(QDialog):
     @pyqtSlot(dict,str)
     def updateCombo(self,data,name):
         viewable="{ID}:{name} - {NAME}".format(**dict(ID=data.get("id"),name=name,NAME=data.get("name")))
+        self.regexThisShit(viewable)
         getattr(self.dialog,name).items.addItem(viewable)
         #store data for worker for later 
         #print(name)

@@ -57,6 +57,9 @@
                   <height>45</height>
                  </size>
                 </property>
+                <property name="toolTip">
+                 <string>department that owns that product</string>
+                </property>
                </widget>
               </item>
               <item row="0" column="0">
@@ -82,6 +85,9 @@
                <width>0</width>
                <height>45</height>
               </size>
+             </property>
+             <property name="toolTip">
+              <string>product upc</string>
              </property>
              <property name="placeholderText">
               <string>UPC Code</string>
@@ -115,6 +121,9 @@
                    <height>200</height>
                   </size>
                  </property>
+                 <property name="toolTip">
+                  <string>preview space</string>
+                 </property>
                  <property name="text">
                   <string>product_img</string>
                  </property>
@@ -126,6 +135,9 @@
                  </property>
                 </widget>
                 <widget class="QLineEdit" name="product_img_path">
+                 <property name="toolTip">
+                  <string>type the path to the image</string>
+                 </property>
                  <property name="dragEnabled">
                   <bool>true</bool>
                  </property>
@@ -137,6 +149,9 @@
                  </property>
                 </widget>
                 <widget class="QPushButton" name="nav_product_img">
+                 <property name="toolTip">
+                  <string>get product image</string>
+                 </property>
                  <property name="text">
                   <string>Product Image</string>
                  </property>
@@ -161,6 +176,9 @@
                    <height>200</height>
                   </size>
                  </property>
+                 <property name="toolTip">
+                  <string>preview space</string>
+                 </property>
                  <property name="text">
                   <string>product_upc_image</string>
                  </property>
@@ -172,6 +190,9 @@
                  </property>
                 </widget>
                 <widget class="QLineEdit" name="upc_img_path">
+                 <property name="toolTip">
+                  <string>type the path to the image</string>
+                 </property>
                  <property name="dragEnabled">
                   <bool>true</bool>
                  </property>
@@ -183,6 +204,9 @@
                  </property>
                 </widget>
                 <widget class="QPushButton" name="nav_upc_img">
+                 <property name="toolTip">
+                  <string>get product upc image</string>
+                 </property>
                  <property name="text">
                   <string>UPC Image</string>
                  </property>
@@ -199,6 +223,9 @@
                <width>0</width>
                <height>350</height>
               </size>
+             </property>
+             <property name="toolTip">
+              <string>comments</string>
              </property>
              <property name="tabChangesFocus">
               <bool>true</bool>
@@ -224,6 +251,9 @@
                   <width>0</width>
                   <height>45</height>
                  </size>
+                </property>
+                <property name="toolTip">
+                 <string>brand</string>
                 </property>
                </widget>
               </item>
@@ -251,6 +281,9 @@
                <height>45</height>
               </size>
              </property>
+             <property name="toolTip">
+              <string>Case Count</string>
+             </property>
              <property name="maximum">
               <number>1200</number>
              </property>
@@ -273,6 +306,9 @@
                   <height>45</height>
                  </size>
                 </property>
+                <property name="toolTip">
+                 <string>weight unit</string>
+                </property>
                </widget>
               </item>
               <item row="0" column="1">
@@ -282,6 +318,9 @@
                   <width>0</width>
                   <height>45</height>
                  </size>
+                </property>
+                <property name="toolTip">
+                 <string>weight</string>
                 </property>
                 <property name="maximum">
                  <double>10000000.000000000000000</double>
@@ -298,6 +337,9 @@
                <width>0</width>
                <height>45</height>
               </size>
+             </property>
+             <property name="toolTip">
+              <string>Home code</string>
              </property>
              <property name="placeholderText">
               <string>Home/Module Code</string>
@@ -320,6 +362,9 @@
                   <width>0</width>
                   <height>45</height>
                  </size>
+                </property>
+                <property name="toolTip">
+                 <string>vendor</string>
                 </property>
                </widget>
               </item>
@@ -347,6 +392,9 @@
                <height>45</height>
               </size>
              </property>
+             <property name="toolTip">
+              <string>product name</string>
+             </property>
              <property name="placeholderText">
               <string>Product Name</string>
              </property>
@@ -369,6 +417,9 @@
                   <height>45</height>
                  </size>
                 </property>
+                <property name="toolTip">
+                 <string>price</string>
+                </property>
                 <property name="maximum">
                  <double>100000000.000000000000000</double>
                 </property>
@@ -381,6 +432,9 @@
                   <width>0</width>
                   <height>45</height>
                  </size>
+                </property>
+                <property name="toolTip">
+                 <string>price unit</string>
                 </property>
                </widget>
               </item>
@@ -403,6 +457,9 @@
                   <width>0</width>
                   <height>45</height>
                  </size>
+                </property>
+                <property name="toolTip">
+                 <string>manufacturer</string>
                 </property>
                </widget>
               </item>
