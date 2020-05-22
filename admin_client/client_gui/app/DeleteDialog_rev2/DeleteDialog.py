@@ -54,6 +54,13 @@ class DeleteDialog(QDialog):
 
         self.dialog.exec_()
 
+    def regexThisShit2(self,text):
+        try:
+            p=re.search("(?P<ID>\d*):(?P<TYPE>\w*)",text)
+            return dict(ID=p.group("ID"),TYPE=p.group("TYPE"))
+        except Exception as e:
+            print(e)
+
     def regexThisShit(self,text):
         try:
             p=re.compile('^\d*:\w*')
@@ -71,6 +78,13 @@ class DeleteDialog(QDialog):
         except Exception as e:
             print(e)
 
+    def preRegex(self,text):
+        ID=text.split(" - ")[0]
+        TYPE=ID.split(":")[1]
+        ID=ID.split(":")[0]
+        return dict(ID=ID,TYPE=TYPE)
+
+
     def DeleteFromServer(self):
         offspring=self.sender().parent().children()
         for child in offspring:
@@ -79,14 +93,9 @@ class DeleteDialog(QDialog):
                 #clear model
             if type(child) == type(QComboBox()):
                 text=child.currentText()
-                tmp=self.regexThisShit(text)
+                tmp=self.regexThisShit2(text)
                 ID=tmp.get('ID')
                 TYPE=tmp.get('TYPE')
-                '''
-                ID=text.split(" - ")[0]
-                TYPE=ID.split(":")[1]
-                ID=ID.split(":")[0]
-                '''
                 del_address="{server_address}/{TYPE}/delete/{ID}".format(**dict(server_address=self.auth.get("server_address"),TYPE=TYPE,ID=ID))
                 #delete worker needs to be made
                 print(del_address)
@@ -98,14 +107,12 @@ class DeleteDialog(QDialog):
                 #on worker finished do below
                 self.dialog.accept()
 
-
     @pyqtSlot(requests.Response)
     def responseRecieved(self,response):
         if response.status_code != 200:
             print("it seems that something went wrong")
             print(response)
         self.dialog.accept()
-
 
     def updateViewer(self,index):
         ID=self.sender().currentText().split(" - ")[0]
@@ -114,22 +121,17 @@ class DeleteDialog(QDialog):
         for i in self.datas[TYPE]:
             if i.get('id') and i.get('id') == int(ID):
                 self.models[TYPE].load_data(i)
-                self.models[TYPE].layoutChanged.emit()
-                
-                
+                self.models[TYPE].layoutChanged.emit()        
                 break
-                #self.models[name]
-
 
     @pyqtSlot(QModelIndex)    
     def updateViews(self,item):
         self.dialog.views.setCurrentIndex(item.row())
 
-
     @pyqtSlot(dict,str)
     def updateCombo(self,data,name):
         viewable="{ID}:{name} - {NAME}".format(**dict(ID=data.get("id"),name=name,NAME=data.get("name")))
-        self.regexThisShit(viewable)
+        #print(self.regexThisShit2(viewable))
         getattr(self.dialog,name).items.addItem(viewable)
         #store data for worker for later 
         #print(name)
