@@ -47,10 +47,13 @@ class DataViewSmall(QDialog):
         self.model.layoutChanged.emit()
         address=self.modelList.items[index.row()].get("address")
         if address != None:
-            self.addressViewModel.load_data(address[0])
-            self.dialog.addressView.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-            self.dialog.addressView.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-            self.addressViewModel.layoutChanged.emit()
+            try:
+                self.addressViewModel.load_data(address[0])
+                self.dialog.addressView.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+                self.dialog.addressView.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+                self.addressViewModel.layoutChanged.emit()
+            except Exception as e:
+                print(e)
 
         self.dialog.tabWidget.setCurrentIndex(1)
         '''
