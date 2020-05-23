@@ -26,21 +26,12 @@ class MenuBar:
         self.mainWindow.actionEdit.setEnabled(state)
         self.mainWindow.actionDelete.setEnabled(state)
         self.mainWindow.action_New.setEnabled(state)
-        '''
-        if index == 0:
-            self.mainWindow.actionEdit.setEnabled(False)
-            self.mainWindow.actionDelete.setEnabled(False)
-            self.mainWindow.action_New.setEnabled(False)
-        else:
-            self.mainWindow.actionEdit.setEnabled(True)
-            self.mainWindow.actionDelete.setEnabled(True)
-            self.mainWindow.actionDelete.setEnabled(True)
-    '''
+
     def new_(self):
         d=NewEntity(self.auth,self.mainWindow)
 
     def delete_(self):
-        d=DeleteDialog.DeleteDialog(self.auth)
+        d=DeleteDialog.DeleteDialog(self.auth,self.mainWindow)
 
     def about_(self):
         d=About()

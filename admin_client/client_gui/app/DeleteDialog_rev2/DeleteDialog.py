@@ -8,8 +8,9 @@ from .DeleteDialogTableModel import DeleteDialogTableModel
 from .workers.GetComboData import GetComboData
 from .workers.DeleteWorker import DeleteWorker
 class DeleteDialog(QDialog):
-    def __init__(self,auth:dict):
+    def __init__(self,auth:dict,parent):
         super(DeleteDialog,self).__init__()
+        self.parent=parent
         self.dialog=QDialog()
         self.auth=auth
         uic.loadUi("app/DeleteDialog_rev2/forms/DeleteDialog.ui",self.dialog)        
@@ -78,12 +79,15 @@ class DeleteDialog(QDialog):
         except Exception as e:
             print(e)
 
+    @pyqtSlot()
+    def update(self):
+        self.parent.newGrid.initialize(re=True)
+
     def preRegex(self,text):
         ID=text.split(" - ")[0]
         TYPE=ID.split(":")[1]
         ID=ID.split(":")[0]
         return dict(ID=ID,TYPE=TYPE)
-
 
     def DeleteFromServer(self):
         offspring=self.sender().parent().children()
@@ -105,6 +109,7 @@ class DeleteDialog(QDialog):
                 
                 QThreadPool.globalInstance().start(deleteMe)
                 #on worker finished do below
+                self.update()
                 self.dialog.accept()
 
     @pyqtSlot(requests.Response)
@@ -112,6 +117,7 @@ class DeleteDialog(QDialog):
         if response.status_code != 200:
             print("it seems that something went wrong")
             print(response)
+        self.update()
         self.dialog.accept()
 
     def updateViewer(self,index):

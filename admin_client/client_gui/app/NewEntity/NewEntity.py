@@ -15,6 +15,7 @@ class SaveEntity(QObject):
         self.TYPE=TYPE
         model=obj.model()
         print(model)
+
     @pyqtSlot()
     def update(self):
         self.updateAll.emit()
@@ -48,6 +49,7 @@ class SaveEntity(QObject):
         self.commission()
 
 class NewEntity(QDialog):
+    @pyqtSlot()
     def update(self):
         self.parent.newGrid.initialize(re=True)
 
