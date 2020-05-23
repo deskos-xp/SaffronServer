@@ -25,30 +25,7 @@ class NewProduct(QWidget):
 
         uic.loadUi("app/NewProduct/forms/NewProduct.ui",self.widget)
         
-        self.priceUnitWorker=PriceUnitWorker()
-        self.priceUnitWorker.signals.hasUnit.connect(widget.priceUnit.addItem)
-        self.qtp.start(self.priceUnitWorker)
-
-        self.weightUnitWorker=WeightUnitWorker()
-        self.weightUnitWorker.signals.hasUnit.connect(widget.weightUnit.addItem)
-        self.qtp.start(self.weightUnitWorker)
-
-        self.manufacturerWorker=Worker(auth,"manufacturer",self.widget.manufacturer)
-        self.manufacturerWorker.signals.hasItem.connect(self.addToCombo)
-        self.qtp.start(self.manufacturerWorker)
-
-        self.brandWorker=Worker(auth,"brand",self.widget.brand)
-        self.brandWorker.signals.hasItem.connect(self.addToCombo)
-        self.qtp.start(self.brandWorker)
-
-        self.vendorWorker=Worker(auth,"vendor",self.widget.vendor)
-        self.vendorWorker.signals.hasItem.connect(self.addToCombo)
-        self.qtp.start(self.vendorWorker)
-
-        self.departmentWorker=Worker(auth,"department",self.widget.department)
-        self.departmentWorker.signals.hasItem.connect(self.addToCombo)
-        self.qtp.start(self.departmentWorker)
-
+        self.initialize()        
 
         self.widget.nav_product_img.clicked.connect(self.getProductImg)
         self.widget.nav_upc_img.clicked.connect(self.getUPCImg)
@@ -59,6 +36,37 @@ class NewProduct(QWidget):
 
         self.widget.product_img_path.textChanged.connect(self.tryPath)
         self.widget.upc_img_path.textChanged.connect(self.tryPath)
+
+    def initialize(self,re=False):
+        if re == True:
+            self.widget.vendor.clear()
+            self.widget.manufacturer.clear()
+            self.widget.brand.clear()
+            self.widget.department.clear()
+
+        self.priceUnitWorker=PriceUnitWorker()
+        self.priceUnitWorker.signals.hasUnit.connect(self.widget.priceUnit.addItem)
+        self.qtp.start(self.priceUnitWorker)
+
+        self.weightUnitWorker=WeightUnitWorker()
+        self.weightUnitWorker.signals.hasUnit.connect(self.widget.weightUnit.addItem)
+        self.qtp.start(self.weightUnitWorker)
+
+        self.manufacturerWorker=Worker(self.auth,"manufacturer",self.widget.manufacturer)
+        self.manufacturerWorker.signals.hasItem.connect(self.addToCombo)
+        self.qtp.start(self.manufacturerWorker)
+
+        self.brandWorker=Worker(self.auth,"brand",self.widget.brand)
+        self.brandWorker.signals.hasItem.connect(self.addToCombo)
+        self.qtp.start(self.brandWorker)
+
+        self.vendorWorker=Worker(self.auth,"vendor",self.widget.vendor)
+        self.vendorWorker.signals.hasItem.connect(self.addToCombo)
+        self.qtp.start(self.vendorWorker)
+
+        self.departmentWorker=Worker(self.auth,"department",self.widget.department)
+        self.departmentWorker.signals.hasItem.connect(self.addToCombo)
+        self.qtp.start(self.departmentWorker)
 
     def tryPath(self,text):
         pixmap=None
