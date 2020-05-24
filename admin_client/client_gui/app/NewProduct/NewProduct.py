@@ -2,7 +2,7 @@ from PyQt5 import uic
 from PyQt5.QtCore import QThreadPool,QObject,QRunnable,pyqtSignal,pyqtSlot
 from PyQt5.QtWidgets import QWidget,QComboBox,QFileDialog
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QProgressBar
+from PyQt5.QtWidgets import QProgressBar,QComboBox
 
 import json,ast,os
 from dotenv import load_dotenv
@@ -43,7 +43,7 @@ class NewProduct(QWidget):
             self.widget.manufacturer.clear()
             self.widget.brand.clear()
             self.widget.department.clear()
-
+            
         self.priceUnitWorker=PriceUnitWorker()
         self.priceUnitWorker.signals.hasUnit.connect(self.widget.priceUnit.addItem)
         self.qtp.start(self.priceUnitWorker)
@@ -203,6 +203,10 @@ class NewProduct(QWidget):
         )
         return payload
 
-    def addToCombo(self,combo,data):
+    def addToCombo(self,combo:QComboBox,data):
         print(data,combo)
-        combo.addItem("{id} - {name}".format(**data))
+        item="{id} - {name}".format(**data)
+        #QComboBox.itemText
+        items=[combo.itemText(i) for i in range(combo.count())]
+        if item not in items:
+            combo.addItem(item)

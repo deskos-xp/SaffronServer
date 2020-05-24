@@ -1,12 +1,13 @@
 from PyQt5 import uic
 from PyQt5.QtCore import QThreadPool,QThread,QObject,QRunnable,pyqtSignal,QModelIndex,pyqtSlot
 from PyQt5.QtWidgets import QWidget,QDialog,QHeaderView
-import os,sys,json,ast,requests
+import os,sys,json,ast,requests,re
 
 from .NewEntityListModel import NewEntityListModel
 from .NewEntityTableModel import NewEntityTableModel
 from .workers.CommitToServer import CommitToServer
 from .workers.GetComboData import GetComboData
+from .workers.UpdateWorker import UpdateWorker
 
 class SaveEntity(QObject):
     updateAll:pyqtSignal=pyqtSignal()
@@ -18,6 +19,8 @@ class SaveEntity(QObject):
         self.TYPE=TYPE
         self.parent=parent
         self.dialog=dialog
+        self.addressID=None
+        self.entityID=None
 
     @pyqtSlot()
     def update(self):
@@ -31,6 +34,20 @@ class SaveEntity(QObject):
         self.worker.signals.hasError.connect(self.displayError)
         self.worker.signals.finished.connect(self.update)
 
+    def updateWorker(self):
+        if self.entityID == None:
+            return
+        if self.addressID == None:
+            return
+        print(self.addressID,self.entityID)
+        
+        self.update_worker=UpdateWorker(self.auth,self.addressID,self.TYPE,self.entityID)
+        self.update_worker.signals.hasResponse.connect(self.displayResponseUpdate)
+        self.update_worker.signals.hasError.connect(self.displayError)
+        self.update_worker.signals.finished.connect(self.update)
+        QThreadPool.globalInstance().start(self.update_worker)
+        
+
     @pyqtSlot()
     def commission(self):
         QThreadPool.globalInstance().start(self.worker)
@@ -41,18 +58,42 @@ class SaveEntity(QObject):
     def displayError(self,error:Exception):
         print(error)
 
+
+    @pyqtSlot(requests.Response)
+    def displayResponseUpdate(self,response):
+        print(response)
+        #self.complete.emit()
+        self.parent.progressBar.hide()
+
     @pyqtSlot(requests.Response)
     def displayResponse(self,response):
         print(response)
-        self.complete.emit()
+        if self.TYPE not in ['address','department']:
+            try:
+                if response.json() != None and 'id' in response.json().keys():
+                    self.entityID=response.json().get('id')
+                    self.updateWorker()
+            except Exception as e:
+                print(e)
         self.parent.progressBar.hide()
+        self.complete.emit()
+
+    def regexThisShit2(self,text):
+        try:
+            p=re.search("(?P<ID>\d*) -",text)
+            return dict(ID=p.group("ID"))
+        except Exception as e:
+            print(e)
+        return 
 
     @pyqtSlot(bool)
     def display(self,state):
         self.parent.progressBar.show()
-        print(self.obj.model().item)
+        #print(self.obj.model().item)
         self.createWorker()
         self.commission()
+        self.addressID=self.regexThisShit2(self.parent.addresses.currentText())
+        print(self.addressID)
 
     @pyqtSlot(bool)
     def resetView(self,state):
@@ -88,8 +129,14 @@ class SaveEntity(QObject):
 
 class NewEntity(QDialog):
     @pyqtSlot()
-    def update(self):
+    def update(self): 
         self.parent.newGrid.initialize(re=True)
+        for i in self.types:
+            try:
+                pass
+                #print(getattr(self.parent.newGrid,i).itemData,'data'*4)
+            except:
+                pass
         for i in self.types:
             self.prepCombos(i,re=True)
 
@@ -174,13 +221,11 @@ class NewEntity(QDialog):
         return "{id} - {street_number} {street_name}, {city}, {state} {ZIP} ({apartment_suite})".format(**data)
 
     def updateCombo(self,name,data):
-        combo=getattr(self.dialog,name)
-        print(combo.objectName())
         if self.toAddressString(data) not in self.address_tmp[name]:
             self.address_tmp[name].append(self.toAddressString(data))
-        for x in self.address_tmp[name]:
-            getattr(self.dialog,name).addresses.addItem(x)
-        #combo.addItems(self.address_tmp[i])
+        getattr(self.dialog,name).addresses.clear()
+        getattr(self.dialog,name).addresses.addItems(self.address_tmp[name])
+
 
 
     def fields(self,name):

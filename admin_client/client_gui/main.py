@@ -3,7 +3,7 @@ from app.MainWindow import Main
 from PyQt5.QtWidgets import QApplication
 import sys
 import faulthandler
-faulthandler.enable()
+#faulthandler.enable()
 '''
 class run:
     m=None
