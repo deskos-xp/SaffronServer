@@ -67,7 +67,7 @@ class SaveEntity(QObject):
 
     @pyqtSlot(requests.Response)
     def displayResponse(self,response):
-        print(response)
+        print(response,'*'*60)
         if self.TYPE not in ['address','department']:
             try:
                 if response.json() != None and 'id' in response.json().keys():

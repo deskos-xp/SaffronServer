@@ -5,7 +5,7 @@ app=__import__(__name__.split('.')[0])
 from app.About.about import About
 from app.DeleteDialog_rev2 import DeleteDialog
 from app.NewEntity.NewEntity import NewEntity
-
+from app.EditDB.EditDB import EditDB
 #print("top package --->",app)
 class MenuBar:
     def __init__(self,mainWindow:QWidget,auth):
@@ -17,6 +17,7 @@ class MenuBar:
         self.mainWindow.action_About.triggered.connect(self.about_)        
         self.mainWindow.actionDelete.triggered.connect(self.delete_)
         self.mainWindow.action_New.triggered.connect(self.new_)
+        self.mainWindow.actionEdit.triggered.connect(self.edit_)
         #QStackedWidget
         self.mainWindow.application.currentChanged.connect(self.notLoggedIn)
 
@@ -26,6 +27,9 @@ class MenuBar:
         self.mainWindow.actionEdit.setEnabled(state)
         self.mainWindow.actionDelete.setEnabled(state)
         self.mainWindow.action_New.setEnabled(state)
+
+    def edit_(self):
+        d=EditDB(self.auth,self.mainWindow)
 
     def new_(self):
         d=NewEntity(self.auth,self.mainWindow)

@@ -1,8 +1,8 @@
 from PyQt5.QtCore import QAbstractTableModel,Qt,QModelIndex,QThreadPool
 from PyQt5.QtGui import QColor
-class NewEntityTableModel(QAbstractTableModel):
+class EditDBTableModel(QAbstractTableModel):
     def __init__(self,*args,item=None,**kwargs):
-        super(NewEntityTableModel,self).__init__()
+        super(EditDBTableModel,self).__init__()
         self.item=item or {}
         self.items=[[i,self.item.get(i)] for i in self.item.keys()]
         #print(item)

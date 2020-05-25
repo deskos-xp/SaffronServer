@@ -28,6 +28,8 @@ class CommitToServer(QRunnable):
     def run(self):
         try:
             addr=self.assembleAddressForPost()
+            print(addr,'$'*60)
+            print(self.data,'%'*60)
             response=self.signals.session.post(addr,json=self.data,auth=(
                 self.auth.get("username"),
                 self.auth.get("password")
