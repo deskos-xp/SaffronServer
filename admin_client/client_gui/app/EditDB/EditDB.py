@@ -30,42 +30,52 @@ class EditDB(QDialog):
         self.dialog.listView.activated.connect(self.switch_stack)
         
         self.stackedWidgetsListModels=dict()
-        self.stackedWidgetsTableModels=dict()
-        
+        self.stackedWidgetsTableModels=dict() 
         self.worker=dict()
-
         self.stackedWidgets=dict()
+
         for wn in widgetNames:
             self.stackedWidgets[wn]=QWidget()
             self.dialog.stackedWidget.addWidget(self.stackedWidgets[wn])
             self.dialog.stackedWidget.setCurrentIndex(0)
             if wn not in ['product']:
-                uic.loadUi("app/EditDB/forms/GenericWidget.ui",self.stackedWidgets[wn])
-                self.stackedWidgets[wn].who.setText(wn[0].upper()+wn[1:])
-                self.stackedWidgetsListModels[wn]=EditDBListModel()
-                self.stackedWidgets[wn].results.setModel(self.stackedWidgetsListModels[wn])
-                
-                self.stackedWidgetsTableModels[wn]=EditDBTableModel(item={})
-                self.stackedWidgets[wn].terms.setModel(self.stackedWidgetsTableModels[wn])
-                self.stackedWidgets[wn].terms.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-                self.stackedWidgets[wn].terms.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-                self.stackedWidgetsTableModels[wn].load_data(self.fields(wn))
-                self.stackedWidgetsTableModels[wn].layoutChanged.emit()
+                self.buildGenericUi(wn=wn)
             else:
-                uic.loadUi("app/EditDB/forms/GenericWidgetProduct.ui",self.stackedWidgets[wn])
-                self.stackedWidgetsListModels[wn]=EditDBListModel()
-                self.stackedWidgets[wn].results.setModel(self.stackedWidgetsListModels[wn])
-                self.stackedWidgetsTableModels[wn]=EditDBTableModel(item={})
-                self.stackedWidgets[wn].terms.setModel(self.stackedWidgetsTableModels[wn])
-                self.stackedWidgets[wn].terms.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-                self.stackedWidgets[wn].terms.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-                self.stackedWidgetsTableModels[wn].load_data(self.fields(wn))
-                self.stackedWidgetsTableModels[wn].layoutChanged.emit()
-                self.stackedWidgets[wn].who.setText(wn[0].upper()+wn[1:])
-                self.worker[wn]=dict()
+                self.buildProductUi(wn=wn)
                 self.productWorkersBasic()
+                self.productWorkersComplex()
 
         self.dialog.exec_()
+    def buildGenericUi(self,wn):
+        uic.loadUi("app/EditDB/forms/GenericWidget.ui",self.stackedWidgets[wn])
+        self.stackedWidgets[wn].who.setText(wn[0].upper()+wn[1:])
+        self.stackedWidgetsListModels[wn]=EditDBListModel()
+        self.stackedWidgets[wn].results.setModel(self.stackedWidgetsListModels[wn]) 
+        self.stackedWidgetsTableModels[wn]=EditDBTableModel(item={})
+        self.stackedWidgets[wn].terms.setModel(self.stackedWidgetsTableModels[wn])
+        self.stackedWidgets[wn].terms.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.stackedWidgets[wn].terms.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.stackedWidgetsTableModels[wn].load_data(self.fields(wn))
+        self.stackedWidgetsTableModels[wn].layoutChanged.emit()
+
+    def buildProductUi(self,wn):
+        uic.loadUi("app/EditDB/forms/GenericWidgetProduct.ui",self.stackedWidgets[wn])
+        self.stackedWidgetsListModels[wn]=EditDBListModel()
+        self.stackedWidgets[wn].results.setModel(self.stackedWidgetsListModels[wn])
+        self.stackedWidgetsTableModels[wn]=EditDBTableModel(item={})
+        self.stackedWidgets[wn].terms.setModel(self.stackedWidgetsTableModels[wn])
+        self.stackedWidgets[wn].terms.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.stackedWidgets[wn].terms.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.stackedWidgetsTableModels[wn].load_data(self.fields(wn))
+        self.stackedWidgetsTableModels[wn].layoutChanged.emit()
+        self.stackedWidgets[wn].who.setText(wn[0].upper()+wn[1:])
+        self.worker[wn]=dict()
+
+
+    def productWorkersComplex(self,re=False,wn='product'):
+        pass
+        #i now need a searchWorker that is generic enough to be used for all entities
+
     def productWorkersBasic(self,re=False,wn='product'):
         def updatePriceUnit(data):
             print(data)
