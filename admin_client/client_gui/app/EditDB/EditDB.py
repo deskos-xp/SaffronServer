@@ -6,7 +6,7 @@ from .EditDBListModel import EditDBListModel
 from .EditDBTableModel import EditDBTableModel
 from .workers.priceUnitWorker import PriceUnitWorker
 from .workers.weightUnitWorker import WeightUnitWorker
-
+from .workers.SearchWorker import SearchWorker
 
 class EditDB(QDialog):
     def __init__(self,auth:dict,parent):
@@ -57,6 +57,55 @@ class EditDB(QDialog):
         self.stackedWidgets[wn].terms.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.stackedWidgetsTableModels[wn].load_data(self.fields(wn))
         self.stackedWidgetsTableModels[wn].layoutChanged.emit()
+        def SearchWorkerRun():
+            self.SearchWorkerRun(wn)
+
+        def switchToTab():
+            #self.application.
+            for i in range(self.dialog.application.count()):
+                if self.dialog.application.tabText(i).lower() == wn:
+                    self.dialog.application.setCurrentIndex(i)
+
+        def inc(state):
+            self.stackedWidgets[wn].page.setValue(self.stackedWidgets[wn].page.value()+1)
+            self.SearchWorkerRun(wn)
+
+        def dec(state):
+            self.stackedWidgets[wn].page.setValue(self.stackedWidgets[wn].page.value()-1)
+            self.SearchWorkerRun(wn)
+
+        self.stackedWidgets[wn].search.clicked.connect(SearchWorkerRun)
+        self.stackedWidgets[wn].back.clicked.connect(dec)
+        self.stackedWidgets[wn].next.clicked.connect(inc)
+        self.stackedWidgets[wn].results.activated.connect(switchToTab)
+
+
+
+    def SearchWorkerRun(self,wn):
+        def updateModel(data):
+            self.stackedWidgetsListModels[wn].items.clear()
+            self.stackedWidgetsListModels[wn].layoutChanged.emit()
+            if type(data) == type(dict()):
+                self.stackedWidgetsListModels[wn].items.append(data)
+                self.stackedWidgetsListModels[wn].layoutChanged.emit()
+            elif type(data) == type(list()):
+                for d in data:
+                    self.stackedWidgetsListModels[wn].items.append(d)
+                    self.stackedWidgetsListModels[wn].layoutChanged.emit()
+
+        if self.worker.get(wn) == None:
+            self.worker[wn]=dict()
+        data=self.stackedWidgetsTableModels[wn].dataToItem()
+        data['page']=self.stackedWidgets[wn].page.value()
+        data['limit']=self.stackedWidgets[wn].limit.value()
+        self.worker[wn]['search']=SearchWorker(self.auth,data,wn,self.fields(wn))
+        self.worker[wn]['search'].signals.hasError.connect(lambda e:print(e))
+        self.worker[wn]['search'].signals.hasItem.connect(lambda e:print(e))
+        self.worker[wn]['search'].signals.hasItems.connect(updateModel)
+        self.worker[wn]['search'].signals.finished.connect(lambda : print("search finished!"))
+
+        QThreadPool.globalInstance().start(self.worker[wn]['search'])
+
 
     def buildProductUi(self,wn):
         uic.loadUi("app/EditDB/forms/GenericWidgetProduct.ui",self.stackedWidgets[wn])
@@ -93,8 +142,6 @@ class EditDB(QDialog):
         if re == True:
             reset()
 
-        #from PyQt5.QtWidgets import QComboBox
-        #QComboBox.lineEdit.setAlignment(Qt.AlignCenter)
         self.stackedWidgets[wn].weightUnit.lineEdit().setAlignment(Qt.AlignCenter)
         self.stackedWidgets[wn].priceUnit.lineEdit().setAlignment(Qt.AlignCenter)
         self.stackedWidgets[wn].priceUnit.lineEdit().setReadOnly(True)

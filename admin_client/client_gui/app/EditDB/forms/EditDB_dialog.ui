@@ -35,7 +35,7 @@
      <property name="tabBarAutoHide">
       <bool>true</bool>
      </property>
-     <widget class="QWidget" name="search" native="true">
+     <widget class="QWidget" name="search">
       <attribute name="title">
        <string>Search</string>
       </attribute>
@@ -64,32 +64,32 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="address" native="true">
+     <widget class="QWidget" name="address">
       <attribute name="title">
        <string>Address</string>
       </attribute>
      </widget>
-     <widget class="QWidget" name="vendor" native="true">
+     <widget class="QWidget" name="vendor">
       <attribute name="title">
        <string>Vendor</string>
       </attribute>
      </widget>
-     <widget class="QWidget" name="brand" native="true">
+     <widget class="QWidget" name="brand">
       <attribute name="title">
        <string>Brand</string>
       </attribute>
      </widget>
-     <widget class="QWidget" name="manufacturer" native="true">
+     <widget class="QWidget" name="manufacturer">
       <attribute name="title">
        <string>Manufacturer</string>
       </attribute>
      </widget>
-     <widget class="QWidget" name="department" native="true">
+     <widget class="QWidget" name="department">
       <attribute name="title">
        <string>Department</string>
       </attribute>
      </widget>
-     <widget class="QWidget" name="product" native="true">
+     <widget class="QWidget" name="product">
       <attribute name="title">
        <string>Product</string>
       </attribute>
