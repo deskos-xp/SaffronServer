@@ -35,5 +35,7 @@ add progress bar to app.ui for progress view for user comfort
 add ability to disable back/next buttons when no results can be provided by server [done]
 
 
-get id of address from combobox and update new entity
+get id of address from combobox and update new entity [done]
+
+added product editor with buttons to edit relations
 
