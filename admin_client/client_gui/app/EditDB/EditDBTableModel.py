@@ -1,5 +1,10 @@
 from PyQt5.QtCore import QAbstractTableModel,Qt,QModelIndex,QThreadPool
 from PyQt5.QtGui import QColor
+import enum
+class EditTableEnum(enum.Enum):
+    EDITABLE_ID=True
+    NON_EDITABLE_ID=True
+
 class EditDBTableModel(QAbstractTableModel):
     def __init__(self,*args,item=None,**kwargs):
         super(EditDBTableModel,self).__init__()
@@ -9,7 +14,11 @@ class EditDBTableModel(QAbstractTableModel):
         self.load_data(self.items)
         self.DEFAULT_ALIGNMENT=[Qt.AlignLeft,Qt.AlignCenter]
         self.auth=kwargs.get('auth')
-       
+        self.ID_MODE=kwargs.get("ID_MODE")
+        if self.ID_MODE == None:
+            self.ID_MODE=EditTableEnum.EDITABLE_ID
+
+
     def load_data(self, data):
         if type(data) == type(dict()):
             self.item=data
@@ -42,6 +51,10 @@ class EditDBTableModel(QAbstractTableModel):
     def flags(self,index):
         baseflags=QAbstractTableModel.flags(self,index)
         if index.column() == 1:
+            if self.fields[index.row()] == "id":
+                if self.ID_MODE == EditTableEnum.NON_EDITABLE_ID:
+                    return baseflags
+
             return baseflags | Qt.ItemIsEditable
         else:
             return baseflags

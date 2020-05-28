@@ -8,6 +8,7 @@ from .NewEntityTableModel import NewEntityTableModel
 from .workers.CommitToServer import CommitToServer
 from .workers.GetComboData import GetComboData
 from .workers.UpdateWorker import UpdateWorker
+from ..common.Fields import *
 
 class SaveEntity(QObject):
     updateAll:pyqtSignal=pyqtSignal()
@@ -198,7 +199,7 @@ class NewEntity(QDialog):
             getattr(self.dialog,i).tableView.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
             getattr(self.dialog,i).save.clicked.connect(self.savers[i].display)
             getattr(self.dialog,i).clear.clicked.connect(self.savers[i].resetView)
-            self.models[i].load_data(self.fields(i))
+            self.models[i].load_data(fields(i))
             self.models[i].layoutChanged.emit()
 
         #worker to send data to server
@@ -216,39 +217,11 @@ class NewEntity(QDialog):
         QThreadPool.globalInstance().start(self.comboWorkers[name])
 
 
-    def toAddressString(self,data:dict):
-        #"{'ZIP': '', 'apartment_suite': '', 'city': '', 'id': 6, 'state': '', 'street_name': '', 'street_number': '', 'name': ' , ,  '"
-        return "{id} - {street_number} {street_name}, {city}, {state} {ZIP} ({apartment_suite})".format(**data)
-
     def updateCombo(self,name,data):
-        if self.toAddressString(data) not in self.address_tmp[name]:
-            self.address_tmp[name].append(self.toAddressString(data))
+        if toAddressString(data) not in self.address_tmp[name]:
+            self.address_tmp[name].append(toAddressString(data))
         getattr(self.dialog,name).addresses.clear()
         getattr(self.dialog,name).addresses.addItems(self.address_tmp[name])
-
-
-
-    def fields(self,name):
-        def addressFields():
-            return dict(
-                    city="",
-                    state="",
-                    street_number="",
-                    street_name="",
-                    ZIP="",
-                    apartment_suite=""
-                    )
-        def genericFields():
-            return dict(
-                comment="",
-                name="",
-                email="",
-                phone=""
-                    )
-        if name == 'address':
-            return addressFields()
-        else:
-            return genericFields()
 
     def itemActivated(self,index):
         self.dialog.types_widget.setCurrentIndex(index.row())

@@ -116,7 +116,7 @@ def update_brand(ID):
     json=ccj(json)
     assert json != None
     for key in brand_old.defaultdict().keys():
-        if key not in ["id"]:
+        if key not in ["id","address"]:
             assert key in brand_old.__dict__.keys()
             assert key in json.keys()
             brand_old.__dict__[key]=json[key]
@@ -124,4 +124,4 @@ def update_brand(ID):
     db.session.merge(brand_old)
     db.session.flush()
     db.session.commit()
-    return status(brand,status=status_codes.UPDATED)
+    return status(brand_old,status=status_codes.UPDATED)

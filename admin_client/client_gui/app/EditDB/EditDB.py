@@ -7,6 +7,8 @@ from .EditDBTableModel import EditDBTableModel
 from .workers.priceUnitWorker import PriceUnitWorker
 from .workers.weightUnitWorker import WeightUnitWorker
 from .workers.SearchWorker import SearchWorker
+from .EditDB_Controller_VBM import EditDB_Controller_VBM
+from ..common.Fields import *
 
 class EditDB(QDialog):
     def __init__(self,auth:dict,parent):
@@ -32,7 +34,9 @@ class EditDB(QDialog):
         self.stackedWidgetsTableModels=dict() 
         self.worker=dict()
         self.stackedWidgets=dict()
-        
+        self.selectedData=dict()
+        self.editorControllers=dict()
+
         for wn in widgetNames:
             self.stackedWidgets[wn]=QWidget()
             self.dialog.stackedWidget.addWidget(self.stackedWidgets[wn])
@@ -43,8 +47,19 @@ class EditDB(QDialog):
                 self.buildProductUi(wn=wn)
                 self.productWorkersBasic()
                 self.productWorkersComplex()
+            #build tabs 
+            if wn in ['vendor','brand','manufacturer']:
+                self.buildTabsVBM(wn)
+
 
         self.dialog.exec_()
+    def buildTabsVBM(self,wn):
+        self.selectedData[wn]=dict()
+        print("building tabs {wn}".format(**dict(wn=wn)))
+        tab=getattr(self.dialog,wn)
+        uic.loadUi("app/EditDB/forms/EditorVBM.ui",tab)
+        self.editorControllers[wn]=EditDB_Controller_VBM(self.auth,self,tab,self.selectedData[wn],wn)
+
     def buildGenericUi(self,wn):
         uic.loadUi("app/EditDB/forms/GenericWidget.ui",self.stackedWidgets[wn])
         self.stackedWidgets[wn].who.setText(wn[0].upper()+wn[1:])
@@ -54,7 +69,7 @@ class EditDB(QDialog):
         self.stackedWidgets[wn].terms.setModel(self.stackedWidgetsTableModels[wn])
         self.stackedWidgets[wn].terms.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.stackedWidgets[wn].terms.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.stackedWidgetsTableModels[wn].load_data(self.fields(wn))
+        self.stackedWidgetsTableModels[wn].load_data(fields(wn))
         self.stackedWidgetsTableModels[wn].layoutChanged.emit()
         def SearchWorkerRun():
             clear()
@@ -65,6 +80,16 @@ class EditDB(QDialog):
                 if self.dialog.application.tabText(i).lower() == wn:
                     self.dialog.application.setCurrentIndex(i)
                     selectedData=self.stackedWidgetsListModels[wn].items[index.row()]
+
+                    ###
+                    if wn not in ['product','department','address']:
+                        self.selectedData[wn]=dict(selectedData)
+                        self.editorControllers[wn].data=selectedData
+                        self.editorControllers[wn].model.load_data(self.editorControllers[wn].data)
+                        self.editorControllers[wn].model.layoutChanged.emit()
+                        self.editorControllers[wn].old=dict(selectedData)
+                        self.editorControllers[wn].setAddresses_address(selectedData.get('address'))
+                    ###
                     print(selectedData)
 
         def inc(state):
@@ -86,7 +111,7 @@ class EditDB(QDialog):
             self.SearchWorkerRun(wn)
 
         def clear():
-            self.stackedWidgetsTableModels[wn].load_data(self.fields(wn))
+            self.stackedWidgetsTableModels[wn].load_data(fields(wn))
             self.stackedWidgetsTableModels[wn].layoutChanged.emit()
             self.stackedWidgetsListModels[wn].items.clear()
             self.stackedWidgetsListModels[wn].layoutChanged.emit()
@@ -128,7 +153,7 @@ class EditDB(QDialog):
         data['limit']=self.stackedWidgets[wn].limit.value()
         if preSearch != None:
             data=preSearch(data)
-        self.worker[wn]['search']=SearchWorker(self.auth,data,wn,self.fields(wn))
+        self.worker[wn]['search']=SearchWorker(self.auth,data,wn,fields(wn))
         self.worker[wn]['search'].signals.hasError.connect(updateModel)
         self.worker[wn]['search'].signals.hasItem.connect(updateModel)
         self.worker[wn]['search'].signals.hasItems.connect(updateModel)
@@ -145,7 +170,7 @@ class EditDB(QDialog):
         self.stackedWidgets[wn].terms.setModel(self.stackedWidgetsTableModels[wn])
         self.stackedWidgets[wn].terms.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.stackedWidgets[wn].terms.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.stackedWidgetsTableModels[wn].load_data(self.fields(wn))
+        self.stackedWidgetsTableModels[wn].load_data(fields(wn))
         self.stackedWidgetsTableModels[wn].layoutChanged.emit()
         self.stackedWidgets[wn].who.setText(wn[0].upper()+wn[1:])
         self.worker[wn]=dict()
@@ -169,6 +194,9 @@ class EditDB(QDialog):
                 if self.dialog.application.tabText(i).lower() == wn:
                     self.dialog.application.setCurrentIndex(i)
                     selectedData=dict(self.stackedWidgetsListModels[wn].items[index.row()])
+                    ###
+                    self.selectedData[wn]=selectedData
+                    ###
                     print(selectedData)
 
         def preSearch(searchAbleData): 
@@ -211,7 +239,7 @@ class EditDB(QDialog):
             SearchWorkerRun()
 
         def clear():
-            self.stackedWidgetsTableModels[wn].load_data(self.fields(wn))
+            self.stackedWidgetsTableModels[wn].load_data(fields(wn))
             self.stackedWidgetsTableModels[wn].layoutChanged.emit()
             self.stackedWidgetsListModels[wn].items.clear()
             self.stackedWidgetsListModels[wn].layoutChanged.emit()
@@ -268,52 +296,6 @@ class EditDB(QDialog):
 
         for k in self.worker[wn].keys():
             QThreadPool.globalInstance().start(self.worker[wn][k])
-
-
-
-    def fields(self,name):
-        def addressFields():
-            return dict(
-                    city="",
-                    state="",
-                    street_number="",
-                    street_name="",
-                    ZIP="",
-                    apartment_suite=""
-                    )
-        def genericFields():
-            return dict(
-                comment="",
-                name="",
-                email="",
-                phone=""
-                    )
-        def departmentFields():
-            return dict(
-                comment="",
-                name="",
-                store_department_number=0
-                    )
-        def productFields():
-            return dict(
-                    comment="",
-                    upc="",
-                    homecode="",
-                    priceUnit="",
-                    weightUnit=""
-                    )
-
-
-        if name == 'address':
-            return addressFields()
-        elif name in ['vendor','manufacturer','brand']:
-            return genericFields()
-        elif name == 'department':
-            return departmentFields()
-        elif name == 'product':
-            return productFields()
-        else:
-            return dict()
 
 
     def switch_stack(self,index):

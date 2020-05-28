@@ -7,6 +7,8 @@ from .DeleteDialogModel import DeleteDialogModel
 from .DeleteDialogTableModel import DeleteDialogTableModel
 from .workers.GetComboData import GetComboData
 from .workers.DeleteWorker import DeleteWorker
+from ..common.Fields import *
+
 class DeleteDialog(QDialog):
     def __init__(self,auth:dict,parent):
         super(DeleteDialog,self).__init__()
@@ -55,39 +57,10 @@ class DeleteDialog(QDialog):
 
         self.dialog.exec_()
 
-    def regexThisShit2(self,text):
-        try:
-            p=re.search("(?P<ID>\d*):(?P<TYPE>\w*)",text)
-            return dict(ID=p.group("ID"),TYPE=p.group("TYPE"))
-        except Exception as e:
-            print(e)
-
-    def regexThisShit(self,text):
-        try:
-            p=re.compile('^\d*:\w*')
-            result=p.match(text)
-            s2=result.group()
-
-            p=re.compile('^\d*:')
-            ID=p.match(s2)
-            ID=int(ID.group()[:-1])
-
-            p=re.compile(':[\w]*')
-            TYPE=p.search(s2).group()
-            TYPE=TYPE[1:]
-            return dict(ID=ID,TYPE=TYPE)
-        except Exception as e:
-            print(e)
 
     @pyqtSlot()
     def update(self):
         self.parent.newGrid.initialize(re=True)
-
-    def preRegex(self,text):
-        ID=text.split(" - ")[0]
-        TYPE=ID.split(":")[1]
-        ID=ID.split(":")[0]
-        return dict(ID=ID,TYPE=TYPE)
 
     def DeleteFromServer(self):
         offspring=self.sender().parent().children()

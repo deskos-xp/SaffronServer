@@ -82,7 +82,7 @@ def update_manufacturer(ID):
     json=ccj(json)
     assert json != None
     for key in manufacturer_old.defaultdict().keys():
-        if key not in ["id"]:
+        if key not in ["id","address"]:
             assert key in manufacturer_old.__dict__.keys()
             assert key in json.keys()
             manufacturer_old.__dict__[key]=json[key]
@@ -90,7 +90,7 @@ def update_manufacturer(ID):
     db.session.merge(manufacturer_old)
     db.session.flush()
     db.session.commit()
-    return status(manufacturer,status=status_codes.UPDATED) 
+    return status(manufacturer_old,status=status_codes.UPDATED) 
 
 
 @app.route("/manufacturer/update/<ID>/add/address/<ADDRESS_ID>",methods=["get"])

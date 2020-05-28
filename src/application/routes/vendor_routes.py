@@ -83,7 +83,8 @@ def update_vendor(ID):
     json=ccj(json)
     assert json != None
     for key in vendor_old.defaultdict().keys():
-        if key not in ["id"]:
+        if key not in ["id","address"]:
+            print(key)
             assert key in vendor_old.__dict__.keys()
             assert key in json.keys()
             vendor_old.__dict__[key]=json[key]
@@ -91,7 +92,7 @@ def update_vendor(ID):
     db.session.merge(vendor_old)
     db.session.flush()
     db.session.commit()
-    return status(vendor,msg=status_codes.NEW) 
+    return status(vendor_old,status=status_codes.UPDATED) 
 
 @app.route("/vendor/update/<ID>/add/address/<ADDRESS_ID>",methods=["get"])
 @auth.login_required
