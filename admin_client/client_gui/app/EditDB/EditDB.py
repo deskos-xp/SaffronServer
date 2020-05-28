@@ -95,7 +95,6 @@ class EditDB(QDialog):
         def SearchWorkerRun():
             clear()
             self.SearchWorkerRun(wn)
-
         def switchToTab(index):
             for i in range(self.dialog.application.count()):
                 if self.dialog.application.tabText(i).lower() == wn:
@@ -138,9 +137,15 @@ class EditDB(QDialog):
                     self.stackedWidgets[wn].back.setEnabled(True)
             self.SearchWorkerRun(wn)
 
-        def clear():
-            self.stackedWidgetsTableModels[wn].load_data(fields(wn))
-            self.stackedWidgetsTableModels[wn].layoutChanged.emit()
+
+        def clearAll(state):
+            clear(clearAll=True)
+
+
+        def clear(clearAll=False):
+            if clearAll == True:
+                self.stackedWidgetsTableModels[wn].load_data(fields(wn))
+                self.stackedWidgetsTableModels[wn].layoutChanged.emit()
             self.stackedWidgetsListModels[wn].items.clear()
             self.stackedWidgetsListModels[wn].layoutChanged.emit()
 
@@ -150,7 +155,7 @@ class EditDB(QDialog):
         self.stackedWidgets[wn].search.clicked.connect(SearchWorkerRun)
         self.stackedWidgets[wn].back.clicked.connect(dec)
         self.stackedWidgets[wn].next.clicked.connect(inc)
-        self.stackedWidgets[wn].clear.clicked.connect(clear)
+        self.stackedWidgets[wn].clear.clicked.connect(clearAll)
         self.stackedWidgets[wn].results.activated.connect(switchToTab)
 
     def SearchWorkerRun(self,wn,preSearch=None):
