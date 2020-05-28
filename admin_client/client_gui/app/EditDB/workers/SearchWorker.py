@@ -32,6 +32,7 @@ class SearchWorker(QRunnable):
                     if self.data.get(k) == self.defaults.get(k):
                         self.data.__delitem__(k)
                         #print(k,'# res #')
+            print(self.data)
             address="{server_address}/{TYPE}/get".format(**dict(server_address=self.auth.get("server_address"),TYPE=self.name))
             auth=(self.auth.get("username"),self.auth.get("password"))
             #print(address,auth)

@@ -10,8 +10,12 @@ from .workers.UpdateVBM import UpdateVBM
 
 from ..common.Fields import *
 class EditDB_Controller_VBM(QDialog):
+    
+    wantsToSwitch=pyqtSignal(dict)
+
     def update(self):
         self.parent.stackedWidgets[self.name].search.click()
+
     def __init__(self,auth:dict,parent:QDialog,tab,data:dict,name:str):
         super(EditDB_Controller_VBM,self).__init__()
         self.auth=auth
@@ -31,7 +35,7 @@ class EditDB_Controller_VBM(QDialog):
         self.buttons()
         self.load_addresses()
         self.setAddresses_address(data.get('address'))
-
+        
 
     def setAddresses_address(self,data):
         if type(data) == type(list()):
@@ -93,7 +97,23 @@ class EditDB_Controller_VBM(QDialog):
 
     @pyqtSlot()
     def edit_address(self):
+        wn=self.name
+        def preSwitch(item):
+            address=item
+            if type(item) == type(list()):
+                address=item[0]
+            self.wantsToSwitch.emit(address)
+            print(address)
+            #self.parent.stackedWidgets
+
         address_data=regexThisShit2(self.tab.addresses.currentText())
+        addrID=address_data.get('ID')
+        searchL=SearchWorker(self.auth,dict(id=addrID,page=0,limit=sys.maxsize),'address',fields('address'))
+        searchL.signals.hasError.connect(lambda x:print(x))
+        searchL.signals.hasItem.connect(preSwitch)
+        searchL.signals.hasItems.connect(preSwitch)
+
+        QThreadPool.globalInstance().start(searchL)
         print(address_data)
 
     def buttons(self):

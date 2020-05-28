@@ -8,6 +8,7 @@ from .workers.priceUnitWorker import PriceUnitWorker
 from .workers.weightUnitWorker import WeightUnitWorker
 from .workers.SearchWorker import SearchWorker
 from .EditDB_Controller_VBM import EditDB_Controller_VBM
+from .EditDB_Controller_AD import EditDB_Controller_AD
 from ..common.Fields import *
 
 class EditDB(QDialog):
@@ -50,15 +51,35 @@ class EditDB(QDialog):
             #build tabs 
             if wn in ['vendor','brand','manufacturer']:
                 self.buildTabsVBM(wn)
-
+            elif wn in ['address','department']:
+                self.buildTabsAD(wn)
 
         self.dialog.exec_()
     def buildTabsVBM(self,wn):
+        def wantsToSwitch(selectedData):
+            wn='address'
+            print(selectedData,"#"*30)
+            self.selectedData[wn]=dict(selectedData)
+            self.editorControllers[wn].data=selectedData
+            self.editorControllers[wn].model.load_data(self.editorControllers[wn].data)
+            self.editorControllers[wn].model.layoutChanged.emit()
+            self.editorControllers[wn].old=dict(selectedData)
+            w=getattr(self.dialog,wn)
+            index=self.dialog.application.indexOf(w)
+            self.dialog.application.setCurrentIndex(index)
+
         self.selectedData[wn]=dict()
         print("building tabs {wn}".format(**dict(wn=wn)))
         tab=getattr(self.dialog,wn)
         uic.loadUi("app/EditDB/forms/EditorVBM.ui",tab)
         self.editorControllers[wn]=EditDB_Controller_VBM(self.auth,self,tab,self.selectedData[wn],wn)
+        self.editorControllers[wn].wantsToSwitch.connect(wantsToSwitch)
+
+    def buildTabsAD(self,wn):
+        self.selectedData[wn]=dict()
+        tab=getattr(self.dialog,wn)
+        uic.loadUi("app/EditDB/forms/EditorAD.ui",tab)
+        self.editorControllers[wn]=EditDB_Controller_AD(self.auth,self,tab,self.selectedData[wn],wn)
 
     def buildGenericUi(self,wn):
         uic.loadUi("app/EditDB/forms/GenericWidget.ui",self.stackedWidgets[wn])
@@ -89,8 +110,15 @@ class EditDB(QDialog):
                         self.editorControllers[wn].model.layoutChanged.emit()
                         self.editorControllers[wn].old=dict(selectedData)
                         self.editorControllers[wn].setAddresses_address(selectedData.get('address'))
+                    elif wn in ['address','department']:
+                        print(selectedData,"#"*30)
+                        self.selectedData[wn]=dict(selectedData)
+                        self.editorControllers[wn].data=selectedData
+                        self.editorControllers[wn].model.load_data(self.editorControllers[wn].data)
+                        self.editorControllers[wn].model.layoutChanged.emit()
+                        self.editorControllers[wn].old=dict(selectedData)
                     ###
-                    print(selectedData)
+                    print(selectedData,wn)
 
         def inc(state):
             self.stackedWidgets[wn].page.setValue(self.stackedWidgets[wn].page.value()+1)
