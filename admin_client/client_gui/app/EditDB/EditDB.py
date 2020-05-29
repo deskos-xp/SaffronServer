@@ -9,6 +9,7 @@ from .workers.weightUnitWorker import WeightUnitWorker
 from .workers.SearchWorker import SearchWorker
 from .EditDB_Controller_VBM import EditDB_Controller_VBM
 from .EditDB_Controller_AD import EditDB_Controller_AD
+from .EditDB_Controller_P import EditDB_Controller_P
 from ..common.Fields import *
 
 class EditDB(QDialog):
@@ -53,6 +54,8 @@ class EditDB(QDialog):
                 self.buildTabsVBM(wn)
             elif wn in ['address','department']:
                 self.buildTabsAD(wn)
+            elif wn in ['product']:
+                self.buildTabsP(wn)
 
         self.dialog.exec_()
     def buildTabsVBM(self,wn):
@@ -80,6 +83,13 @@ class EditDB(QDialog):
         tab=getattr(self.dialog,wn)
         uic.loadUi("app/EditDB/forms/EditorAD.ui",tab)
         self.editorControllers[wn]=EditDB_Controller_AD(self.auth,self,tab,self.selectedData[wn],wn)
+
+    def buildTabsP(self,wn):
+        self.selectedData[wn]=dict()
+        tab=getattr(self.dialog,wn)
+        uic.loadUi("app/EditDB/forms/EditorP.ui",tab)
+        self.editorControllers[wn]=EditDB_Controller_P(self.auth,self,tab,self.selectedData[wn],wn)
+
 
     def buildGenericUi(self,wn):
         uic.loadUi("app/EditDB/forms/GenericWidget.ui",self.stackedWidgets[wn])
@@ -228,7 +238,15 @@ class EditDB(QDialog):
                     self.dialog.application.setCurrentIndex(i)
                     selectedData=dict(self.stackedWidgetsListModels[wn].items[index.row()])
                     ###
-                    self.selectedData[wn]=selectedData
+                    #self.selectedData[wn]=selectedData
+                    print(selectedData,"#"*30)
+                    self.selectedData[wn]=dict(selectedData)
+                    self.editorControllers[wn].data=selectedData
+                    self.editorControllers[wn].model.load_data(stripStructures(self.editorControllers[wn].data,delFields=["product_image","upc_image"]))
+                    
+                    self.editorControllers[wn].model.layoutChanged.emit()
+                    self.editorControllers[wn].old=dict(selectedData)
+
                     ###
                     print(selectedData)
 

@@ -24,11 +24,14 @@ def regexThisShit(text):
     except Exception as e:
         print(e)
 
-def stripStructures(data):
+def stripStructures(data,delFields=[]):
     tmp={}
     for i in data.keys():
         if type(data[i]) in [type(int()),type(bool()),type(float()),type(str())]:
             tmp[i]=data[i]
+    for k in delFields:
+        if k in tmp.keys():
+            tmp.__delitem__(k)
     return tmp
 
 
