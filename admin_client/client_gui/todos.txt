@@ -37,5 +37,8 @@ add ability to disable back/next buttons when no results can be provided by serv
 
 get id of address from combobox and update new entity [done]
 
-added product editor with buttons to edit relations
+[done]added product editor with buttons to edit relations
 
+
+stack widget to dialog to take pictures for newproduct.ui
+add qcombobox to table views where appropriate

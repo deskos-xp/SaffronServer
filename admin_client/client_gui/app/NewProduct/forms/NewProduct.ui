@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>705</width>
+    <width>726</width>
     <height>876</height>
    </rect>
   </property>
@@ -33,8 +33,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>666</width>
-          <height>1260</height>
+          <width>687</width>
+          <height>1295</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
@@ -156,6 +156,11 @@
                   <string>Product Image</string>
                  </property>
                 </widget>
+                <widget class="QPushButton" name="takePic_img">
+                 <property name="text">
+                  <string>Take a Picture</string>
+                 </property>
+                </widget>
                </widget>
               </item>
               <item row="0" column="1">
@@ -209,6 +214,11 @@
                  </property>
                  <property name="text">
                   <string>UPC Image</string>
+                 </property>
+                </widget>
+                <widget class="QPushButton" name="takePic_upc">
+                 <property name="text">
+                  <string>Take a Picture</string>
                  </property>
                 </widget>
                </widget>
