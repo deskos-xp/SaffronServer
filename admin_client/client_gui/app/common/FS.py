@@ -11,7 +11,7 @@ def pathToQPixmap(path) -> QPixmap:
         return None
 
 def getFilePathDialog(caption,) -> str:
-        fname = QFileDialog.getOpenFileName(None, caption,'.',"Image files (*.jpg *.gif *.png)") 
+        fname = QFileDialog.getOpenFileName(None, caption,'.',"Image files (*.jpg *.gif *.png)",options=QFileDialog.DontUseNativeDialog) 
         if fname: 
             return fname[0]
 

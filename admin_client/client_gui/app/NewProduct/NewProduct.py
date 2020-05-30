@@ -74,12 +74,12 @@ class NewProduct(QWidget):
         if os.path.exists(text) and os.path.isfile(text):
             print("file exists... attempting to load it as an img")
             if self.sender().objectName() == "product_img_path":
-                pixmap=self.pathToQPixmap(text)
+                pixmap=pathToQPixmap(text)
                 self.widget.product_img.setPixmap(pixmap)
                 if pixmap != None:
                    self.product_img=text 
             elif self.sender().objectName() == "upc_img_path":
-                pixmap=self.pathToQPixmap(text)
+                pixmapToQPixmap(text)
                 self.widget.upc_img.setPixmap(pixmap)
                 if pixmap != None:
                     self.upc_img=text

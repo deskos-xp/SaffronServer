@@ -70,7 +70,7 @@ class DeleteDialog(QDialog):
                 #clear model
             if type(child) == type(QComboBox()):
                 text=child.currentText()
-                tmp=self.regexThisShit2(text)
+                tmp=regexThisShit2(text)
                 ID=tmp.get('ID')
                 TYPE=tmp.get('TYPE')
                 del_address="{server_address}/{TYPE}/delete/{ID}".format(**dict(server_address=self.auth.get("server_address"),TYPE=TYPE,ID=ID))

@@ -191,6 +191,7 @@ class EditDB_Controller_P(QDialog):
 
         productImage=dict()
         product_image=self.tab.product_image.pixmap()
+        self.product_image=product_image
         product_image_name=self.displayedImages.get("product_image")
         if product_image_name != "":
             product_image_bio=pixmapToBytesIO(product_image)
@@ -200,6 +201,7 @@ class EditDB_Controller_P(QDialog):
 
         upcImage=dict()
         upc_image=self.tab.upc_image.pixmap()
+        self.upc_image=upc_image
         upc_image_name=self.displayedImages.get("upc_image")
         if upc_image_name != "":
             upc_image_bio=pixmapToBytesIO(upc_image)

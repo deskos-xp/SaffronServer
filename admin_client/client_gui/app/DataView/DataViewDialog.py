@@ -10,6 +10,8 @@ from .DataViewModel import DataViewModel
 #from .workers.GetImageFromServer import GetImageFromServer
 from ..common.GetImageFromServer import GetImageFromServer
 from ..common.GetGeneratedBars import GetGeneratedUPC
+import copy
+
 #from .workers.GetGeneratedBars import GetGeneratedUPC
 class DataViewDialog(QDialog):
     def __init__(self,auth:dict,data:dict,pkt:dict,widget:QWidget):
@@ -26,8 +28,8 @@ class DataViewDialog(QDialog):
         #for i in ['brand',"department","vendor","manufacturer"]:
         #    print(self.sub_datas.keys(),"*"*33,i)
         #    self.subD[i]=self.sub_datas.get(i)
-
-        self.model=DataViewModel(item=self.data,auth=self.auth)
+        d={i:data.get(i) for i in data.keys() if i not in ['departments','addresses','vendors','brands','manufacturers']}
+        self.model=DataViewModel(item=d,auth=self.auth)
         self.dialog.dataView.setModel(self.model)
          
         self.upcImgWorker=GetImageFromServer(self.auth,data.get("id"),"upc_image")
@@ -65,12 +67,15 @@ class DataViewDialog(QDialog):
     def nd(self):
         name=self.sender().objectName()
         #print(name,"$ name $"*20)
-        print(self.pkt[name][name],"$ {} $%".format(name))
-        tmp=self.pkt[name][name]
-        print(tmp)
-        #piece=self.subD.get(name)
-        #print(piece.keys(),"$ piece $"*20)
-        DataViewSmall(self.auth,tmp,self.dialog)
+        #print(self.pkt[name][name],"$ {} $%".format(name))
+        try:
+            tmp=self.pkt[name][name]
+            print(self.pkt.keys())
+            #piece=self.subD.get(name)
+            #print(piece.keys(),"$ piece $"*20)
+            DataViewSmall(self.auth,tmp,self.dialog)
+        except Exception as e:
+            print(e)
 
     def returnablePik(self,piknic:QPixmap,whichImage:str):
         getattr(self.dialog,whichImage).setPixmap(piknic)

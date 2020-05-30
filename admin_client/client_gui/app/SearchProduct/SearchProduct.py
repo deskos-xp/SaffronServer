@@ -8,6 +8,8 @@ from .workers.GetWorker import GetWorker
 from . import SearchModeEnum
 from .SearchViewModel import SearchViewModel
 from ..DataView.DataViewDialog import DataViewDialog
+import copy
+
 class SearchProduct(QWidget):
     def __init__(self,auth:dict,widget:QWidget):
         self.widget=widget
@@ -92,17 +94,18 @@ class SearchProduct(QWidget):
         else:
             #print(item)
             pkt=dict()
-            it=dict(self.model.items[item.row()])
+            #it=copy.deepcopy(self.model.items[item.row()])
+            #print(it,"iiittt")
             for removeable in self.model.items[item.row()].keys():
                 #print(removeable,"*"*3+" removeable")
                 if removeable in ['departments','vendors','brands','manufacturers']:
                     print(removeable,"removeable {}".format("*"*30))
-                    it.__delitem__(removeable)
+                    #it.__delitem__(removeable)
                     pkt[removeable]=self.model.items[item.row()]
 
-            self.model.items[item.row()]=it
+            #self.model.items[item.row()]=it
             print(pkt.keys(),"*/*"*33)
-            dialog=DataViewDialog(self.auth,self.model.items[item.row()],pkt,self)
+            self.dialog=DataViewDialog(self.auth,self.model.items[item.row()],pkt,self)
             #dialog.exec_()
             #now its time for the dataview dialog to be made
         #print(self.model.items[item.row()])
