@@ -17,6 +17,7 @@ class EditDB_Controller_P(QDialog):
     @pyqtSlot()
     def updateAll(self):
         self.update.emit()
+        self.parent.updateAllCombos()
 
     def __init__(self,auth:dict,parent,tab,data:dict,name:str):
         super(EditDB_Controller_P,self).__init__()
@@ -77,7 +78,7 @@ class EditDB_Controller_P(QDialog):
                 ss=regexThisShit2(combo.itemText(i))
                 if ss != None:
                     if int(ss.get('ID')) == data.get('id'):
-                        print(ss,'b'*40)
+                        #print(ss,'b'*40)
                         combo.setCurrentIndex(i)
                         return
                     else:
@@ -89,11 +90,18 @@ class EditDB_Controller_P(QDialog):
         def updateCombo(data):
             contained=[combo.itemText(i) for i in range(combo.count())] 
             for l in data:
-                if str(l) not in contained:
-                    if name != "address":
-                        combo.addItem("{id}:{name} - {NAME}".format(**dict(id=l.get("id"),name=name,NAME=l.get("name"))))
-                    else:
-                        combo.addItem(toAddressString(l))
+                ll="{id}:{name} - {NAME}".format(**dict(id=l.get("id"),name=name,NAME=l.get("name")))
+                for num,c in enumerate(contained):
+                    xx=regexThisShit2(c)
+                    xxl=regexThisShit2(ll)
+                    if xx == xxl:
+                        if c != ll:
+                            combo.removeItem(num)
+                            combo.insertItem(num,ll)
+                contained=[combo.itemText(i) for i in range(combo.count())]
+                if ll not in contained:
+                    combo.addItem(ll)
+
             combo.lineEdit().setReadOnly(True)
             self.setCombos(combo,data)
         self.searchWorkers[name]=SearchWorker(self.auth,dict(page=0,limit=sys.maxsize),name,fields(name))

@@ -9,6 +9,7 @@ from .workers.UpdateAD import UpdateAD
 class EditDB_Controller_AD(QDialog):
     def update(self):
         self.parent.stackedWidgets[self.name].search.click()
+        self.parent.updateAllCombos()
 
     def __init__(self,auth:dict,parent,tab,data:dict,name:str):
         super(EditDB_Controller_AD,self).__init__()

@@ -15,6 +15,7 @@ class EditDB_Controller_VBM(QDialog):
 
     def update(self):
         self.parent.stackedWidgets[self.name].search.click()
+        self.parent.updateAllCombos()
 
     def __init__(self,auth:dict,parent:QDialog,tab,data:dict,name:str):
         super(EditDB_Controller_VBM,self).__init__()
@@ -73,6 +74,7 @@ class EditDB_Controller_VBM(QDialog):
 
     @pyqtSlot(bool)
     def save_data(self,state):
+        self.tab.setEnabled(False)
         self.data=self.tab.editor.model().dataToItem()
         #worker thread needed to send updates
         self.POST=UpdateVBM(self.auth,self.data,regexThisShit2(self.tab.addresses.currentText()),self.name,Mode.POST)
@@ -92,7 +94,8 @@ class EditDB_Controller_VBM(QDialog):
 
         QThreadPool.globalInstance().start(self.POST)
         QThreadPool.globalInstance().start(self.GET)
-        print(self.data)
+        self.tab.setEnabled(True)
+        self.update()
         #send new data
         #remove address by id declared in old data
         #add new address by id declare in new data

@@ -1,5 +1,5 @@
 from PyQt5.QtCore import QObject,QRunnable,QThread,QThreadPool,pyqtSignal,pyqtSlot,Qt
-from PyQt5.QtWidgets import QDialog,QWidget,QStackedWidget,QTabWidget,QHeaderView
+from PyQt5.QtWidgets import QDialog,QWidget,QStackedWidget,QTabWidget,QHeaderView,QComboBox
 from PyQt5 import uic
 import ast,os,sys,json
 from .EditDBListModel import EditDBListModel
@@ -58,6 +58,13 @@ class EditDB(QDialog):
                 self.buildTabsP(wn)
 
         self.dialog.exec_()
+
+    def updateAllCombos(self):
+        for i in ['vendor','brand','manufacturer']:
+            self.editorControllers[i].load_addresses()
+        self.editorControllers['product'].load_combos()
+        self.editorControllers['product'].getImages()
+
     def buildTabsVBM(self,wn):
         def wantsToSwitch(selectedData):
             wn='address'
