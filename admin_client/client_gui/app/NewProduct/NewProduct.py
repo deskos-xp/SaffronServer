@@ -11,7 +11,8 @@ from .workers.weightUnitWorker import WeightUnitWorker
 from .workers.GenericWorker import Worker
 from .workers.NewProductWorker import NewProductWorker
 from .workers.NewProductUpdateWorker import NewProductUpdateWorker
-from .workers.UploaderWorker import UploaderWorker
+from ..common.UploaderWorker import UploaderWorker
+from ..common.FS import *
 class NewProduct(QWidget):
     def __init__(self,auth:dict,widget:QWidget):
         super(NewProduct,self).__init__()
@@ -88,24 +89,12 @@ class NewProduct(QWidget):
             elif self.sender().objectName() == "upc_img_path":
                 self.upc_img=None
 
-    def getFilePathDialog(self,caption,) -> str:
-            fname = QFileDialog.getOpenFileName(self.widget, caption,'.',"Image files (*.jpg *.gif *.png)") 
-            if fname: 
-                return fname[0]
-
     def getProductImg(self):
-        path=self.getFilePathDialog("Open Product Image...")
+        path=getFilePathDialog("Open Product Image...")
         self.widget.product_img_path.setText(path)
-        
-    def pathToQPixmap(self,path) -> QPixmap:
-        try:
-            return QPixmap(path)
-        except Exception as e:
-            print(e)
-            return None
 
     def getUPCImg(self):
-        path=self.getFilePathDialog("Open UPC Image...")
+        path=getFilePathDialog("Open UPC Image...")
         self.widget.upc_img_path.setText(path)
 
     def construct_and_send(self):

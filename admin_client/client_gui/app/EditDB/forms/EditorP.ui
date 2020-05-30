@@ -175,33 +175,6 @@
              </item>
             </layout>
            </widget>
-           <widget class="QGroupBox" name="groupBox_5">
-            <property name="title">
-             <string>Edit Address</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_6">
-             <item row="0" column="0">
-              <widget class="QPushButton" name="address_edit">
-               <property name="toolTip">
-                <string>edit address</string>
-               </property>
-               <property name="text">
-                <string>Address</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QComboBox" name="addresses">
-               <property name="toolTip">
-                <string>address</string>
-               </property>
-               <property name="editable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
           </widget>
           <widget class="QSplitter" name="splitter">
            <property name="orientation">
@@ -212,7 +185,7 @@
              <string>reset all fields</string>
             </property>
             <property name="text">
-             <string>Clear</string>
+             <string>Reset</string>
             </property>
            </widget>
            <widget class="QPushButton" name="save">

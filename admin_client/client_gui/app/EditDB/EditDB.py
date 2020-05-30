@@ -89,7 +89,32 @@ class EditDB(QDialog):
         tab=getattr(self.dialog,wn)
         uic.loadUi("app/EditDB/forms/EditorP.ui",tab)
         self.editorControllers[wn]=EditDB_Controller_P(self.auth,self,tab,self.selectedData[wn],wn)
+        self.editorControllers[wn].wantsToSwitch.connect(self.fromProductTabTo)
 
+    @pyqtSlot(dict)
+    def fromProductTabTo(self,identifiers):
+        print(identifiers)
+        #get item from server
+        def preUpdate(data):
+            wn=identifiers.get("TYPE")
+            self.selectedData[wn]=dict(data[0])
+            self.editorControllers[wn].data=dict(data[0])
+            self.editorControllers[wn].model.load_data(self.editorControllers[wn].data)
+            self.editorControllers[wn].model.layoutChanged.emit()
+            self.editorControllers[wn].old=dict(data[0])
+            if wn not in ['product','department','address']:
+                self.editorControllers[wn].setAddresses_address(self.editorControllers[wn].data.get("address"))
+            index=self.dialog.application.indexOf(getattr(self.dialog,wn))
+            self.dialog.application.setCurrentIndex(index)
+
+        searchWorker=SearchWorker(self.auth,dict(page=0,limit=1,id=identifiers.get("ID")),identifiers.get("TYPE"),fields(identifiers.get("TYPE")))
+        searchWorker.signals.hasError.connect(lambda e:print(e))
+        #setValues in tab
+        searchWorker.signals.hasItems.connect(preUpdate)
+        QThreadPool.globalInstance().start(searchWorker)
+        #set values in tab
+
+        #switch to tab
 
     def buildGenericUi(self,wn):
         uic.loadUi("app/EditDB/forms/GenericWidget.ui",self.stackedWidgets[wn])
@@ -239,16 +264,18 @@ class EditDB(QDialog):
                     selectedData=dict(self.stackedWidgetsListModels[wn].items[index.row()])
                     ###
                     #self.selectedData[wn]=selectedData
-                    print(selectedData,"#"*30)
+                    #print(selectedData,"#"*30)
                     self.selectedData[wn]=dict(selectedData)
                     self.editorControllers[wn].data=selectedData
                     self.editorControllers[wn].model.load_data(stripStructures(self.editorControllers[wn].data,delFields=["product_image","upc_image"]))
                     
                     self.editorControllers[wn].model.layoutChanged.emit()
                     self.editorControllers[wn].old=dict(selectedData)
-
+                    
+                    self.editorControllers[wn].setCombos_()
+                    self.editorControllers[wn].getImages()
                     ###
-                    print(selectedData)
+                    #print(selectedData)
 
         def preSearch(searchAbleData): 
             if self.stackedWidgets[wn].weight.isEnabled():

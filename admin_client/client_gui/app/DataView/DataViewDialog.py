@@ -7,8 +7,10 @@ from PyQt5.QtGui import QColor,QPixmap
 from..DataViewSmall.DataViewSmall import DataViewSmall
 
 from .DataViewModel import DataViewModel
-from .workers.GetImageFromServer import GetImageFromServer
-from .workers.GetGeneratedBars import GetGeneratedUPC
+#from .workers.GetImageFromServer import GetImageFromServer
+from ..common.GetImageFromServer import GetImageFromServer
+from ..common.GetGeneratedBars import GetGeneratedUPC
+#from .workers.GetGeneratedBars import GetGeneratedUPC
 class DataViewDialog(QDialog):
     def __init__(self,auth:dict,data:dict,pkt:dict,widget:QWidget):
         self.data=data

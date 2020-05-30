@@ -7,6 +7,7 @@ from io import BytesIO
 class GetImageFromServerSignals(QObject):
     kill:pyqtSignal=pyqtSignal()
     hasImage:pyqtSignal=pyqtSignal(QPixmap,str)
+    hasBlankPixmap:pyqtSignal=pyqtSignal(QPixmap,str)
     hasError:pyqtSignal=pyqtSignal(Exception)
     finished:pyqtSignal=pyqtSignal()
     session:requests.Session=requests.Session()
@@ -40,6 +41,7 @@ class GetImageFromServer(QRunnable):
                 self.imgbio.seek(0)
                 self.signals.hasImage.emit(QPixmap.fromImage(QImage.fromData(self.imgbio.read())),self.whichImage)
             else:
+                self.signals.hasBlankPixmap.emit(QPixmap(),self.whichImage)
                 raise Exception(str(response.status_code)+" id: {ID}".format(**dict(ID=self.productID)))
         except Exception as e:
             self.signals.hasError.emit(e)
