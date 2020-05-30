@@ -79,7 +79,7 @@ class NewProduct(QWidget):
                 if pixmap != None:
                    self.product_img=text 
             elif self.sender().objectName() == "upc_img_path":
-                pixmapToQPixmap(text)
+                pixmap=pathToQPixmap(text)
                 self.widget.upc_img.setPixmap(pixmap)
                 if pixmap != None:
                     self.upc_img=text
