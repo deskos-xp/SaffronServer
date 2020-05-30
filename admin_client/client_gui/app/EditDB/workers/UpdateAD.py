@@ -8,6 +8,7 @@ class UpdateADSignals(QObject):
     hasResponse:pyqtSignal=pyqtSignal(requests.Response)
     hasError:pyqtSignal=pyqtSignal(Exception)
     session=requests.Session()
+    disabledGrid:pyqtSignal=pyqtSignal(bool)
 
     @pyqtSlot()
     def kill(self):
@@ -26,6 +27,7 @@ class UpdateAD(QRunnable):
         self.old=dict(data)
 
     def run(self):
+        self.signals.disabledGrid.emit(False)
         self.data=stripStructures(self.data)
         auth=(
             self.auth.get('username'),
@@ -37,6 +39,7 @@ class UpdateAD(QRunnable):
                     name=self.name,
                     ID=self.data.get('id')
                     ))
+        print(addr)
         try:
             print("[worker data]",self.data)
             response=self.signals.session.post(addr,auth=auth,json=self.data)
@@ -45,4 +48,5 @@ class UpdateAD(QRunnable):
             print(e)
             self.signals.hasError.emit(e)
             self.signals.kill()
+        self.signals.disabledGrid.emit(True)
         self.signals.finished.emit()

@@ -107,7 +107,13 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>&amp;Edit DB</string>
+    <string>&amp;Edit</string>
+   </property>
+   <property name="iconText">
+    <string>Edit</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit database</string>
    </property>
   </action>
   <action name="actionLogout">

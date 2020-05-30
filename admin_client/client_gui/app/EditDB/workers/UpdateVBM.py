@@ -8,6 +8,7 @@ class UpdateVBMSignals(QObject):
     hasResponse:pyqtSignal=pyqtSignal(requests.Response)
     hasError:pyqtSignal=pyqtSignal(Exception)
     session=requests.Session()
+    disabledGrid:pyqtSignal=pyqtSignal(bool)
 
     @pyqtSlot()
     def kill(self):
@@ -27,6 +28,7 @@ class UpdateVBM(QRunnable):
         self.old=dict(data)
 
     def run(self):
+        self.signals.disabledGrid.emit(False)
         self.data=stripStructures(self.data)
         print(self.data,self.identifier,self.name,self.mode)
         auth=(
@@ -68,3 +70,5 @@ class UpdateVBM(QRunnable):
             self.signals.hasError.emit(e)
             self.signals.kill()
         self.signals.finished.emit()
+        self.signals.disabledGrid.emit(True)
+

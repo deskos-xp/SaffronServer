@@ -77,6 +77,9 @@ class EditDB_Controller_VBM(QDialog):
         #worker thread needed to send updates
         self.POST=UpdateVBM(self.auth,self.data,regexThisShit2(self.tab.addresses.currentText()),self.name,Mode.POST)
         self.GET=UpdateVBM(self.auth,self.data,regexThisShit2(self.tab.addresses.currentText()),self.name,Mode.GET)
+        
+        self.GET.signals.disabledGrid.connect(self.tab.setEnabled)
+        self.POST.signals.disabledGrid.connect(self.tab.setEnabled)
 
         self.POST.signals.hasError.connect(lambda e:print(e))
         self.GET.signals.hasError.connect(lambda e:print(e))

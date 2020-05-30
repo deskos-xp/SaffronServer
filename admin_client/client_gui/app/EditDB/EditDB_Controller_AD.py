@@ -47,5 +47,6 @@ class EditDB_Controller_AD(QDialog):
         save=UpdateAD(self.auth,self.model.dataToItem(),self.model.dataToItem().get('id'),self.name)
         save.signals.hasError.connect(lambda x:print(x))
         save.signals.hasResponse.connect(self.responded)
+        save.signals.disabledGrid.connect(self.tab.setEnabled)
         QThreadPool.globalInstance().start(save)
 

@@ -29,7 +29,7 @@ class EditDB(QDialog):
             "product"
                 )
         #QDialog.u
-        self.searchModel=EditDBListModel(items=widgetNames)
+        self.searchModel=EditDBListModel(items=widgetNames,mode="search")
         self.dialog.listView.setModel(self.searchModel)
         self.dialog.listView.activated.connect(self.switch_stack)
         self.stackedWidgetsListModels=dict()
@@ -119,7 +119,7 @@ class EditDB(QDialog):
     def buildGenericUi(self,wn):
         uic.loadUi("app/EditDB/forms/GenericWidget.ui",self.stackedWidgets[wn])
         self.stackedWidgets[wn].who.setText(wn[0].upper()+wn[1:])
-        self.stackedWidgetsListModels[wn]=EditDBListModel()
+        self.stackedWidgetsListModels[wn]=EditDBListModel(mode=wn)
         self.stackedWidgets[wn].results.setModel(self.stackedWidgetsListModels[wn]) 
         self.stackedWidgetsTableModels[wn]=EditDBTableModel(item={})
         self.stackedWidgets[wn].terms.setModel(self.stackedWidgetsTableModels[wn])
@@ -232,7 +232,7 @@ class EditDB(QDialog):
 
     def buildProductUi(self,wn):
         uic.loadUi("app/EditDB/forms/GenericWidgetProduct.ui",self.stackedWidgets[wn])
-        self.stackedWidgetsListModels[wn]=EditDBListModel()
+        self.stackedWidgetsListModels[wn]=EditDBListModel(mode=wn)
         self.stackedWidgets[wn].results.setModel(self.stackedWidgetsListModels[wn])
         self.stackedWidgetsTableModels[wn]=EditDBTableModel(item={})
         self.stackedWidgets[wn].terms.setModel(self.stackedWidgetsTableModels[wn])
@@ -274,6 +274,7 @@ class EditDB(QDialog):
                     
                     self.editorControllers[wn].setCombos_()
                     self.editorControllers[wn].getImages()
+                    self.editorControllers[wn].update.connect(SearchWorkerRun)
                     ###
                     #print(selectedData)
 

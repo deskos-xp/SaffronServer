@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QObject,QRunnable,QThread,QThreadPool,pyqtSignal,pyqtSlot
+from PyQt5.QtCore import QObject,QRunnable,QThread,QThreadPool,pyqtSignal,pyqtSlot,QBuffer
 from PyQt5.QtWidgets import QHeaderView,QDialog,QComboBox,QPushButton,QWidget
 from PyQt5.QtGui import QPixmap
 import os,sys,ast,json,requests
@@ -7,9 +7,17 @@ from ..common.Fields import *
 from ..common.GetImageFromServer import GetImageFromServer
 from ..common.FS import *
 from .workers.SearchWorker import SearchWorker
+from .workers.UpdateP import UpdateP
+from io import BytesIO
 
 class EditDB_Controller_P(QDialog):
     wantsToSwitch:pyqtSignal=pyqtSignal(dict)
+    update:pyqtSignal=pyqtSignal()
+
+    @pyqtSlot()
+    def updateAll(self):
+        self.update.emit()
+
     def __init__(self,auth:dict,parent,tab,data:dict,name:str):
         super(EditDB_Controller_P,self).__init__()
         self.upc_image=QPixmap()
@@ -27,6 +35,10 @@ class EditDB_Controller_P(QDialog):
         self.tab.editor.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.tab.editor.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.relations=['vendor','department','brand','manufacturer']
+
+        self.displayedImages=dict(upc_image="",product_image="")
+        self.displayedImages_default=dict(upc_image="",product_image="")
+
         self.old=dict(data)
         self.buttons()
         self.load_combos()
@@ -99,6 +111,10 @@ class EditDB_Controller_P(QDialog):
         if backup == True:
             self.__dict__[name]=pixm
 
+    @pyqtSlot(str,str)
+    def storeName(self,which,name):
+        self.displayedImages[which]=name
+
     def restoreImages(self):
         self.tab.upc_image.setPixmap(self.upc_image)
         self.tab.product_image.setPixmap(self.product_image)
@@ -131,6 +147,7 @@ class EditDB_Controller_P(QDialog):
         name=self.sender().objectName().replace("new_","")
         path=getFilePathDialog("Get {name}".format(**dict(name=name.replace("_"," "))))
         pixm=pathToQPixmap(path)
+        self.storeName(name,path)
         if type(pixm) == type(QPixmap()):
             getattr(self.tab,name).setPixmap(pixm)
         else:
@@ -144,10 +161,61 @@ class EditDB_Controller_P(QDialog):
         self.tab.department_edit.clicked.connect(self.edit_sub)
         self.tab.new_product_image.clicked.connect(self.get_new_image)
         self.tab.new_upc_image.clicked.connect(self.get_new_image)
+        self.tab.save.clicked.connect(self.save_)
+
+    @pyqtSlot(bool)
+    def save_(self,state):
+        #get product row data
+        base_item_data=self.model.dataToItem()
+        
+        #get relationship data
+        manufacturerID=regexThisShit2(self.tab.manufacturers.currentText())
+        vendorID=regexThisShit2(self.tab.vendors.currentText())
+        brandID=regexThisShit2(self.tab.brands.currentText())
+        departmentID=regexThisShit2(self.tab.departments.currentText())
+
+        combos_data=dict(
+                manufacturer=manufacturerID,
+                vendor=vendorID,
+                brand=brandID,
+                department=departmentID
+                )
+
+        productImage=dict()
+        product_image=self.tab.product_image.pixmap()
+        product_image_name=self.displayedImages.get("product_image")
+        if product_image_name != "":
+            product_image_bio=pixmapToBytesIO(product_image)
+            productImage['image']=product_image_bio
+            productImage['name']=product_image_name
+            #upload new image
+
+        upcImage=dict()
+        upc_image=self.tab.upc_image.pixmap()
+        upc_image_name=self.displayedImages.get("upc_image")
+        if upc_image_name != "":
+            upc_image_bio=pixmapToBytesIO(upc_image)
+            upcImage['image']=upc_image_bio
+            upcImage['name']=upc_image_name
+            #upload new image
+        
+        update=UpdateP(self.auth,base_item_data,combos_data,"product",upcImage,productImage,self.old)
+        update.signals.hasError.connect(lambda e:print(e))
+        update.signals.hasResponse.connect(self.hasResponse)
+        update.signals.finished.connect(lambda: print("finished"))
+        update.signals.disabledGrid.connect(self.tab.setEnabled)
+        QThreadPool.globalInstance().start(update)
+
+
+    @pyqtSlot(requests.Response)
+    def hasResponse(self,response):
+        print(response)
+        self.updateAll()
 
     @pyqtSlot(bool)
     def clear_(self,state):
         self.restoreImages()
+        self.dislayedImages=dict(self.displayedImages_default)
         if self.old:
             self.model.load_data(stripStructures(self.old,delFields=["product_image","upc_image"]))
         else:
