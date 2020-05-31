@@ -20,7 +20,7 @@ from io import BytesIO
 utypes=["upc_image","product_image"]
 ALLOWED_EXTENSIONS=["png","jpg","jpeg"]
 
-from flask_user import current_user, login_required, roles_required, UserManager, UserMixin
+#from flask_user import current_user, login_required, roles_required, UserManager, UserMixin
 
 from .. import logging
 

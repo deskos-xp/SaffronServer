@@ -8,7 +8,8 @@ import json as Json
 from sqlalchemy.orm.attributes import flag_modified
 from . import verify
 from .. import delete,status,ccj,status_codes
-
+#from flask_user import current_user, login_required, roles_required, UserManager, UserMixin
+from ..decor import roles_required
 @app.route("/user/delete/<user_id>",methods=["delete"])
 @auth.login_required
 def delete_user(user_id): 
@@ -22,6 +23,7 @@ def v(username,password):
 
 @app.route("/user/get/<ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=["admin","user"])
 def get_user_by_id(ID):
     USER=db.session.query(User).filter_by(id=ID).first()
     USER.password="xxxxx"

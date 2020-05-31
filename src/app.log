@@ -1,5 +1,4 @@
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 274-883-122
-INFO:werkzeug:127.0.0.1 - - [31/May/2020 08:23:47] "[37mGET /user/update/2/add/roles_existing/3 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [31/May/2020 08:23:53] "[37mGET /user/update/2/remove/roles/3 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [31/May/2020 08:25:02] "[37mGET /user/get/2 HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 10:05:40] "[37mGET /user/update/1/add/roles_existing/3 HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 10:05:51] "[37mGET /user/get/1 HTTP/1.1[0m" 200 -
