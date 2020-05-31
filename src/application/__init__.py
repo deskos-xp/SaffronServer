@@ -11,6 +11,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 from sqlalchemy_utils import auto_delete_orphans
+from flask_user import current_user, login_required, roles_required, UserManager, UserMixin
 
 LOG=os.getenv("LOG")
 if os.path.exists(LOG) and os.path.isfile(LOG):
@@ -100,10 +101,9 @@ def delete(ID,model):
         print(brand.__class__.__name__)
         return status(model(),status=status_codes.NOT_DELETED,msg="{} has been deleted!".format(brand.__class__.__name__))
 
+app = Flask(__name__,instance_relative_config=False)
 def create_app():
-    app = Flask(__name__,instance_relative_config=False)
     app.config.from_object('config.Config')
-    
     db.init_app(app)
     ma.init_app(app)
     
@@ -116,6 +116,7 @@ def create_app():
         #weightUnit_routes,priceUnit_routes,price_routes,weight_routes
         from .routes import ledger_routes,productCount_routes
         from .routes import export_routes
+        #user_manager=UserManager(app,db,User)
         db.create_all()
 
         return app

@@ -17,3 +17,9 @@ class Config:
     MESSAGING_PASSWORD=environ['MESSAGING_PASSWORD']
     MESSAGING_EMAIL=environ['MESSAGING_EMAIL']
     MESSAGING_CARRIER_GATEWAY=environ['MESSAGING_CARRIER_GATEWAY']
+        # Flask-User settings
+    USER_APP_NAME = environ['USER_APP_NAME']      # Shown in and email templates and page footers
+    USER_ENABLE_EMAIL = environ['USER_ENABLE_EMAIL']        # Enable email authentication
+    USER_ENABLE_USERNAME = environ['USER_ENABLE_USERNAME']    # Disable username authentication
+    USER_EMAIL_SENDER_NAME = environ['USER_EMAIL_SENDER_NAME']
+    USER_EMAIL_SENDER_EMAIL = environ['USER_EMAIL_SENDER_EMAIL']

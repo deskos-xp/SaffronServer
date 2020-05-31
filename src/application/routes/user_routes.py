@@ -1,6 +1,6 @@
 from flask import request,make_response 
 from flask import current_app as app
-from ..models.user import db,User,UserSchema,auth
+from ..models.user import db,User,UserSchema,auth,Role
 from ..models.departments import Department
 from ..models.address import Address
 import os
@@ -169,6 +169,11 @@ if os.environ['NEED_ADMIN'] == "True":
 def new_user():
     json=request.get_json(force=True)
     json=ccj(json)
+    roleName=None
+    if 'role' in json.keys():
+        roleName=json.get('role')
+    json.__delitem__('role')
+
     print(json) 
     if db.session.query(User).filter_by(uname=auth.username()).first().active:
         user=User(**json)
@@ -178,6 +183,12 @@ def new_user():
         print(exists)
         if exists != None:
             return status(exists,status=status_codes.OLD) 
+        if roleName != None:
+            role=db.session.query(Role).filter_by(name=roleName).first()
+            if not role:
+                user.roles.append(Role(name=roleName))
+            else:
+                user.roles.append(role)
         db.session.add(user)
         db.session.commit()
         db.session.flush()
@@ -197,5 +208,43 @@ def default_user():
     default_user.hash_password("avalon")
     db.session.add(default_user)
     db.session.commit()
+
+
+@app.route("/user/update/<ID>/add/roles_existing/<ROLE_ID>",methods=["get"])
+@auth.login_required
+def add_roles_to_user(ID,ROLE_ID):
+    assert ID != None
+    assert ROLE_ID != None
+    user=db.session.query(User).filter_by(id=ID).first()
+    assert user != None
+    roles=db.session.query(Role).filter_by(id=ROLE_ID).first()
+    assert roles != None
+    if roles in user.roles:
+        return status(User(),status=status_codes.NOT_UPDATED)
+    user.roles.append(roles)
+    flag_modified(user,"roles")
+    db.session.flush()
+    db.session.merge(user)
+    db.session.flush()
+    db.session.commit()
+    return status(User(),status=status_codes.UPDATED)
+
+@app.route("/user/update/<ID>/remove/roles/<ROLE_ID>",methods=["get"])
+@auth.login_required
+def remove_roles_from_user(ID,ROLE_ID):
+    assert ID != None
+    assert ROLE_ID != None
+    user=db.session.query(User).filter_by(id=ID).first()
+    assert user != None
+    roles=db.session.query(Role).filter_by(id=ROLE_ID).first()
+    assert roles != None
+    assert roles in user.roles
+    user.roles.remove(roles)
+    flag_modified(user,"roles")
+    db.session.flush()
+    db.session.merge(user)
+    db.session.flush()
+    db.session.commit()
+    return status(User(),status=status_codes.UPDATED)
 
 

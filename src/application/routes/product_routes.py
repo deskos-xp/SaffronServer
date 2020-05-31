@@ -20,7 +20,11 @@ from io import BytesIO
 utypes=["upc_image","product_image"]
 ALLOWED_EXTENSIONS=["png","jpg","jpeg"]
 
+from flask_user import current_user, login_required, roles_required, UserManager, UserMixin
+
 from .. import logging
+
+#user_manager=UserManager(app,db,User)
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

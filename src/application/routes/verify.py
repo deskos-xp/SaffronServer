@@ -1,5 +1,9 @@
 from ..models.user import User
-from .. import db,auth
+from .. import db,auth,app
+
+from flask_user import current_user, login_required, roles_required, UserManager, UserMixin
+
+user_manager=UserManager(app,db,User)
 
 
 def verify_password(username,password):

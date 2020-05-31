@@ -194,8 +194,10 @@ class NewProduct(QWidget):
 
     def addToCombo(self,combo:QComboBox,data):
         print(data,combo)
-        item="{id} - {name}".format(**data)
-        #QComboBox.itemText
-        items=[combo.itemText(i) for i in range(combo.count())]
-        if item not in items:
-            combo.addItem(item)
+        if data:
+            if 'id' in data.keys() and 'name' in data.keys():
+                item="{id} - {name}".format(**data)
+                #QComboBox.itemText
+                items=[combo.itemText(i) for i in range(combo.count())]
+                if item not in items:
+                    combo.addItem(item)

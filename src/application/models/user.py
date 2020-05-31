@@ -2,6 +2,7 @@ from .. import db,ma,auth
 from passlib.apps import custom_app_context as pwd_context
 from .departments import Department,DepartmentSchema
 from .address import Address,AddressSchema
+from flask_user import current_user, login_required, roles_required, UserManager, UserMixin
 
 from .as_dict import AsDict
 user_departments=db.Table("user_departments",
@@ -13,7 +14,19 @@ user_addresses=db.Table("user_addresses",
         db.Column("address_id",db.Integer,db.ForeignKey("address.id"))
         )
 
-class User(db.Model,AsDict):
+class Role(db.Model):
+    __tablename__ = "roles"
+    id = db.Column(db.Integer(),primary_key=True)
+    name = db.Column(db.String(length=50),unique=True)
+
+class UserRoles(db.Model):
+    __tablename__ = "user_roles"
+    id = db.Column(db.Integer(),primary_key=True)
+    user_id = db.Column(db.Integer(),db.ForeignKey('users.id'))
+    role_id = db.Column(db.Integer(),db.ForeignKey("roles.id"))
+
+
+class User(db.Model,AsDict,UserMixin):
     __tablename__ = 'users'
     def hash_password_auto(self):
         self.password=pwd_context.encrypt(self.password)
@@ -25,6 +38,8 @@ class User(db.Model,AsDict):
         return i
 
     id = db.Column(db.Integer,primary_key=True)
+    roles = db.relationship('Role',secondary='user_roles',cascade="all,delete",single_parent=True,backref='users')
+
     uname = db.Column(db.String(length=50))
     fname = db.Column(db.String(length=50))
     mname = db.Column(db.String(length=50))
@@ -39,7 +54,7 @@ class User(db.Model,AsDict):
     #department_id=db.Column(db.Integer)
     departments=db.relationship("Department",backref=db.backref("users"),secondary=user_departments)
     address=db.relationship("Address",backref=db.backref("address"),secondary=user_addresses)
-
+    
     def defaultdict(self):
         return dict(uname=str(),fname=str(),mname=str(),lname=str(),id=int(),admin=str(),password=str(),email=str(),phone=int(),active=True,departments=self.departments,carrier=self.carrier,region=self.region,address=self.address)
  
@@ -60,7 +75,8 @@ class User(db.Model,AsDict):
             active={10},
             departments={11},
             address={12}
-            region="{13}"
+            region="{13}",
+            roles={14}
             )""".format(
             self.uname,
             self.fname,
@@ -75,13 +91,14 @@ class User(db.Model,AsDict):
             self.active,
             self.departments,
             self.address,
-            self.region
+            self.region,
+            self.roles
         )
 
 class UserSchema(ma.SQLAlchemySchema):
     class Meta:
         model = User
-        fields=("id","uname","fname","mname","lname","admin","email","phone","active","departments","carrier","region","address")
+        fields=("id","uname","fname","mname","lname","admin","email","phone","active","departments","carrier","region","address","roles")
         #exclude=("password",)
     id = ma.auto_field()
     uname = ma.auto_field()
@@ -99,4 +116,4 @@ class UserSchema(ma.SQLAlchemySchema):
     region=ma.auto_field()
     departments=ma.List(ma.Nested(DepartmentSchema))
     address=ma.List(ma.Nested(AddressSchema))
-
+    roles=ma.auto_field()
