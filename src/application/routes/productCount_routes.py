@@ -9,7 +9,7 @@ import os
 from sqlalchemy.orm.attributes import flag_modified
 from . import verify
 from .. import delete,status,ccj,status_codes
-
+from ..decor import roles_required
 @auth.verify_password
 def v(username,password):
     a=verify.verify_password(username,password)
@@ -18,6 +18,7 @@ def v(username,password):
 
 @app.route("/productCount/new",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def new_productCount():
         json=request.get_json(force=True)
         assert json != None
@@ -41,6 +42,7 @@ ToDos:
 '''
 @app.route("/productCount/get/<productCount_id>",methods=["GET"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_productCount_id(productCount_id):
     assert productCount_id != None
     productCount=db.session.query(ProductCount).filter_by(id=productCount_id).first()
@@ -51,6 +53,7 @@ def get_productCount_id(productCount_id):
 
 @app.route("/productCount/get",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_productCount():
     json=request.get_json(force=True)
     json=ccj(json)
@@ -76,11 +79,13 @@ def get_productCount():
 
 @app.route("/productCount/delete/<productCount_id>",methods=["delete"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def delete_productCount(productCount_id): 
     return delete(productCount_id,ProductCount)
 
 @app.route("/productCount/update/<productCount_id>",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def update_productCount(productCount_id):
     assert productCount_id != None
     json=request.get_json(force=True)
@@ -99,6 +104,7 @@ def update_productCount(productCount_id):
 
 @app.route("/productCount/update/<productCount_id>/remove/product/<product_id>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def remove_product_from_productCount(productCount_id,product_id):
     assert productCount_id != None
     assert product_id != None
@@ -117,6 +123,7 @@ def remove_product_from_productCount(productCount_id,product_id):
 
 @app.route("/productCount/update/<productCount_id>/add/product/<product_id>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def add_product_to_productCount(productCount_id,product_id):
     assert productCount_id != None
     assert product_id != None

@@ -12,6 +12,7 @@ from .. import delete,status,ccj,status_codes
 from ..decor import roles_required
 @app.route("/user/delete/<user_id>",methods=["delete"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def delete_user(user_id): 
     return delete(user_id,User)
 
@@ -32,6 +33,7 @@ def get_user_by_id(ID):
 
 @app.route("/user/get",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def search_user():
     print(request.view_args)
     json=request.get_json(force=True)
@@ -57,6 +59,7 @@ def search_user():
 
 @app.route("/user/update/<ID>",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def alter_user(ID):
     json=request.get_json(force=True)
     json=ccj(json)
@@ -86,6 +89,7 @@ def alter_user(ID):
 #need to add department route
 @app.route("/user/update/<ID>/add/department/<DEPARTMENT_ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def add_department_to_user(ID,DEPARTMENT_ID):
     assert ID != None
     assert DEPARTMENT_ID != None
@@ -105,6 +109,7 @@ def add_department_to_user(ID,DEPARTMENT_ID):
 
 @app.route("/user/update/<ID>/remove/department/<DEPARTMENT_ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def remove_department_from_user(ID,DEPARTMENT_ID):
     assert ID != None
     assert DEPARTMENT != None
@@ -123,6 +128,7 @@ def remove_department_from_user(ID,DEPARTMENT_ID):
 
 @app.route("/user/update/<ID>/add/address/<ADDRESS_ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def add_address_to_user(ID,ADDRESS_ID):
     assert ID != None
     assert ADDRESS_ID != None
@@ -142,6 +148,7 @@ def add_address_to_user(ID,ADDRESS_ID):
 
 @app.route("/user/update/<ID>/remove/address/<ADDRESS_ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def remove_address_from_user(ID,ADDRESS_ID):
     assert ID != None
     assert ADDRESS != None
@@ -168,6 +175,7 @@ if os.environ['NEED_ADMIN'] == "True":
 
 @app.route("/user/new",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def new_user():
     json=request.get_json(force=True)
     json=ccj(json)
@@ -214,6 +222,7 @@ def default_user():
 
 @app.route("/user/update/<ID>/add/roles_existing/<ROLE_ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def add_roles_to_user(ID,ROLE_ID):
     assert ID != None
     assert ROLE_ID != None
@@ -233,6 +242,7 @@ def add_roles_to_user(ID,ROLE_ID):
 
 @app.route("/user/update/<ID>/remove/roles/<ROLE_ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def remove_roles_from_user(ID,ROLE_ID):
     assert ID != None
     assert ROLE_ID != None

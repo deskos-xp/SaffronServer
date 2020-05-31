@@ -2,7 +2,7 @@ from .models.user import auth,db,User
 
 def roles_required(roles:list,**arguments):
     def decorator(function):
-        def wrapper(*args,**kargs): 
+        def Wrapper(*args,**kargs): 
             #roles=arguments.get("roles")
             uname=auth.username()
             user=db.session.query(User).filter_by(uname=uname).first()
@@ -21,7 +21,8 @@ def roles_required(roles:list,**arguments):
                 return "user not authorized by role!",401
             r=function(*args,**kargs)
             return r
-        return wrapper
+        Wrapper.__name__ = function.__name__
+        return Wrapper
     return decorator
 
 

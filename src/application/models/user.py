@@ -13,11 +13,17 @@ user_addresses=db.Table("user_addresses",
         db.Column("user_id",db.Integer,db.ForeignKey("users.id"),unique=True),
         db.Column("address_id",db.Integer,db.ForeignKey("address.id"))
         )
-
 class Role(db.Model):
     __tablename__ = "roles"
     id = db.Column(db.Integer(),primary_key=True)
     name = db.Column(db.String(length=50),unique=True)
+
+class RoleSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model=Role
+        fields=('name',)
+    name=ma.auto_field()
+
 
 class UserRoles(db.Model):
     __tablename__ = "user_roles"
@@ -116,4 +122,4 @@ class UserSchema(ma.SQLAlchemySchema):
     region=ma.auto_field()
     departments=ma.List(ma.Nested(DepartmentSchema))
     address=ma.List(ma.Nested(AddressSchema))
-    roles=ma.auto_field()
+    roles=ma.List(ma.Nested(RoleSchema))

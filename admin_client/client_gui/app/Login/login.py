@@ -62,6 +62,7 @@ class Login(QWidget):
             self.qtp.start(sauth)
         self.worker=Worker(self.auth)
         self.worker.signals.state.connect(self.loginState)
+        self.worker.signals.user.connect(lambda x:print(x))
         self.worker.signals.hasError.connect(self.notify)
         QThreadPool.globalInstance().start(self.worker)
 

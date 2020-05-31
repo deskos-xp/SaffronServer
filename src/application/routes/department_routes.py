@@ -6,9 +6,11 @@ import json as Json
 from sqlalchemy.orm.attributes import flag_modified
 from . import verify
 from .. import delete,status,ccj,status_codes
+from ..decor import roles_required
 
 @app.route("/department/delete/<ID>",methods=["delete"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def delete_department(ID):
     return delete(ID,Department)
 
@@ -20,6 +22,7 @@ def v(username,password):
 
 @app.route("/department/new",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def new_department():
     json=request.get_json(force=True)
     json=ccj(json)
@@ -36,6 +39,7 @@ def new_department():
 
 @app.route("/department/get/<ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_department_id(ID):
     department=db.session.query(Department).filter_by(id=ID).first() 
     if department == None:
@@ -45,6 +49,7 @@ def get_department_id(ID):
 
 @app.route("/department/get",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_department():
     json=request.get_json(force=True)
     json=ccj(json)
@@ -69,6 +74,7 @@ def get_department():
 #edit department goes here
 @app.route("/department/update/<ID>",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def update_department(ID):
     if ID == None:
         return status(Department(),status=status_codes.NO_ID_PROVIDED,msg="department was not provided!")

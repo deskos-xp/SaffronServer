@@ -9,9 +9,11 @@ import os
 from sqlalchemy.orm.attributes import flag_modified
 from . import verify
 from .. import delete,status,ccj,status_codes
+from ..decor import roles_required
 
 @app.route("/address/delete/<ID>",methods=["delete"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def delete_address(ID):
     assert ID != None
     return delete(ID,Address)
@@ -23,6 +25,7 @@ def v(username,password):
 
 @app.route("/address/get/<ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_address_id(ID):
     if ID == None:
         return status(Address(),status=status_codes.NO_ID_PROVIDED,msg="no address id provided!")
@@ -34,6 +37,7 @@ def get_address_id(ID):
 
 @app.route("/address/get",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_address():
     json=request.get_json(force=True)
     json=ccj(json)
@@ -58,6 +62,7 @@ def get_address():
 
 @app.route("/address/new",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def add_address():
     json=request.get_json(force=True)
     json=ccj(json)
@@ -74,6 +79,7 @@ def add_address():
     
 @app.route("/address/update/<ID>",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def update_address(ID):
     assert ID != None
     address_old=db.session.query(Address).filter_by(id=ID).first()

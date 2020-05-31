@@ -10,7 +10,7 @@ import os
 from sqlalchemy.orm.attributes import flag_modified
 from . import verify
 from .. import delete,status,ccj,status_codes
-
+from ..decor import roles_required
 from datetime import datetime
 
 @auth.verify_password
@@ -21,6 +21,7 @@ def v(username,password):
 
 @app.route("/ledger/new",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def new_ledger():
         json=request.get_json(force=True)
         json=ccj(json)
@@ -46,6 +47,7 @@ ToDos:
         '''
 @app.route("/ledger/get/<ledger_id>",methods=["GET"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_ledger_id(ledger_id):
     assert ledger_id != None
     ledger=db.session.query(Ledger).filter_by(id=ledger_id).first()
@@ -56,6 +58,7 @@ def get_ledger_id(ledger_id):
 
 @app.route("/ledger/get",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_ledgers():
     json=request.get_json(force=True)
     json=ccj(json)
@@ -81,11 +84,13 @@ def get_ledgers():
 
 @app.route("/ledger/delete/<ledger_id>",methods=["delete"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def delete_ledger(ledger_id): 
     return delete(ledger_id,Ledger)
 
 @app.route("/ledger/update/<ledger_id>/remove/user/<user_id>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def remove_user_to_ledger(ledger_id,user_id):
     assert ledger_id != None
     assert user_id != None
@@ -104,6 +109,7 @@ def remove_user_to_ledger(ledger_id,user_id):
 
 @app.route("/ledger/update/<ledger_id>/add/user/<user_id>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def add_user_to_ledger(ledger_id,user_id):
     assert ledger_id != None
     assert user_id != None
@@ -123,6 +129,7 @@ def add_user_to_ledger(ledger_id,user_id):
 
 @app.route("/ledger/update/<ledger_id>/remove/productCount/<product_count_id>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def remove_product_to_ledger(ledger_id,product_count_id):
     assert ledger_id != None
     assert product_count_id != None
@@ -141,6 +148,7 @@ def remove_product_to_ledger(ledger_id,product_count_id):
 
 @app.route("/ledger/update/<ledger_id>/add/productCount/<product_count_id>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def add_product_to_ledger(ledger_id,product_count_id):
     assert ledger_id != None
     assert product_count_id != None

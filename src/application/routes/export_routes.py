@@ -15,6 +15,7 @@ from ..tools.reporting.report import gen
 import json
 from flask  import send_from_directory
 import phonenumbers,emails
+from ..decor import roles_required
 
 FMTS=['json','pdf']
 WHATS=['product','ledger']
@@ -31,6 +32,7 @@ def v(username,password):
 
 @app.route("/export/<FMT>/ledger/<UID>/<WHO>/<TO>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def export_to_text(FMT,UID,WHO,TO):
     assert FMT != None 
     assert UID != None
@@ -114,6 +116,7 @@ def getAddress(WHO,TO):
 
 @app.route("/export/<FMT>/<WHAT>/<ID>",methods=["get","post"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def exporter(FMT,WHAT,ID):
     page=0
     limit=10

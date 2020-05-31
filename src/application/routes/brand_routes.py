@@ -9,6 +9,7 @@ import os
 from sqlalchemy.orm.attributes import flag_modified
 from . import verify
 from .. import delete,status,ccj,status_codes
+from ..decor import roles_required
 
 @auth.verify_password
 def v(username,password):
@@ -17,6 +18,7 @@ def v(username,password):
 
 @app.route("/brand/get/<ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_brand_id(ID):
     if ID == None:
         return status(Brand(),status=status_codes.NO_ID_PROVIDED,msg="no brand id provided!")
@@ -29,6 +31,7 @@ def get_brand_id(ID):
 
 @app.route("/brand/get",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_brand():
     json=request.get_json(force=True)
     json=ccj(json)
@@ -53,6 +56,7 @@ def get_brand():
 
 @app.route("/brand/new",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def add_brand():
     json=request.get_json(force=True)
     json=ccj(json)
@@ -70,12 +74,14 @@ def add_brand():
 
 @app.route("/brand/delete/<ID>",methods=["delete"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def delete_band(ID):
     return delete(ID,Brand)
 
 
 @app.route("/brand/update/<ID>/add/address/<ADDRESS_ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def update_brand_with_address_add(ID,ADDRESS_ID):
     assert ID != None
     assert ADDRESS_ID != None
@@ -92,6 +98,7 @@ def update_brand_with_address_add(ID,ADDRESS_ID):
 
 @app.route("/brand/update/<ID>/remove/address/<ADDRESS_ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def update_brand_with_address_rm(ID,ADDRESS_ID):
     assert ID != None
     assert ADDRESS_ID != None
@@ -108,6 +115,7 @@ def update_brand_with_address_rm(ID,ADDRESS_ID):
 
 @app.route("/brand/update/<ID>",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def update_brand(ID):
     assert ID != None
     brand_old=db.session.query(Brand).filter_by(id=ID).first()

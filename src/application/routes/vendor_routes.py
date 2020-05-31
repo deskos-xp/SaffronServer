@@ -8,9 +8,11 @@ import os
 from sqlalchemy.orm.attributes import flag_modified
 from . import verify
 from .. import delete,status,ccj,status_codes
+from ..decor import roles_required
 
 @app.route("/vendor/delete/<vendor_id>",methods=["delete"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def delete_vendor(vendor_id): 
     return delete(vendor_id,Vendor)
 
@@ -22,6 +24,7 @@ def v(username,password):
 
 @app.route("/vendor/get/<ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_vendor_id(ID):
     if ID == None:
         return status(Vendor(),status=status_codes.NO_ID_PROVIDED,msg="no vendor id provided!")
@@ -34,6 +37,7 @@ def get_vendor_id(ID):
 
 @app.route("/vendor/get",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_vendor():
     json=request.get_json(force=True)
     
@@ -59,6 +63,7 @@ def get_vendor():
 
 @app.route("/vendor/new",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def add_vendor():
     json=request.get_json(force=True)
     assert json != None
@@ -75,6 +80,7 @@ def add_vendor():
 
 @app.route("/vendor/update/<ID>",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def update_vendor(ID):
     assert ID != None
     vendor_old=db.session.query(Vendor).filter_by(id=ID).first()
@@ -96,6 +102,7 @@ def update_vendor(ID):
 
 @app.route("/vendor/update/<ID>/add/address/<ADDRESS_ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def update_vendor_with_address_add(ID,ADDRESS_ID):
     assert ID != None
     assert ADDRESS_ID != None
@@ -112,6 +119,7 @@ def update_vendor_with_address_add(ID,ADDRESS_ID):
 
 @app.route("/vendor/update/<ID>/remove/address/<ADDRESS_ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def update_vendor_with_address_rm(ID,ADDRESS_ID):
     assert ID != None
     assert ADDRESS_ID != None

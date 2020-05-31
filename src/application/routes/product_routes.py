@@ -17,6 +17,7 @@ from . import verify
 from .. import delete,status,ccj,status_codes
 from ..tools.barcode.barcodes import barcode_gen
 from io import BytesIO
+from ..decor import roles_required
 utypes=["upc_image","product_image"]
 ALLOWED_EXTENSIONS=["png","jpg","jpeg"]
 
@@ -36,6 +37,7 @@ def v(username,password):
 
 @app.route("/product/update/<ID>",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def update_product(ID):
     assert ID != None
     json=request.get_json(force=True)
@@ -53,6 +55,7 @@ def update_product(ID):
 
 @app.route("/product/barcode/<ID>/<TYPE>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_barcode(ID:int,TYPE:str):
     assert ID != None
     assert TYPE != None
@@ -77,6 +80,7 @@ def get_barcode(ID:int,TYPE:str):
 
 @app.route("/product/update/<ID>/upload/<WHICH>",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def upload_upc_image(ID,WHICH):
     assert WHICH != None
     assert ID != None
@@ -109,6 +113,7 @@ def upload_upc_image(ID,WHICH):
 
 @app.route("/product/get/<ID>/<WHICH>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_images(ID,WHICH):
     assert ID != None
     assert WHICH != None
@@ -124,6 +129,7 @@ def get_images(ID,WHICH):
 
 @app.route("/product/new",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def new_product():
         json=request.get_json(force=True)
         json=ccj(json)
@@ -151,6 +157,7 @@ ToDos:
         '''
 @app.route("/product/get/<product_id>",methods=["GET"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_product_id(product_id):
     assert product_id != None
     product=db.session.query(Product).filter_by(id=product_id).first()
@@ -161,6 +168,7 @@ def get_product_id(product_id):
 
 @app.route("/product/get",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_products():
     json=request.get_json(force=True)
     json=ccj(json)
@@ -194,11 +202,13 @@ def get_products():
 
 @app.route("/product/delete/<product_id>",methods=["delete"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def delete_product(product_id): 
     return delete(product_id,Product)
 
 @app.route("/product/update/<product_id>/remove/vendor/<vendor_id>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def remove_vendor_to_product(product_id,vendor_id):
     assert product_id != None
     assert vendor_id != None
@@ -257,6 +267,7 @@ def add_price_to_product(product_id,price_id):
 
 @app.route("/product/update/<product_id>/add/vendor/<vendor_id>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def add_vendor_to_product(product_id,vendor_id):
     assert product_id != None
     assert vendor_id != None
@@ -276,6 +287,7 @@ def add_vendor_to_product(product_id,vendor_id):
 
 @app.route("/product/update/<product_id>/remove/brand/<brand_id>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def remove_brand_to_product(product_id,brand_id):
     assert product_id != None
     assert brand_id != None
@@ -295,6 +307,7 @@ def remove_brand_to_product(product_id,brand_id):
 
 @app.route("/product/update/<product_id>/add/brand/<brand_id>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def add_brand_to_product(product_id,brand_id):
     assert product_id != None
     assert brand_id != None
@@ -314,6 +327,7 @@ def add_brand_to_product(product_id,brand_id):
 
 @app.route("/product/update/<product_id>/remove/manufacturer/<manufacturer_id>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def remove_manufacturer_to_product(product_id,manufacturer_id):
     assert product_id != None
     assert manufacturer_id != None
@@ -334,6 +348,7 @@ def remove_manufacturer_to_product(product_id,manufacturer_id):
 
 @app.route("/product/update/<product_id>/add/manufacturer/<manufacturer_id>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def add_manufacturer_to_product(product_id,manufacturer_id):
     assert product_id != None
     assert manufacturer_id != None
@@ -353,6 +368,7 @@ def add_manufacturer_to_product(product_id,manufacturer_id):
 
 @app.route("/product/update/<product_id>/remove/department/<department_id>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def remove_department_to_product(product_id,department_id):
     assert product_id != None
     assert department_id != None
@@ -371,6 +387,7 @@ def remove_department_to_product(product_id,department_id):
 
 @app.route("/product/update/<product_id>/add/department/<department_id>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def add_department_to_product(product_id,department_id):
     assert product_id != None
     assert department_id != None

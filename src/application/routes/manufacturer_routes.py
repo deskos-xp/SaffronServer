@@ -7,9 +7,11 @@ import os
 from sqlalchemy.orm.attributes import flag_modified
 from . import verify
 from .. import delete,status,ccj,status_codes
+from ..decor import roles_required
 
 @app.route("/manufacturer/delete/<ID>",methods=["delete"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def delete_manufacturer(ID):
     return delete(ID,Manufacturer)
 
@@ -21,6 +23,7 @@ def v(username,password):
 
 @app.route("/manufacturer/get/<ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_manufacturer_id(ID):
     if ID == None:
         return status(Manufacturer(),status=status_codes.NO_ID_PROVIDED,msg="no manufacturer id provided!")
@@ -33,6 +36,7 @@ def get_manufacturer_id(ID):
 
 @app.route("/manufacturer/get",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin','user'])
 def get_manufacturer():
     json=request.get_json(force=True)
     json=ccj(json)
@@ -57,6 +61,7 @@ def get_manufacturer():
 
 @app.route("/manufacturer/new",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def add_manufacturer():
     json=request.get_json(force=True)
     json=ccj(json)
@@ -74,6 +79,7 @@ def add_manufacturer():
     return status(manufacturer,status=status_codes.NEW) 
 @app.route("/manufacturer/update/<ID>",methods=["post"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def update_manufacturer(ID):
     assert ID != None
     manufacturer_old=db.session.query(Manufacturer).filter_by(id=ID).first()
@@ -95,6 +101,7 @@ def update_manufacturer(ID):
 
 @app.route("/manufacturer/update/<ID>/add/address/<ADDRESS_ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def update_manufacturer_with_address_add(ID,ADDRESS_ID):
     assert ID != None
     assert ADDRESS_ID != None
@@ -111,6 +118,7 @@ def update_manufacturer_with_address_add(ID,ADDRESS_ID):
 
 @app.route("/manufacturer/update/<ID>/remove/address/<ADDRESS_ID>",methods=["get"])
 @auth.login_required
+@roles_required(roles=['admin'])
 def update_manufacturer_with_address_rm(ID,ADDRESS_ID):
     assert ID != None
     assert ADDRESS_ID != None

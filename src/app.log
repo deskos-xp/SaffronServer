@@ -1,4 +1,23 @@
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 274-883-122
-INFO:werkzeug:127.0.0.1 - - [31/May/2020 10:05:40] "[37mGET /user/update/1/add/roles_existing/3 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [31/May/2020 10:05:51] "[37mGET /user/get/1 HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 10:59:19] "[37mPOST /manufacturer/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 10:59:19] "[37mPOST /department/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 10:59:19] "[35m[1mPOST /brand/get HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 10:59:19] "[35m[1mPOST /vendor/get HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 10:59:36] "[37mPOST /user/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 10:59:37] "[37mPOST /manufacturer/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 10:59:37] "[37mPOST /brand/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 10:59:37] "[37mPOST /vendor/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 10:59:37] "[37mPOST /department/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 11:00:32] "[37mPOST /manufacturer/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 11:00:32] "[37mPOST /brand/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 11:00:32] "[37mPOST /vendor/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 11:00:32] "[37mPOST /department/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 11:00:36] "[37mPOST /user/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 11:00:37] "[37mPOST /manufacturer/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 11:00:37] "[37mPOST /vendor/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 11:00:37] "[37mPOST /department/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 11:00:37] "[37mPOST /brand/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 11:01:14] "[37mGET /address/get/1 HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 11:01:22] "[37mGET /user/get/1 HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 11:01:41] "[37mPOST /product/get HTTP/1.1[0m" 200 -
