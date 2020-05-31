@@ -95,3 +95,15 @@ class Mode(enum.Enum):
     POST=enum.auto()
     GET=enum.auto()
 
+def userHasRole(user) -> bool:
+    print(user)
+    roles=[]
+    for r in user.get('roles'):
+        print(r)
+        roles.append(r['name'])
+    if 'admin' in roles:
+        return True
+
+    return False
+
+

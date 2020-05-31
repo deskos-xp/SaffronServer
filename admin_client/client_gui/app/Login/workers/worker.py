@@ -26,7 +26,7 @@ class Worker(QRunnable):
                     "{address}/user/get".format(address=self.auth.get("server_address")),
                     auth=(self.auth.get("username"),
                         self.auth.get("password")),
-                    json=dict(page=0,limit=1))
+                    json=dict(page=0,limit=1,uname=self.auth.get("username")))
             try:
                 print(self.status.json())
                 j=self.status.json()

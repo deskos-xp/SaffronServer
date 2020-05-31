@@ -12,9 +12,11 @@ from ..drm import drm,drmEnum
 from PyQt5.QtCore import QCoreApplication
 import json
 from ..Icons import *
+from ..common.Fields import userHasRole
 
 class Main(QMainWindow,QObject):
     auth:dict=dict(server_address=None,username=None,password=None)
+    user=None
     EXIT_CODE_REBOOT = 33333333
     def loadFromAbout(self,file):
         buff=dict()
@@ -22,6 +24,11 @@ class Main(QMainWindow,QObject):
             buff=json.load(fd)
         return buff
 
+
+    @pyqtSlot(dict)
+    def storeUser(self,user):
+        self.user=user
+        #print(user,"#")
 
     def __init__(self):
         super(Main,self).__init__()
@@ -33,6 +40,7 @@ class Main(QMainWindow,QObject):
         icon=QIcon(QPixmap.fromImage(QImage.fromData(pix.read())))
         self.setWindowIcon(icon)
         self.sb=self.statusBar()
+        self.loggin.hasUser.connect(self.storeUser)
         self.loggin.loggedIn.connect(self.stackChange)
         self.loggin.logInFail.connect(self.logInFailed)
         self.application.currentChanged.connect(self.readyToWork)
@@ -50,9 +58,12 @@ class Main(QMainWindow,QObject):
         self.sb.showMessage("Attempted Log-In failed!",1000)
 
     @pyqtSlot()
-    def readyToWork(self):
-        self.menubar.loggedIn(self.application.currentIndex())
-        self.newGrid=NewProduct(self.auth,self.newGrid)
+    def readyToWork(self): 
+        #if 'admin' in [self.user.get('roles').get(i) for i in self.user.get('roles').keys()]:
+        self.menubar.user=self.user
+        self.menubar.loggedIn(self.application.currentIndex(),self.user)
+        if userHasRole(self.user):
+            self.newGrid=NewProduct(self.auth,self.newGrid)
         self.searchGrid=SearchProduct(self.auth,self.searchGrid)
 
     @pyqtSlot(dict)

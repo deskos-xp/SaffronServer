@@ -12,6 +12,8 @@ class Login(QWidget):
     widget:QWidget=None
     loggedIn:pyqtSignal=pyqtSignal(dict)
     logInFail:pyqtSignal=pyqtSignal()
+    hasUser:pyqtSignal=pyqtSignal(dict)
+
     credfile="creds.json"
     def __init__(self,widget):
         super(Login,self).__init__()
@@ -38,7 +40,7 @@ class Login(QWidget):
 
     @pyqtSlot(str,str)
     def authLoaded(self,widgetName,data):
-        print(data,widgetName)
+        #print(data,widgetName)
         getattr(self.widget,widgetName).setText(data)
 
     @pyqtSlot(Exception)
@@ -62,7 +64,7 @@ class Login(QWidget):
             self.qtp.start(sauth)
         self.worker=Worker(self.auth)
         self.worker.signals.state.connect(self.loginState)
-        self.worker.signals.user.connect(lambda x:print(x))
+        self.worker.signals.user.connect(self.hasUser.emit)
         self.worker.signals.hasError.connect(self.notify)
         QThreadPool.globalInstance().start(self.worker)
 

@@ -1,0 +1,14 @@
+{
+	"role":"user",
+	"uname":"ron",
+	"fname":"Ron",
+	"mname":"",
+	"lname":"Murray",
+	"admin":false,
+	"email":"",
+	"phone":"8315211536",
+	"carrier":"atnt",
+	"region":"US",
+	"active":true,
+	"password":"avalon"
+}
