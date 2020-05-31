@@ -168,3 +168,13 @@ INFO:werkzeug:127.0.0.1 - - [31/May/2020 12:22:03] "[37mPOST /vendor/get HTTP/1
 INFO:werkzeug:127.0.0.1 - - [31/May/2020 12:22:03] "[37mPOST /manufacturer/get HTTP/1.1[0m" 200 -
 INFO:werkzeug:127.0.0.1 - - [31/May/2020 12:22:03] "[37mPOST /department/get HTTP/1.1[0m" 200 -
 INFO:werkzeug:127.0.0.1 - - [31/May/2020 12:22:03] "[37mPOST /brand/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 12:23:42] "[31m[1mPOST /user/get HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 12:23:48] "[31m[1mPOST /user/get HTTP/1.1[0m" 401 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 12:23:52] "[37mPOST /user/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 12:23:54] "[37mPOST /product/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 12:23:56] "[37mPOST /product/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 12:24:15] "[37mPOST /user/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 12:24:15] "[37mPOST /brand/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 12:24:16] "[37mPOST /vendor/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 12:24:16] "[37mPOST /manufacturer/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/May/2020 12:24:16] "[37mPOST /department/get HTTP/1.1[0m" 200 -
