@@ -44,3 +44,5 @@ stack widget to dialog to take pictures for newproduct.ui
 add qcombobox to table views where appropriate
 add better user controls from server to client
 add user info view dialog to about action menubar
+add dialogs for user edit, user add, user delete
+	userView is first
