@@ -45,8 +45,10 @@ class UpdateP(QRunnable):
         #only send changed data
         for k in self.old.keys():
             if self.old.get(k) == bid.get(k):
-                bid.__delitem__(k)
-
+                try:
+                    bid.__delitem__(k)
+                except Exception as e:
+                    print(e)
         response=self.signals.session.post(addr,auth=self.auth_Tuple,json=bid)
         self.signals.hasResponse.emit(response)
 
@@ -116,7 +118,9 @@ class UpdateP(QRunnable):
 
         #print(productImage)
         upcImage=self.upc_image
+        #print(upcImage.get("name"),'z'*30)
         if upcImage.get("name"):
+            #print('*'*60)
             uploader_upc=UploaderWorker(self.auth,"upc_image",upcImage.get('name'),self.base_item_data.get("id"))
             uploader_upc.signals.hasError.connect(lambda e:print(e))
             uploader_upc.signals.uploaded.connect(hasResponse)
@@ -124,12 +128,18 @@ class UpdateP(QRunnable):
             QThreadPool.globalInstance().start(uploader_upc)
 
     def run(self):
+        self.signals.disabledGrid.emit(False)
         try:
-            self.signals.disabledGrid.emit(False)
+            #print('s0')
             self.updateBase()
+            #print('s1')
             self.updateRelations()
+            #print('s2')
             self.updateImage()
-            self.signals.disabledGrid.emit(True)
+            #print('s3')
         except Exception as e:
+            #print("exception",e)
             self.signals.hasError.emit(e)
         self.signals.finished.emit()
+        self.signals.disabledGrid.emit(True)
+

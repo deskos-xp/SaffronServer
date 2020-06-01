@@ -193,6 +193,7 @@ class EditDB_Controller_P(QDialog):
         product_image=self.tab.product_image.pixmap()
         self.product_image=product_image
         product_image_name=self.displayedImages.get("product_image")
+        print(self.displayedImages)
         if product_image_name != "":
             product_image_bio=pixmapToBytesIO(product_image)
             productImage['image']=product_image_bio

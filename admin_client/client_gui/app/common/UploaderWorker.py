@@ -26,6 +26,7 @@ class UploaderWorker(QRunnable):
         self.product_id=product_id
 
     def run(self):
+        #print(self.path,'#'*30)
         try:
             if self.WHAT not in UploaderWorkerEnum.TYPES:
                 raise Exception("invalid WHAT as {WHAT}".format(**dict(WHAT=self.WHAT)))

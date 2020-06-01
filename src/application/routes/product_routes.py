@@ -125,6 +125,9 @@ def get_images(ID,WHICH):
     fname=product.__dict__[WHICH]
     p=os.path.join(app.root_path,app.config['UPLOAD_FOLDER'])
     logging.debug(p)
+    print(fname,'3'*30)
+    if fname == None:
+        return "no {WHICH}".format(**dict(WHICH=WHICH)),404
     return send_from_directory(p,fname)
 
 @app.route("/product/new",methods=["post"])
