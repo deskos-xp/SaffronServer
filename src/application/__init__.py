@@ -99,7 +99,7 @@ def delete(ID,model):
         print(brand.__class__.__name__,2)
         db.session.commit()  
         print(brand.__class__.__name__)
-        return status(model(),status=status_codes.NOT_DELETED,msg="{} has been deleted!".format(brand.__class__.__name__))
+        return status(model(),status=status_codes.DELETED,msg="{} has been deleted!".format(brand.__class__.__name__))
 
 app = Flask(__name__,instance_relative_config=False)
 def create_app():
@@ -111,7 +111,7 @@ def create_app():
     #app.config.from_object('config.Config')
 
     with app.app_context():
-        from .routes import user_routes,department_routes,manufacturer_routes,address_routes,vendor_routes,brand_routes
+        from .routes import user_routes,department_routes,manufacturer_routes,address_routes,vendor_routes,brand_routes,roles_routes
         from .routes import product_routes
         #weightUnit_routes,priceUnit_routes,price_routes,weight_routes
         from .routes import ledger_routes,productCount_routes

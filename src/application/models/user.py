@@ -21,7 +21,7 @@ class Role(db.Model):
 class RoleSchema(ma.SQLAlchemySchema):
     class Meta:
         model=Role
-        fields=('name',)
+        fields=('name','id')
     name=ma.auto_field()
 
 

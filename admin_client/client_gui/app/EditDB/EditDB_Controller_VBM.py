@@ -63,7 +63,10 @@ class EditDB_Controller_VBM(QDialog):
     def load_addresses(self):
         def update_addresses(data):
             for d in data:
-                self.tab.addresses.addItem(toAddressString(d))
+                string=toAddressString(d)
+                contained=[self.tab.addresses.itemText(i) for i in range(self.tab.addresses.count())]
+                if string not in contained:
+                    self.tab.addresses.addItem(toAddressString(d))
 
         self.tab.addresses.lineEdit().setReadOnly(True)
         self.address_loader=SearchWorker(self.auth,dict(page=0,limit=sys.maxsize),'address',fields('address'))

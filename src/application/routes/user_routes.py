@@ -170,8 +170,11 @@ if os.environ['NEED_ADMIN'] == "True":
     @app.route("/admin/new",methods=["get"])
     def new_admin():    
         if os.environ['NEED_ADMIN'] == "True":
-            default_user()
-            return status(User(),status=status_codes.NEW,msg="admin created! please set need_admin to false and restart server!")
+            result=default_user()
+            if result[1] == 200:
+                return status(User(),status=status_codes.NEW,msg="admin created! please set need_admin to false and restart server!")
+            else:
+                return status(User(),status=status_codes.OLD,msg=result[0])
 
 @app.route("/user/new",methods=["post"])
 @auth.login_required
@@ -215,12 +218,20 @@ def query_user(uname="admin"):
 
 def default_user():
     default_user = User(uname="admin",fname="first_name",mname="middle_name",lname="last_name",admin=True,email="admin@localhost",phone=1000000000,active=True)
+    user=db.session.query(User).filter_by(uname=default_user.uname).first()
+    if user:
+        return "user exists",400
     default_user.hash_password("avalon")
+    role=db.session.query(Role).filter_by(name='admin').first()
+    if not role:
+        role=Role(name='admin')
+    default_user.roles.append(role)
     db.session.add(default_user)
     db.session.commit()
+    return "user created",200
 
 
-@app.route("/user/update/<ID>/add/roles_existing/<ROLE_ID>",methods=["get"])
+@app.route("/user/update/<ID>/add/roles/<ROLE_ID>",methods=["get"])
 @auth.login_required
 @roles_required(roles=['admin'])
 def add_roles_to_user(ID,ROLE_ID):

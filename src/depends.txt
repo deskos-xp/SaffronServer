@@ -2,6 +2,8 @@ opencv-python
 marshmallow-sqlalchemy
 Flask-SQLAlchemy
 Flask-Marshmallow
+flask_user
+email_validator
 passlib
 flask
 flask-HTTPAuth
