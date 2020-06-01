@@ -106,4 +106,9 @@ def userHasRole(user) -> bool:
 
     return False
 
+def firstBorn(ListIn) -> dict:
+    if type(ListIn) == type(list()) and len(ListIn) > 0:
+        ListIn=ListIn[0]
+    return ListIn
+
 

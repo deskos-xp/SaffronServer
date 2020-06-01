@@ -79,9 +79,16 @@
     <addaction name="actionEdit"/>
     <addaction name="action_New"/>
    </widget>
+   <widget class="QMenu" name="menuUser">
+    <property name="title">
+     <string>&amp;User</string>
+    </property>
+    <addaction name="actionWho_Am_I"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuHelp"/>
+   <addaction name="menuUser"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_Exit">
@@ -127,6 +134,11 @@
    </property>
    <property name="text">
     <string>&amp;New</string>
+   </property>
+  </action>
+  <action name="actionWho_Am_I">
+   <property name="text">
+    <string>&amp;Who Am I</string>
    </property>
   </action>
  </widget>
