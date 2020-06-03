@@ -79,6 +79,20 @@ def fields(name):
                 weightUnit=""
                 )
 
+    def userFields():
+        return dict(
+                active=False,
+                admin=False,
+                carrier="",
+                email="",
+                fname="",
+                lname="",
+                mname="",
+                password="",
+                phone="",
+                region="",
+                uname=""
+                )
 
     if name == 'address':
         return addressFields()
@@ -88,6 +102,8 @@ def fields(name):
         return departmentFields()
     elif name == 'product':
         return productFields()
+    elif name == "user":
+        return userFields()
     else:
         return dict()
 
@@ -95,12 +111,14 @@ class Mode(enum.Enum):
     POST=enum.auto()
     GET=enum.auto()
 
-def userHasRole(user) -> bool:
+def userHasRole(user,rolesList=['admin']) -> bool:
     print(user)
     roles=[]
     for r in user.get('roles'):
         print(r)
         roles.append(r['name'])
+        if r['name'] in rolesList:
+            return True
     if 'admin' in roles:
         return True
 

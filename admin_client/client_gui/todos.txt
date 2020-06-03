@@ -43,6 +43,8 @@ get id of address from combobox and update new entity [done]
 stack widget to dialog to take pictures for newproduct.ui
 add qcombobox to table views where appropriate
 add better user controls from server to client
-add user info view dialog to about action menubar
+[done]add user info view dialog to about action menubar
 add dialogs for user edit, user add, user delete
-	userView is first
+	[done]userView is first
+	userNew is now
+after editing, force mainwindow to invalidate product info, and all subsequent locations where the data may still be

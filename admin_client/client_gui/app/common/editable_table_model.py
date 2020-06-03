@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QAbstractTableModel,Qt,QModelIndex,QThreadPool
 from PyQt5.QtGui import QColor
 import enum
-class editable_table_enum(enum.enum):
+class editable_table_enum(enum.Enum):
     EDITABLE_ID=True
     NON_EDITABLE_ID=True
 

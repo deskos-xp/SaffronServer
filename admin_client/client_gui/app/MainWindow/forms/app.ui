@@ -84,6 +84,7 @@
      <string>&amp;User</string>
     </property>
     <addaction name="actionWho_Am_I"/>
+    <addaction name="actionNew_U"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -139,6 +140,11 @@
   <action name="actionWho_Am_I">
    <property name="text">
     <string>&amp;Who Am I</string>
+   </property>
+  </action>
+  <action name="actionNew_U">
+   <property name="text">
+    <string>&amp;New U</string>
    </property>
   </action>
  </widget>

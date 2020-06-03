@@ -9,6 +9,8 @@ from app.EditDB.EditDB import EditDB
 #print("top package --->",app)
 from ...common.Fields import userHasRole
 from ...UserView.UserView import UserView
+from ...UserNew.UserNew import UserNew
+
 class MenuBar:
     def __init__(self,mainWindow:QWidget,auth):
         self.auth=auth
@@ -21,6 +23,7 @@ class MenuBar:
         self.mainWindow.action_New.triggered.connect(self.new_)
         self.mainWindow.actionEdit.triggered.connect(self.edit_)
         self.mainWindow.actionWho_Am_I.triggered.connect(self.userView_)
+        self.mainWindow.actionNew_U.triggered.connect(self.userNew_)
         #QStackedWidget
         self.mainWindow.application.currentChanged.connect(self.notLoggedIn)
         st=False
@@ -28,17 +31,25 @@ class MenuBar:
         self.mainWindow.action_New.setEnabled(st)
         self.mainWindow.actionDelete.setEnabled(st)
         self.mainWindow.actionWho_Am_I.setEnabled(st)
+        self.mainWindow.actionNew_U.setEnabled(st)
         self.user=None
 
     def notLoggedIn(self,index):
         print(index)
         state=not index==0
         if self.user != None:
-            state = state and userHasRole(self.user)
+            state2 = state and userHasRole(self.user,rolesList=['admin','user'])
+            state = state and userHasRole(self.user,rolesList=['admin'])
+            print(state)
+            print(userHasRole(self.user,rolesList=['admin','user']),"user has role")
+
         self.mainWindow.actionEdit.setEnabled(state)
         self.mainWindow.actionDelete.setEnabled(state)
         self.mainWindow.action_New.setEnabled(state)
-        self.mainWindow.actionWho_Am_I.setEnabled(state)
+        self.mainWindow.actionNew_U.setEnabled(state)
+
+        self.mainWindow.actionWho_Am_I.setEnabled(state2)
+
     def edit_(self):
         d=EditDB(self.auth,self.mainWindow)
 
@@ -48,6 +59,10 @@ class MenuBar:
     def userView_(self):
         #user view mod here
         uv=UserView(self.auth,self.mainWindow.user,self.mainWindow)
+
+    def userNew_(self):
+        nu=UserNew(self.auth,self.mainWindow.user,self.mainWindow)
+        
 
     def delete_(self):
         d=DeleteDialog.DeleteDialog(self.auth,self.mainWindow)

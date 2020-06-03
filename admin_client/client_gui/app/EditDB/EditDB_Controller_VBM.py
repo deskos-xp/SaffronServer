@@ -86,8 +86,8 @@ class EditDB_Controller_VBM(QDialog):
         self.GET.signals.disabledGrid.connect(self.tab.setEnabled)
         self.POST.signals.disabledGrid.connect(self.tab.setEnabled)
 
-        self.POST.signals.hasError.connect(lambda e:print(e))
-        self.GET.signals.hasError.connect(lambda e:print(e))
+        self.POST.signals.hasError.connect(lambda e:print("umm POST Error",e))
+        self.GET.signals.hasError.connect(lambda e:print("umm GET Error",e))
 
         self.POST.signals.hasResponse.connect(lambda e:print(e))
         self.GET.signals.hasResponse.connect(lambda e:print(e))
