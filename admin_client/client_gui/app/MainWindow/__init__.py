@@ -62,7 +62,7 @@ class Main(QMainWindow,QObject):
         #if 'admin' in [self.user.get('roles').get(i) for i in self.user.get('roles').keys()]:
         self.menubar.user=self.user
         self.menubar.loggedIn(self.application.currentIndex(),self.user)
-        if userHasRole(self.user):
+        if userHasRole(self.user,rolesList=['admin']):
             self.newGrid=NewProduct(self.auth,self.newGrid)
         self.searchGrid=SearchProduct(self.auth,self.searchGrid)
 
