@@ -91,7 +91,8 @@ def fields(name):
                 password="",
                 phone="",
                 region="",
-                uname=""
+                uname="",
+                role="user"
                 )
 
     if name == 'address':
@@ -114,14 +115,16 @@ class Mode(enum.Enum):
 def userHasRole(user,rolesList=['admin']) -> bool:
     print(user)
     roles=[]
-    for r in user.get('roles'):
-        print(r)
-        roles.append(r['name'])
-        if r['name'] in rolesList:
+    try:
+        for r in user.get('roles'):
+            print(r)
+            roles.append(r['name'])
+            if r['name'] in rolesList:
+                return True
+        if 'admin' in roles:
             return True
-    if 'admin' in roles:
-        return True
-
+    except Exception as e:
+        print(e)
     return False
 
 def firstBorn(ListIn) -> dict:

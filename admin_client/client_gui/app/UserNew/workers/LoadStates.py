@@ -1,6 +1,6 @@
 from PyQt5.QtCore import QObject,QRunnable,QThread,QThreadPool,pyqtSignal,pyqtSlot
 from PyQt5.QtWidgets import QDialog,QWidget
-import json
+import json,os,sys
 from ...configs.config import config
 
 class LoadStatesSignals(QObject):
