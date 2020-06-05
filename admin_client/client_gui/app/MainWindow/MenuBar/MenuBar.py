@@ -10,6 +10,7 @@ from app.EditDB.EditDB import EditDB
 from ...common.Fields import userHasRole
 from ...UserView.UserView import UserView
 from ...UserNew.UserNew import UserNew
+from ...UserDelete.UserDelete import UserDelete
 
 class MenuBar:
     def __init__(self,mainWindow:QWidget,auth):
@@ -24,9 +25,12 @@ class MenuBar:
         self.mainWindow.actionEdit.triggered.connect(self.edit_)
         self.mainWindow.actionWho_Am_I.triggered.connect(self.userView_)
         self.mainWindow.actionNew_U.triggered.connect(self.userNew_)
+        self.mainWindow.actionDelete_User.triggered.connect(self.DeleteUser_)
         #QStackedWidget
         self.mainWindow.application.currentChanged.connect(self.notLoggedIn)
         st=False
+
+        self.mainWindow.actionDelete_User.setEnabled(st)
         self.mainWindow.actionEdit.setEnabled(st)
         self.mainWindow.action_New.setEnabled(st)
         self.mainWindow.actionDelete.setEnabled(st)
@@ -47,6 +51,7 @@ class MenuBar:
         self.mainWindow.actionDelete.setEnabled(state)
         self.mainWindow.action_New.setEnabled(state)
         self.mainWindow.actionNew_U.setEnabled(state)
+        self.mainWindow.actionDelete_User.setEnabled(state)
 
         self.mainWindow.actionWho_Am_I.setEnabled(state2)
 
@@ -62,7 +67,9 @@ class MenuBar:
 
     def userNew_(self):
         nu=UserNew(self.auth,self.mainWindow.user,self.mainWindow)
-        
+
+    def DeleteUser_(self):
+        d=UserDelete(self.auth,self.mainWindow)        
 
     def delete_(self):
         d=DeleteDialog.DeleteDialog(self.auth,self.mainWindow)

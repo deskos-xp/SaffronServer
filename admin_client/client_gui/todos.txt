@@ -46,5 +46,6 @@ add better user controls from server to client
 [done]add user info view dialog to about action menubar
 add dialogs for user edit, user add, user delete
 	[done]userView is first
-	userNew is now
+	[done]userNew is now
+	userDelete
 after editing, force mainwindow to invalidate product info, and all subsequent locations where the data may still be

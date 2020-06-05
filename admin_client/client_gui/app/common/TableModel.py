@@ -12,6 +12,7 @@ class TableModel(QAbstractTableModel):
        
     def load_data(self, data):
         if type(data) == type(dict()):
+            self.item=data
             tmp=[[i,data.get(i)] for i in data.keys() if i != 'address']
             #tmp.append(['address',str(data.get('address'))])
             data=tmp
