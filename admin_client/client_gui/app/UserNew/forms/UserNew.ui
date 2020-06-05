@@ -29,7 +29,7 @@
             <x>0</x>
             <y>0</y>
             <width>744</width>
-            <height>554</height>
+            <height>594</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
@@ -55,12 +55,70 @@
             <x>0</x>
             <y>0</y>
             <width>744</width>
-            <height>554</height>
+            <height>594</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_9">
            <item row="0" column="0">
-            <widget class="QTableView" name="departmentEdit"/>
+            <widget class="QSplitter" name="splitter_6">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <widget class="QSplitter" name="splitter_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <widget class="QRadioButton" name="newDepartment">
+               <property name="maximumSize">
+                <size>
+                 <width>170</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>New Department</string>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">departments_button_group</string>
+               </attribute>
+              </widget>
+              <widget class="QTableView" name="departmentEdit">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </widget>
+             <widget class="QSplitter" name="splitter_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <widget class="QRadioButton" name="existingDepartment">
+               <property name="maximumSize">
+                <size>
+                 <width>170</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Existing Department</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">departments_button_group</string>
+               </attribute>
+              </widget>
+              <widget class="QComboBox" name="departmentExisting">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>35</height>
+                </size>
+               </property>
+              </widget>
+             </widget>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -84,9 +142,74 @@
             <height>594</height>
            </rect>
           </property>
-          <layout class="QGridLayout" name="gridLayout_8">
+          <layout class="QGridLayout" name="gridLayout_10">
            <item row="0" column="0">
-            <widget class="QTableView" name="addressEdit"/>
+            <layout class="QGridLayout" name="gridLayout_8">
+             <item row="0" column="0">
+              <widget class="QSplitter" name="splitter_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <widget class="QRadioButton" name="newAddress">
+                <property name="maximumSize">
+                 <size>
+                  <width>120</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>New Address</string>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <attribute name="buttonGroup">
+                 <string notr="true">address_button_group</string>
+                </attribute>
+               </widget>
+               <widget class="QTableView" name="addressEdit">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QSplitter" name="splitter_2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <widget class="QRadioButton" name="existingAddress">
+                <property name="maximumSize">
+                 <size>
+                  <width>150</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Existing Address</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <attribute name="buttonGroup">
+                 <string notr="true">address_button_group</string>
+                </attribute>
+               </widget>
+               <widget class="QComboBox" name="addressExisting">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>30</height>
+                 </size>
+                </property>
+               </widget>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>
@@ -106,8 +229,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>744</width>
-            <height>554</height>
+            <width>99</width>
+            <height>99</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_7">
@@ -192,4 +315,8 @@
    </hints>
   </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="address_button_group"/>
+  <buttongroup name="departments_button_group"/>
+ </buttongroups>
 </ui>

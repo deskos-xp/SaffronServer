@@ -20,11 +20,12 @@ class LoadStates(QRunnable):
 
     def run(self):
         try:
-            with open(config.states.value,"r") as fd:
-                while True:
-                    stateInfo=json.load(fd)
-                    for state in stateInfo:
-                        self.signals.hasState.emit(state)
+            if not os.path.exists(config.states.value):
+                raise Exception("{config} does not exist".format(**dict(config=config.states.value)))
+            with open(config.states.value,"r") as fd:  
+                stateInfo=json.load(fd)
+                for state in stateInfo:
+                    self.signals.hasState.emit(state)
         except Exception as e:
             self.signals.hasError.emit(e)
         self.signals.finished.emit()
