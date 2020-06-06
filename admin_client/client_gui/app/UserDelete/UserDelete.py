@@ -1,12 +1,13 @@
 from PyQt5.QtCore import QObject,QRunnable,QThread,QThreadPool,pyqtSignal,pyqtSlot
 from PyQt5 import uic
 from PyQt5.QtWidgets import QDialog,QWidget,QComboBox,QDialogButtonBox
-from ..common.TableModel import TableModel
+from .TableModel import TableModel
 from ..common.Fields import *
 from ..common.SetupModelView import setupViews
 import os,sys,json,requests
 from .workers.GetUsers import GetUsers
 from .workers.DeleteUserWorker import DeleteUserWorker
+from ..common.ModelDelegates import ComboBoxDelegate,LineEditDelegate 
 class UserDelete(QDialog):
     def __init__(self,auth:dict,parent:QWidget):
         self.auth=auth
@@ -24,6 +25,8 @@ class UserDelete(QDialog):
 
         self.dialog.users.currentIndexChanged.connect(self.updateModel)
         self.prepGetUsersWorker()
+
+
 
         self.dialog.exec_()
 

@@ -65,7 +65,7 @@ def pre_delete_dependents(model,ID):
         #print(name)
         #print(related)
         if model in getattr(obj,name):
-            auto_delete_orphans(related)
+            #auto_delete_orphans(related)
             getattr(obj,name).remove(model)
             db.session.flush()
             db.session.commit()

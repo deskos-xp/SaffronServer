@@ -263,9 +263,10 @@ def remove_roles_from_user(ID,ROLE_ID):
     assert roles != None
     assert roles in user.roles
     user.roles.remove(roles)
-    flag_modified(user,"roles")
-    db.session.flush()
-    db.session.merge(user)
+    #print(user.roles)
+    #flag_modified(user,"roles")
+    #db.session.flush()
+    #db.session.merge(user)
     db.session.flush()
     db.session.commit()
     return status(User(),status=status_codes.UPDATED)

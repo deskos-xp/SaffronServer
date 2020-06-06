@@ -92,7 +92,7 @@ def fields(name):
                 phone="",
                 region="",
                 uname="",
-                role="user"
+                roles="user"
                 )
 
     if name == 'address':
