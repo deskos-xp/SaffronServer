@@ -11,7 +11,7 @@ from ...common.Fields import userHasRole
 from ...UserView.UserView import UserView
 from ...UserNew.UserNew import UserNew
 from ...UserDelete.UserDelete import UserDelete
-
+from ...UserLookup.UserLookup import UserLookup as ULookUp
 class MenuBar:
     def __init__(self,mainWindow:QWidget,auth):
         self.auth=auth
@@ -26,6 +26,7 @@ class MenuBar:
         self.mainWindow.actionWho_Am_I.triggered.connect(self.userView_)
         self.mainWindow.actionNew_U.triggered.connect(self.userNew_)
         self.mainWindow.actionDelete_User.triggered.connect(self.DeleteUser_)
+        self.mainWindow.actionULookUp.triggered.connect(self.ULookUp_)
         #QStackedWidget
         self.mainWindow.application.currentChanged.connect(self.notLoggedIn)
         st=False
@@ -36,6 +37,7 @@ class MenuBar:
         self.mainWindow.actionDelete.setEnabled(st)
         self.mainWindow.actionWho_Am_I.setEnabled(st)
         self.mainWindow.actionNew_U.setEnabled(st)
+        self.mainWindow.actionULookUp.setEnabled(st)
         self.user=None
 
     def notLoggedIn(self,index):
@@ -52,8 +54,12 @@ class MenuBar:
         self.mainWindow.action_New.setEnabled(state)
         self.mainWindow.actionNew_U.setEnabled(state)
         self.mainWindow.actionDelete_User.setEnabled(state)
+        self.mainWindow.actionULookUp.setEnabled(state)
 
         self.mainWindow.actionWho_Am_I.setEnabled(state2)
+
+    def ULookUp_(self):
+        d=ULookUp(self.auth,self.mainWindow)
 
     def edit_(self):
         d=EditDB(self.auth,self.mainWindow)

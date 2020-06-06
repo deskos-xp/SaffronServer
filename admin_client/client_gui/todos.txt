@@ -44,8 +44,9 @@ stack widget to dialog to take pictures for newproduct.ui
 add qcombobox to table views where appropriate
 add better user controls from server to client
 [done]add user info view dialog to about action menubar
-add dialogs for user edit, user add, user delete
+add dialogs for user edit, user add, user delete,user lookup
 	[done]userView is first
 	[done]userNew is now
-	userDelete
+	[done]userDelete
+	userLookup
 after editing, force mainwindow to invalidate product info, and all subsequent locations where the data may still be

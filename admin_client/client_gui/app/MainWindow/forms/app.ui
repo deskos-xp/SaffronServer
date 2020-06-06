@@ -86,6 +86,7 @@
     <addaction name="actionWho_Am_I"/>
     <addaction name="actionNew_U"/>
     <addaction name="actionDelete_User"/>
+    <addaction name="actionULookUp"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -151,6 +152,11 @@
   <action name="actionDelete_User">
    <property name="text">
     <string>&amp;Delete User</string>
+   </property>
+  </action>
+  <action name="actionULookUp">
+   <property name="text">
+    <string>U&amp;LookUp</string>
    </property>
   </action>
  </widget>
