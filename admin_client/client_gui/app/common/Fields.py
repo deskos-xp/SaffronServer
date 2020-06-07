@@ -108,6 +108,13 @@ def fields(name):
     else:
         return dict()
 
+def fieldsUser(name):
+    f=fields(name)
+    if name == "user":
+        for i in ('roles',):
+          f.__delitem__(i)  
+    return f
+
 class Mode(enum.Enum):
     POST=enum.auto()
     GET=enum.auto()

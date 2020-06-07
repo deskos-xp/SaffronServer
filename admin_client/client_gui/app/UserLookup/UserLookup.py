@@ -6,8 +6,10 @@ from ..common.TableModel import TableModel
 from ..common.editable_table_model import editable_table_model as ETM
 from ..common.ModelDelegates import *
 from ..common.Fields import * 
-from ..common.ListModel import ListModel
+from ..common.Fields import fieldsUser as fields
+from .ListModel import ListModel
 from ..common.SetupModelView import setupViews
+from .workers.ULookupSearch import ULookupSearch
 
 class UserLookup(QDialog):
     def __init__(self,auth:dict,parent:QWidget):
@@ -16,9 +18,11 @@ class UserLookup(QDialog):
         self.parent=parent
         self.dialog=QDialog()
         uic.loadUi("app/UserLookup/forms/UserLookup.ui",self.dialog)
-        
+       
+        self.excludables=[]
+ 
         self.searchModel=ETM(item=fields("user")) 
-        self.resultModel=ListModel(items=[])
+        self.resultModel=ListModel(TYPE='user',items=[])
         self.dialog.resultsView.setModel(self.resultModel)
 
         self.userModel=TableModel(item=fields("user"))
@@ -33,11 +37,37 @@ class UserLookup(QDialog):
         self.dialog.page.valueChanged.connect(self.searchPlus)
         self.dialog.limit.valueChanged.connect(self.searchPlus)
 
+        self.dialog.excluders.buttonClicked.connect(self.excludables_selected)
+
         self.dialog.next.clicked.connect(self.incPage)
         self.dialog.back.clicked.connect(self.decPage)
         self.dialog.back.setEnabled(False)
         self.dialog.exec_()
-    
+
+    def excludables_selected(self,button):
+        n=button.objectName().replace("exclude_","").lower()
+        if button.isChecked():
+            if n not in self.excludables:
+                self.excludables.append(n)
+        else:
+            if n in self.excludables:
+                self.excludables.remove(n)
+
+    def searchWorker(self,terms):
+        self.resultModel.items.clear()
+        self.resultModel.layoutChanged.emit()
+        searchWorker=ULookupSearch(self.auth,terms)
+        searchWorker.signals.hasError.connect(lambda x:print(x))
+        searchWorker.signals.hasUser.connect(self.hasUserAction)
+        searchWorker.signals.finished.connect(lambda : print("finished search for users!"))
+        QThreadPool.globalInstance().start(searchWorker)
+
+    @pyqtSlot(dict)
+    def hasUserAction(self,user):
+        self.resultModel.items.append(user)
+        self.resultModel.layoutChanged.emit()
+        #print(user) 
+   
     @pyqtSlot(bool)
     def incPage(self,state):
         self.dialog.page.setValue(self.dialog.page.value()+1)
@@ -54,7 +84,9 @@ class UserLookup(QDialog):
         self.dialog.limit.setValue(15)
         self.resultModel.items.clear()
         self.resultModel.layoutChanged.emit()
-
+        self.excludables.clear()
+        self.dialog.exclude_admin.setChecked(False)
+        self.dialog.exclude_active.setChecked(False)
 
     @pyqtSlot(int)
     def searchPlus(self,value):
@@ -65,15 +97,20 @@ class UserLookup(QDialog):
     def search(self,state):
         tmpData=dict()
         for key in self.searchModel.item.keys():
-            if self.searchModel.item[key] != fields('user')[key]:
+            #print(key in self.excludables)
+            if key not in self.excludables:
+                if self.searchModel.item[key] != fields('user')[key]:
+                    tmpData[key]=self.searchModel.item[key]
+            else:
                 tmpData[key]=self.searchModel.item[key]
         tmpData['page']=self.dialog.page.value()
         tmpData['limit']=self.dialog.limit.value()
-        print(tmpData)
+        #print(tmpData.keys())
+        #print(self.excludables)
+        self.searchWorker(tmpData)
         #call search worker
         #update results view
         
-
 
     def prep_delegates(self,view):
         for num,k in enumerate(fields('user').keys()):

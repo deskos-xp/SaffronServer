@@ -35,6 +35,47 @@
         </widget>
        </item>
        <item row="1" column="0">
+        <widget class="QSplitter" name="splitter_3">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <widget class="QCheckBox" name="exclude_admin">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Admin</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">excluders</string>
+          </attribute>
+         </widget>
+         <widget class="QCheckBox" name="exclude_active">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Active</string>
+          </property>
+          <attribute name="buttonGroup">
+           <string notr="true">excluders</string>
+          </attribute>
+         </widget>
+        </widget>
+       </item>
+       <item row="2" column="0">
         <widget class="QSplitter" name="splitter">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -205,4 +246,11 @@
    </hints>
   </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="excluders">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
+ </buttongroups>
 </ui>
