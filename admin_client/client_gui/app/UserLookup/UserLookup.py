@@ -12,11 +12,12 @@ from ..common.SetupModelView import setupViews
 from .workers.ULookupSearch import ULookupSearch
 
 class UserLookup(QDialog):
-    def __init__(self,auth:dict,parent:QWidget):
+    def __init__(self,auth:dict,parent:QWidget,editableUser=False):
         super(UserLookup,self).__init__()
         self.auth=auth
         self.parent=parent
         self.dialog=QDialog()
+        self.editableUser=editableUser
         uic.loadUi("app/UserLookup/forms/UserLookup.ui",self.dialog)
        
         self.excludables=[]
@@ -24,8 +25,16 @@ class UserLookup(QDialog):
         self.searchModel=ETM(item=fields("user")) 
         self.resultModel=ListModel(TYPE='user',items=[])
         self.dialog.resultsView.setModel(self.resultModel)
+        self.dialog.resultsView.activated.connect(self.resultsPeeping)
 
-        self.userModel=TableModel(item=fields("user"))
+        self.dialog.frame.setEnabled(editableUser)
+        
+        if editableUser == False:
+            self.userModel=TableModel(item=fields("user"))
+            self.dialog.frame.hide()
+        else:
+            self.userModel=ETM(item=fields("user"))
+            self.dialog.frame.show()
                 
         self.prep_delegates(self.dialog.searchView)        
         setupViews(self,viewsList=['searchView','userView'],modelsList=['searchModel','userModel'])
@@ -39,10 +48,19 @@ class UserLookup(QDialog):
 
         self.dialog.excluders.buttonClicked.connect(self.excludables_selected)
 
+        self.dialog.home.clicked.connect(self.returnHome)
         self.dialog.next.clicked.connect(self.incPage)
         self.dialog.back.clicked.connect(self.decPage)
         self.dialog.back.setEnabled(False)
         self.dialog.exec_()
+
+    @pyqtSlot(bool)
+    def returnHome(self,state):
+        self.dialog.stackedWidget.setCurrentIndex(0)
+
+    def resultsPeeping(self,index):
+        self.userModel.load_data(self.resultModel.items[index.row()])
+        self.dialog.stackedWidget.setCurrentIndex(1)
 
     def excludables_selected(self,button):
         n=button.objectName().replace("exclude_","").lower()
