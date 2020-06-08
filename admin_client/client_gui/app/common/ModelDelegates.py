@@ -1,5 +1,33 @@
 from PyQt5.QtCore import QObject,QRunnable,QThread,QThreadPool,pyqtSignal,pyqtSlot,Qt
-from PyQt5.QtWidgets import QDialog,QWidget,QItemDelegate,QComboBox,QCheckBox,QLineEdit
+from PyQt5.QtWidgets import QDialog,QWidget,QItemDelegate,QComboBox,QCheckBox,QLineEdit,QPushButton
+
+class ButtonDelegate(QItemDelegate):
+        def __init__(self,parent,Callable,buttonName,data=None):
+            QItemDelegate.__init__(self,parent)
+            self.data=data or {}
+            self.buttonName=buttonName or ""
+            self.Callable=Callable
+
+        def createEditor(self,parent,option,index):
+            print("creating button!")
+            button=QPushButton(parent)
+            button.setText(self.buttonName)
+            
+            return button
+
+        def setEditorData(self,editor,index):
+            editor.blockSignals(True)
+            editor.data=index.model().data(index)
+            editor.clicked.connect(self.Callable)
+            editor.blockSignals(False)
+        
+        def setModelData(self,editor,model,index):
+            model.setData(index,editor.data,Qt.EditRole)
+            #self.Callable()
+
+        @pyqtSlot()
+        def currentIndexChanged(self):
+            self.commitData.emit(self.sender())
 
 class LineEditDelegate(QItemDelegate):
     def __init__(self,parent,data=None):

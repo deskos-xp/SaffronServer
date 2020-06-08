@@ -18,7 +18,35 @@ class editable_table_model(QAbstractTableModel):
         if self.ID_MODE == None:
             self.ID_MODE=editable_table_enum.EDITABLE_ID
 
+    def load_data(self, data):
+        print(data,'#'*30)
+        skip=False
+        if type(data) == type(dict()):
+            self.item=data
+            tmp=[[i,data.get(i)] for i in data.keys() if i != 'address']
+            #tmp.append(['address',str(data.get('address'))])
+            data=tmp
+        
+        elif isinstance(data,list):
+            print(data,'list'*20)
+            if len(data) > 0:
+                if isinstance(data[0],dict):
+                    data=data[0]
+                    self.item=data
+                    tmp=[[i,data.get(i)] for i in data.keys() if i != 'address']
+                    data=tmp
+                    
+        if len(data) > 0:
+            print(data,'?'*100)
+            self.fields = [i[0] for i in data]    
+            self.vals = [i[1] for i in data]
+        else:
+            self.vals=[]
+        self.column_count = 2
+        self.row_count = len(self.vals)
+        self.layoutChanged.emit()
 
+    '''
     def load_data(self, data):
         if type(data) == type(dict()):
             self.item=data
@@ -33,6 +61,7 @@ class editable_table_model(QAbstractTableModel):
 
         self.column_count = 2
         self.row_count = len(self.vals)
+    '''
 
     def rowCount(self, parent=QModelIndex()):
         return self.row_count

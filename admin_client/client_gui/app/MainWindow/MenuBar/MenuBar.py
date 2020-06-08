@@ -27,6 +27,7 @@ class MenuBar:
         self.mainWindow.actionNew_U.triggered.connect(self.userNew_)
         self.mainWindow.actionDelete_User.triggered.connect(self.DeleteUser_)
         self.mainWindow.actionULookUp.triggered.connect(self.ULookUp_)
+        self.mainWindow.actionUEdit.triggered.connect(self.UEdit_)
         #QStackedWidget
         self.mainWindow.application.currentChanged.connect(self.notLoggedIn)
         st=False
@@ -38,6 +39,7 @@ class MenuBar:
         self.mainWindow.actionWho_Am_I.setEnabled(st)
         self.mainWindow.actionNew_U.setEnabled(st)
         self.mainWindow.actionULookUp.setEnabled(st)
+        self.mainWindow.actionUEdit.setEnabled(st)
         self.user=None
 
     def notLoggedIn(self,index):
@@ -55,11 +57,15 @@ class MenuBar:
         self.mainWindow.actionNew_U.setEnabled(state)
         self.mainWindow.actionDelete_User.setEnabled(state)
         self.mainWindow.actionULookUp.setEnabled(state)
+        self.mainWindow.actionUEdit.setEnabled(state)
 
         self.mainWindow.actionWho_Am_I.setEnabled(state2)
 
     def ULookUp_(self):
         d=ULookUp(self.auth,self.mainWindow)
+
+    def UEdit_(self):
+        d=ULookUp(self.auth,self.mainWindow,editableUser=True)
 
     def edit_(self):
         d=EditDB(self.auth,self.mainWindow)

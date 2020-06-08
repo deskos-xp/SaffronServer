@@ -11,16 +11,32 @@ class TableModel(QAbstractTableModel):
         self.auth=kwargs.get('auth')
        
     def load_data(self, data):
+        print(data,'#'*30)
+        skip=False
         if type(data) == type(dict()):
             self.item=data
             tmp=[[i,data.get(i)] for i in data.keys() if i != 'address']
             #tmp.append(['address',str(data.get('address'))])
             data=tmp
-        self.fields = [i[0] for i in data]
-        self.vals = [i[1] for i in data]
-
+        
+        elif isinstance(data,list):
+            print(data,'list'*20)
+            if len(data) > 0:
+                if isinstance(data[0],dict):
+                    data=data[0]
+                    self.item=data
+                    tmp=[[i,data.get(i)] for i in data.keys() if i != 'address']
+                    data=tmp
+                    
+        if len(data) > 0:
+            print(data,'?'*100)
+            self.fields = [i[0] for i in data]    
+            self.vals = [i[1] for i in data]
+        else:
+            self.vals=[]
         self.column_count = 2
         self.row_count = len(self.vals)
+        self.layoutChanged.emit()
 
     def rowCount(self, parent=QModelIndex()):
         return self.row_count
