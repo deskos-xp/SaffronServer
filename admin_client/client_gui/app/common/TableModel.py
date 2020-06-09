@@ -11,7 +11,7 @@ class TableModel(QAbstractTableModel):
         self.auth=kwargs.get('auth')
        
     def load_data(self, data):
-        print(data,'#'*30)
+        #print(data,'#'*30)
         skip=False
         if type(data) == type(dict()):
             self.item=data
@@ -20,7 +20,7 @@ class TableModel(QAbstractTableModel):
             data=tmp
         
         elif isinstance(data,list):
-            print(data,'list'*20)
+            #print(data,'list'*20)
             if len(data) > 0:
                 if isinstance(data[0],dict):
                     data=data[0]
@@ -29,7 +29,7 @@ class TableModel(QAbstractTableModel):
                     data=tmp
                     
         if len(data) > 0:
-            print(data,'?'*100)
+            #print(data,'?'*100)
             self.fields = [i[0] for i in data]    
             self.vals = [i[1] for i in data]
         else:

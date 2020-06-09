@@ -48,5 +48,7 @@ add dialogs for user edit, user add, user delete,user lookup
 	[done]userView is first
 	[done]userNew is now
 	[done]userDelete
-	userLookup
+	[done]userLookup
+	user edit
+		save details need some work/thought
 after editing, force mainwindow to invalidate product info, and all subsequent locations where the data may still be

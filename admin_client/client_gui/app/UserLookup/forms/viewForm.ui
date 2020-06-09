@@ -15,33 +15,34 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="3" column="0">
-    <widget class="QFrame" name="frame">
+    <widget class="QFrame" name="frame_3">
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="1">
-       <widget class="QPushButton" name="save">
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QPushButton" name="department">
         <property name="text">
-         <string>Save</string>
+         <string>Department</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="address">
+        <property name="text">
+         <string>Address</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="role">
+        <property name="text">
+         <string>Role</string>
         </property>
-       </spacer>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -78,41 +79,43 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QTableView" name="userView"/>
-   </item>
-   <item row="2" column="0">
-    <widget class="QFrame" name="frame_3">
+   <item row="4" column="0">
+    <widget class="QFrame" name="frame">
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <widget class="QPushButton" name="department">
-        <property name="text">
-         <string>Department</string>
-        </property>
-       </widget>
-      </item>
+     <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="1">
-       <widget class="QPushButton" name="address">
+       <widget class="QPushButton" name="save">
         <property name="text">
-         <string>Address</string>
+         <string>Save</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="role">
-        <property name="text">
-         <string>Role</string>
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
-       </widget>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QTableView" name="userView"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QComboBox" name="changeData"/>
    </item>
   </layout>
  </widget>

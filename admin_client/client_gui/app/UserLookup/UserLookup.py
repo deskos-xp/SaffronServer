@@ -10,6 +10,7 @@ from ..common.Fields import fieldsUser as fields
 from .ListModel import ListModel
 from ..common.SetupModelView import setupViews
 from .workers.ULookupSearch import ULookupSearch
+from .UserComboData import UserComboData
 import copy
 
 class UserLookup(QDialog):
@@ -35,24 +36,20 @@ class UserLookup(QDialog):
         self.dialog.result.address.clicked.connect(self.switchToAddress)
         #uic.loadUi("app/UserLookup/forms/viewForm.ui",self.dialog.department)
         #self.dialog.department.frame.setEnabled(editableUser)
-        
+        self.dialog.result.changeData.setEnabled(False)
+        self.dialog.result.changeData.hide()
         if editableUser == False:
             self.userModel=TableModel(item=fields("user"))
             self.dialog.result.frame.hide()
-            #self.departmentModel=TableModel(item=fields("department"))
+            #self.dialog.result.changeData.hide()
         else:
             self.userModel=ETM(item=fields("user"))
-            #self.departmentModel=ETM(item=fields("department"))
             for num,i in enumerate(fields("user").keys()):
                 if i in ['active','admin']:
                     self.dialog.result.userView.setItemDelegateForRow(num,CheckBoxDelegate(self))
             self.dialog.result.frame.show()
+            #self.dialog.result.changeData.show()
         
-
-        #self.dialog.department.userView.setModel(self.departmentModel)
-        #self.dialog.department.userView.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        #self.dialog.department.userView.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-
         self.prep_delegates(self.dialog.searchView)        
         setupViews(self,viewsList=['searchView'],modelsList=['searchModel'])
         self.dialog.result.userView.setModel(self.userModel)
@@ -98,10 +95,14 @@ class UserLookup(QDialog):
     def prepViewsAndModels(self):
         self.models=dict()
         for i in ['departments','address','roles']:
-            if self.editableUser == True:
-                self.models[i]=ETM(item=dict())
+            if i in ['roles','departments']:
+                defaults=fields(i[:-1])
             else:
-                self.models[i]=TableModel(item=dict())
+                defaults=fields(i)
+            if self.editableUser == True:
+                self.models[i]=ETM(item=defaults)
+            else:
+                self.models[i]=TableModel(item=defaults)
             w=None
             if i not in ['address']:
                 w=getattr(self.dialog,i[:-1])
@@ -116,11 +117,15 @@ class UserLookup(QDialog):
             w.role.clicked.connect(self.switchToRole)
             w.address.clicked.connect(self.switchToAddress)
             w.department.clicked.connect(self.switchToDepartment)
+            w.save.clicked.connect(getattr(self,"save{T}".format(**dict(T=i[0].upper()+i[1:]))))
             w.frame.setEnabled(self.editableUser)
+            w.changeData.setEnabled(self.editableUser)
             if self.editableUser:
                 w.frame.show()
+                w.changeData.show()
             else:
                 w.frame.hide()
+                w.changeData.hide()
             #print(self.models.keys(),'*?*'*30)
 
     def returnToUserView(self):
@@ -128,40 +133,73 @@ class UserLookup(QDialog):
         index=self.dialog.stackedWidget.indexOf(w)
         self.dialog.stackedWidget.setCurrentIndex(index)
 
+    def saveMaster(self,data,name,userId):
+        print(data,name,userId)
+
     @pyqtSlot(bool)
     def saveUser(self,state):
-        print(self.userModel.item)
+        self.saveMaster(self.userModel.item,"user",self.userModel.item.get("id"))
+        #print(self.userModel.item)
+
+    @pyqtSlot(bool)
+    def saveDepartments(self,state):
+        self.saveMaster(self.models.get("departments").item,"departments",self.userModel.item.get("id"))
+        #print(self.models.get("departments").item)
+
+    @pyqtSlot(bool)
+    def saveRoles(self,state):
+        self.saveMaster(self.models.get("roles").item,"roles",self.userModel.item.get("id"))
+        #print(self.models.get("roles").item)
+        
+    @pyqtSlot(bool)
+    def saveAddress(self,state):
+        self.saveMaster(self.models.get("address").item,"address",self.userModel.item.get("id"))
+        #print(self.models.get("address").item)
 
     @pyqtSlot(bool)
     def returnHome(self,state):
         self.dialog.stackedWidget.setCurrentIndex(0)
 
     def resultsPeeping(self,index):
-        print(self.resultModel.items[index.row()])
-        '''
-        for num,i in enumerate(self.userModel.item.keys()):
-            if i in ['departments']:
-                #print("making department delegate")
-                #print(num)
-                def doIt(x):
-                    print(self.userModel.item.get("departments"))
-                    self.departmentModel.load_data(self.userModel.item.get('departments')[0])
-                    self.dialog.stackedWidget.setCurrentIndex(2)
+        def checkData(name):
+            d=self.resultModel.items[index.row()].get(name)
+            #print(d,'checkData...'*10)
+            if d == []:
+                if name in ['address']:
+                    return fields(name)
+                else:
+                    return fields(name[:-1])
+            else:
+                return d
 
-                self.dialog.result.userView.setItemDelegateForRow(num-1,ButtonDelegate(self,doIt,i))
-        '''
-                
-        self.models['roles'].load_data(self.resultModel.items[index.row()].get("roles"))
-        self.models['departments'].load_data(self.resultModel.items[index.row()].get("departments"))
+        def buildRoles():
+            #self.models['roles'].load_data(self.resultModel.items[index.row()].get("roles"))
+            self.models['roles'].load_data(checkData('roles'))
+            
+        def buildDepartments():
+            #self.models['departments'].load_data(self.resultModel.items[index.row()].get("departments"))
+            self.models['departments'].load_data(checkData('departments'))
+        def buildAddress():
+            #self.models['address'].load_data(self.resultModel.items[index.row()].get("address"))
+            self.models['address'].load_data(checkData('address'))
+
         #print(self.dialog.department.userView.model().item," departments"*10)
-        self.models['address'].load_data(self.resultModel.items[index.row()].get("address"))
-        
+        buildRoles()
+        buildDepartments()
+        buildAddress()        
+
         tmp=copy.deepcopy(self.resultModel.items[index.row()])
         tmp.__delitem__("roles")
         tmp.__delitem__("address")
         tmp.__delitem__("departments")
         
         self.userModel.load_data(self.resultModel.items[index.row()])
+         
+        if self.editableUser:
+            comboClass=dict()
+            comboClass['departments']=UserComboData(self.auth,self.dialog.department.changeData,self.models['departments'],self.dialog.department.userView,self,"departments")
+            comboClass['address']=UserComboData(self.auth,self.dialog.address.changeData,self.models['address'],self.dialog.address.userView,self,"address")
+            comboClass['roles']=UserComboData(self.auth,self.dialog.role.changeData,self.models['roles'],self.dialog.role.userView,self,"roles")
         
         self.dialog.stackedWidget.setCurrentIndex(1)
 
@@ -230,6 +268,17 @@ class UserLookup(QDialog):
         #print(tmpData.keys())
         #print(self.excludables)
         self.searchWorker(tmpData)
+        ''' 
+        if self.editableUser:
+            comboClass=dict()
+            comboClass['departments']=UserComboData(self.auth,self.dialog.department.changeData,self.models['departments'],self.dialog.department.userView,self,"departments")
+            comboClass['address']=UserComboData(self.auth,self.dialog.address.changeData,self.models['address'],self.dialog.address.userView,self,"address")
+            comboClass['roles']=UserComboData(self.auth,self.dialog.role.changeData,self.models['roles'],self.dialog.role.userView,self,"roles")
+        '''
+        #self.dialog.department.changeData
+        #self.dialog.address.changeData
+        #self.dialog.role.changeData
+
         #call search worker
         #update results view
         

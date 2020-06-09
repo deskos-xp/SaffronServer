@@ -94,7 +94,10 @@ def fields(name):
                 uname="",
                 roles="user"
                 )
-
+    def roleFields():
+        return dict(
+                    name="user"
+                    )
     if name == 'address':
         return addressFields()
     elif name in ['vendor','manufacturer','brand']:
@@ -105,6 +108,8 @@ def fields(name):
         return productFields()
     elif name == "user":
         return userFields()
+    elif name == "role":
+        return roleFields()
     else:
         return dict()
 
