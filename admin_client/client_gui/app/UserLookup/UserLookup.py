@@ -38,6 +38,12 @@ class UserLookup(QDialog):
         #self.dialog.department.frame.setEnabled(editableUser)
         self.dialog.result.changeData.setEnabled(False)
         self.dialog.result.changeData.hide()
+        #self.dialog.result.entityState.setEnabled(editableUser)
+        self.dialog.result.updateModel.setEnabled(editableUser)
+        self.dialog.result.changeModel.setEnabled(editableUser)
+        self.dialog.result.changeModel.hide()
+        self.dialog.result.updateModel.hide()
+
         if editableUser == False:
             self.userModel=TableModel(item=fields("user"))
             self.dialog.result.frame.hide()
@@ -94,9 +100,9 @@ class UserLookup(QDialog):
 
     def prepViewsAndModels(self):
         self.models=dict()
-        for i in ['departments','address','roles']:
+        def setupViews(i):
             if i in ['roles','departments']:
-                defaults=fields(i[:-1])
+                    defaults=fields(i[:-1])
             else:
                 defaults=fields(i)
             if self.editableUser == True:
@@ -120,13 +126,31 @@ class UserLookup(QDialog):
             w.save.clicked.connect(getattr(self,"save{T}".format(**dict(T=i[0].upper()+i[1:]))))
             w.frame.setEnabled(self.editableUser)
             w.changeData.setEnabled(self.editableUser)
+            def stateChanged(button):
+                #print(button.objectName())
+                if button.objectName() == "updateModel":
+                    w.userView.setEnabled(True)
+                    w.changeData.setEnabled(False)
+                elif button.objectName() == "changeModel":
+                    w.changeData.setEnabled(True)
+                    w.userView.setEnabled(False)
+            
+            w.entityState.buttonClicked.connect(stateChanged)
             if self.editableUser:
+                stateChanged(w.changeModel)
+                w.updateModel.show()
+                w.changeModel.show()
                 w.frame.show()
                 w.changeData.show()
             else:
                 w.frame.hide()
+                w.changeModel.hide()
+                w.updateModel.hide()
                 w.changeData.hide()
             #print(self.models.keys(),'*?*'*30)
+
+        for i in ['departments','address','roles']:
+           setupViews(i)
 
     def returnToUserView(self):
         w=getattr(self.dialog,"result")
@@ -134,7 +158,15 @@ class UserLookup(QDialog):
         self.dialog.stackedWidget.setCurrentIndex(index)
 
     def saveMaster(self,data,name,userId):
+        pwidget=self.sender().parent().parent()
+        #changes entity related to user
+        pwidget.updateModel.isChecked()
+        #changes user
+        pwidget.changeModel.isChecked()
         print(data,name,userId)
+        #2 worker types
+        ##1 changes related model data
+        ##2 changes user data
 
     @pyqtSlot(bool)
     def saveUser(self,state):
