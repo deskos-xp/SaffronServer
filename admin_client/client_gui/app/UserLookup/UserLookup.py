@@ -10,6 +10,10 @@ from ..common.Fields import fieldsUser as fields
 from .ListModel import ListModel
 from ..common.SetupModelView import setupViews
 from .workers.ULookupSearch import ULookupSearch
+
+from .workers.SaveRelations import SaveRelations
+from .workers.SaveUser import SaveUser
+
 from .UserComboData import UserComboData
 import copy
 
@@ -21,7 +25,10 @@ class UserLookup(QDialog):
         self.dialog=QDialog()
         self.editableUser=editableUser
         uic.loadUi("app/UserLookup/forms/UserLookup.ui",self.dialog)
-       
+        if editableUser:
+            self.dialog.setWindowTitle("UEdit")
+        else:
+            self.dialog.setWindowTitle("ULookup") 
         self.excludables=[]
  
         self.searchModel=ETM(item=fields("user")) 
@@ -34,27 +41,24 @@ class UserLookup(QDialog):
         self.dialog.result.department.clicked.connect(self.switchToDepartment)
         self.dialog.result.role.clicked.connect(self.switchToRole)
         self.dialog.result.address.clicked.connect(self.switchToAddress)
-        #uic.loadUi("app/UserLookup/forms/viewForm.ui",self.dialog.department)
-        #self.dialog.department.frame.setEnabled(editableUser)
+
         self.dialog.result.changeData.setEnabled(False)
         self.dialog.result.changeData.hide()
-        #self.dialog.result.entityState.setEnabled(editableUser)
         self.dialog.result.updateModel.setEnabled(editableUser)
         self.dialog.result.changeModel.setEnabled(editableUser)
+        
+        self.dialog.result.splitter.hide() 
         self.dialog.result.changeModel.hide()
         self.dialog.result.updateModel.hide()
-
         if editableUser == False:
             self.userModel=TableModel(item=fields("user"))
             self.dialog.result.frame.hide()
-            #self.dialog.result.changeData.hide()
         else:
             self.userModel=ETM(item=fields("user"))
             for num,i in enumerate(fields("user").keys()):
                 if i in ['active','admin']:
                     self.dialog.result.userView.setItemDelegateForRow(num,CheckBoxDelegate(self))
             self.dialog.result.frame.show()
-            #self.dialog.result.changeData.show()
         
         self.prep_delegates(self.dialog.searchView)        
         setupViews(self,viewsList=['searchView'],modelsList=['searchModel'])
@@ -160,10 +164,19 @@ class UserLookup(QDialog):
     def saveMaster(self,data,name,userId):
         pwidget=self.sender().parent().parent()
         #changes entity related to user
-        pwidget.updateModel.isChecked()
+        r=pwidget.updateModel.isChecked()
         #changes user
-        pwidget.changeModel.isChecked()
-        print(data,name,userId)
+        u=pwidget.changeModel.isChecked()
+        tmp=copy.deepcopy(data)
+        if name == "user":
+            for i in ['departments','roles','address']:
+                tmp.__delitem__(i)        
+        #workers go below
+        if u == True:            
+            pass
+        elif r == True:
+            pass
+        print(tmp,name,userId)
         #2 worker types
         ##1 changes related model data
         ##2 changes user data
