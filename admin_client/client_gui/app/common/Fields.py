@@ -145,3 +145,8 @@ def firstBorn(ListIn) -> dict:
     return ListIn
 
 
+def keyStripper(key:str,data:dict) -> dict:
+    if key in data.keys():
+        data.__delitem__(key)
+    return data
+

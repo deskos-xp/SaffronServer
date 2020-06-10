@@ -131,7 +131,7 @@ class UserLookup(QDialog):
             w.frame.setEnabled(self.editableUser)
             w.changeData.setEnabled(self.editableUser)
             def stateChanged(button):
-                #print(button.objectName())
+                print(button.objectName(),"preping")
                 if button.objectName() == "updateModel":
                     w.userView.setEnabled(True)
                     w.changeData.setEnabled(False)
@@ -162,24 +162,49 @@ class UserLookup(QDialog):
         self.dialog.stackedWidget.setCurrentIndex(index)
 
     def saveMaster(self,data,name,userId):
+        
         pwidget=self.sender().parent().parent()
         #changes entity related to user
         r=pwidget.updateModel.isChecked()
         #changes user
         u=pwidget.changeModel.isChecked()
         tmp=copy.deepcopy(data)
-        if name == "user":
-            for i in ['departments','roles','address']:
-                tmp.__delitem__(i)        
-        #workers go below
-        if u == True:            
-            pass
-        elif r == True:
-            pass
-        print(tmp,name,userId)
-        #2 worker types
-        ##1 changes related model data
-        ##2 changes user data
+
+        def stage2(userData,name):
+            if name == "user":
+                for i in ['departments','roles','address']:
+                    tmp.__delitem__(i)        
+                print("savings user info")
+                self.worker=SaveUser(self.auth,tmp,userId,name)
+            else:
+                #workers go below
+                if r == True:    
+                    print("saving info for entity")
+                    self.worker=SaveUser(self.auth,tmp,userId,name)
+                elif u == True:
+                    print("updating relationship")
+                    print(self.userModel.item.get(name))
+                    #if name in ['roles','departments']:
+                    #    name=name[:-1]
+                    print(userData.keys(),name*10)
+                    self.worker=SaveRelations(self.auth,data,userData.get(name),"user",name)
+
+            self.worker.signals.finished.connect(lambda : print("done saving"))
+            self.worker.signals.hasError.connect(lambda x:print(x))
+            self.worker.signals.hasResponse.connect(lambda x:print(x))
+            QThreadPool.globalInstance().start(self.worker)
+            #print(tmp,name,userId)
+            #2 worker types
+            ##1 changes related model data
+            ##2 changes user data
+
+        uworker=ULookupSearch(self.auth,dict(id=userId),name=name)
+        uworker.signals.hasResponse.connect(lambda x:print(x))
+        uworker.signals.hasUser.connect(stage2)
+        uworker.signals.hasError.connect(lambda x:print(x))
+        uworker.signals.finished.connect(lambda x: print("finished saving {x}".format(**dict(x=x))))
+        QThreadPool.globalInstance().start(uworker)
+        
 
     @pyqtSlot(bool)
     def saveUser(self,state):

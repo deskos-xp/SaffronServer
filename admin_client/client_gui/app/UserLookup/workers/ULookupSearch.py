@@ -5,11 +5,10 @@ import os,sys,json,requests
 class ULookupSearchSignal(QObject):
     killMe:bool=False
     session:requests.Session=requests.Session()
-    hasUser:pyqtSignal=pyqtSignal(dict)
+    hasUser:pyqtSignal=pyqtSignal(dict,str)
     hasResponse:pyqtSignal=pyqtSignal(requests.Response)
     hasError:pyqtSignal=pyqtSignal(Exception)
-    finished:pyqtSignal=pyqtSignal()
-
+    finished:pyqtSignal=pyqtSignal(str)
     @pyqtSlot()
     def kill(self):
         self.killMe=True
@@ -17,11 +16,12 @@ class ULookupSearchSignal(QObject):
 
 
 class ULookupSearch(QRunnable):
-    def __init__(self,auth:dict,terms:dict):
+    def __init__(self,auth:dict,terms:dict,**kwargs):
         super(ULookupSearch,self).__init__()
         self.auth=auth
         self.terms=terms
         self.signals=ULookupSearchSignal()
+        self.name=kwargs.get("name")
 
     def run(self):
         try:
@@ -39,9 +39,9 @@ class ULookupSearch(QRunnable):
                 users=j.get(stat)
                 if isinstance(users,list):
                     for u in users:
-                        self.signals.hasUser.emit(u)
+                        self.signals.hasUser.emit(u,self.name)
                 else:
-                    self.signals.hasUser.emit(user)
+                    self.signals.hasUser.emit(user,self.name)
         except Exception as e:
             self.signals.hasError.emit(e)
-        self.signals.finished.emit()
+        self.signals.finished.emit(self.name)
