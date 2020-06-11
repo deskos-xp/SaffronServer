@@ -33,6 +33,8 @@ class SaveUser(QRunnable):
                 self.auth.get("password")
                     )
             addr="{server_address}/{NAME}/update/{ID}".format(**dict(server_address=self.auth.get('server_address'),NAME=self.name,ID=self.user_id))
+            response=self.signals.session.post(addr,auth=auth,json=self.data)
+            self.signals.hasResponse.emit(response)
             print(addr,"-l-"*30)
         except Exception as e:
             self.signals.hasError.emit(e)

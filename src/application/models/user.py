@@ -58,8 +58,8 @@ class User(db.Model,AsDict,UserMixin):
     region = db.Column(db.String(length=5))
     password = db.Column(db.String(length=128))
     #department_id=db.Column(db.Integer)
-    departments=db.relationship("Department",backref=db.backref("users"),secondary=user_departments)
-    address=db.relationship("Address",backref=db.backref("address"),secondary=user_addresses)
+    departments=db.relationship("Department",backref=db.backref("users"),secondary=user_departments,cascade="all,delete",single_parent=True)
+    address=db.relationship("Address",backref=db.backref("address"),secondary=user_addresses,cascade="all,delete",single_parent=True)
     
     def defaultdict(self):
         return dict(uname=str(),fname=str(),mname=str(),lname=str(),id=int(),admin=str(),password=str(),email=str(),phone=int(),active=True,departments=self.departments,carrier=self.carrier,region=self.region,address=self.address)

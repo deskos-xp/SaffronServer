@@ -16,11 +16,14 @@ class SaveRelationsSignals(QObject):
         self.session.close()
 
 class SaveRelations(QRunnable):
-    def __init__(self,auth:dict,data:dict,cached:dict,name:str,name_whom:str):
+    def __init__(self,auth:dict,data:dict,cached:dict,name:str,name_whom:str,userId:int):
         super(SaveRelations,self).__init__()
         self.auth=auth
+        self.userId=userId
         self.data=keyStripper('NAME',data)
         self.name=name
+        if name_whom in ['departments']:
+            name_whom = name_whom[:-1]
         self.name_whom=name_whom
         self.signals=SaveRelationsSignals()
         print(cached)
@@ -40,9 +43,13 @@ class SaveRelations(QRunnable):
                     )
             print(self.cached,"$"*30)
             if self.cached != {}:
-                rm_addr="{server_address}/{NAME}/update/remove/{E}/{ID}".format(**dict(server_address=self.auth.get("server_address"),NAME=self.name,ID=self.cached.get("id"),E=self.name_whom))
+                rm_addr="{server_address}/{NAME}/update/{USERID}/remove/{E}/{ID}".format(**dict(USERID=self.userId,server_address=self.auth.get("server_address"),NAME=self.name,ID=self.cached.get("id"),E=self.name_whom))
+                response=self.signals.session.get(rm_addr,auth=auth)
+                self.signals.hasResponse.emit(response)
                 print(rm_addr)
-            addr="{server_address}/{NAME}/update/add/{E}/{ID}".format(**dict(server_address=self.auth.get("server_address"),NAME=self.name,ID=self.data.get("id"),E=self.name_whom))
+            addr="{server_address}/{NAME}/update/{USERID}/add/{E}/{ID}".format(**dict(USERID=self.userId,server_address=self.auth.get("server_address"),NAME=self.name,ID=self.data.get("id"),E=self.name_whom))
+            response=self.signals.session.get(addr,auth=auth)
+            self.signals.hasResponse.emit(response)
             print(addr)
         except Exception as e:
             self.signals.hasError.emit(e)

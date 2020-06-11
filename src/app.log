@@ -1,11 +1,11 @@
 WARNING:werkzeug: * Debugger is active!
-INFO:werkzeug: * Debugger PIN: 656-859-307
-INFO:werkzeug:127.0.0.1 - - [05/Jun/2020 21:29:27] "[37mGET /user/update/18/remove/roles/9 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [05/Jun/2020 21:48:23] "[37mPOST /user/get HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [05/Jun/2020 21:48:24] "[37mPOST /manufacturer/get HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [05/Jun/2020 21:48:25] "[37mPOST /vendor/get HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [05/Jun/2020 21:48:25] "[37mPOST /brand/get HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [05/Jun/2020 21:48:25] "[37mPOST /department/get HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [05/Jun/2020 21:48:27] "[37mPOST /user/get HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [05/Jun/2020 21:48:32] "[37mGET /user/update/21/remove/roles/9 HTTP/1.1[0m" 200 -
-INFO:werkzeug:127.0.0.1 - - [05/Jun/2020 21:48:33] "[37mPOST /user/get HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Debugger PIN: 274-883-122
+INFO:werkzeug:127.0.0.1 - - [10/Jun/2020 22:01:15] "[37mGET /user/update/3/remove/department/1 HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [10/Jun/2020 22:01:52] "[37mPOST /user/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [10/Jun/2020 22:01:52] "[37mGET /user/update/3/add/department/2 HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [10/Jun/2020 22:02:02] "[37mPOST /user/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [10/Jun/2020 22:02:05] "[37mPOST /department/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [10/Jun/2020 22:02:06] "[37mPOST /address/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [10/Jun/2020 22:02:06] "[37mPOST /roles/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [10/Jun/2020 22:02:22] "[37mPOST /user/get HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [10/Jun/2020 22:02:30] "[37mPOST /user/get HTTP/1.1[0m" 200 -

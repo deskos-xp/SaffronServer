@@ -173,7 +173,8 @@ class UserLookup(QDialog):
         def stage2(userData,name):
             if name == "user":
                 for i in ['departments','roles','address']:
-                    tmp.__delitem__(i)        
+                    if i in tmp.keys():
+                        tmp.__delitem__(i)        
                 print("savings user info")
                 self.worker=SaveUser(self.auth,tmp,userId,name)
             else:
@@ -187,7 +188,7 @@ class UserLookup(QDialog):
                     #if name in ['roles','departments']:
                     #    name=name[:-1]
                     print(userData.keys(),name*10)
-                    self.worker=SaveRelations(self.auth,data,userData.get(name),"user",name)
+                    self.worker=SaveRelations(self.auth,data,userData.get(name),"user",name,userId)
 
             self.worker.signals.finished.connect(lambda : print("done saving"))
             self.worker.signals.hasError.connect(lambda x:print(x))

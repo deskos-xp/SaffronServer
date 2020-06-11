@@ -107,25 +107,6 @@ def add_department_to_user(ID,DEPARTMENT_ID):
     db.session.commit()
     return status(User(),status=status_codes.UPDATED)
 
-@app.route("/user/update/<ID>/remove/department/<DEPARTMENT_ID>",methods=["get"])
-@auth.login_required
-@roles_required(roles=['admin'])
-def remove_department_from_user(ID,DEPARTMENT_ID):
-    assert ID != None
-    assert DEPARTMENT != None
-    user=db.session.query(User).filter_by(id=ID).first()
-    assert user != None
-    department=db.session.query(Department).filter_by(id=DEPARTMENT_ID).first()
-    assert department != None
-    assert department in user.departments
-    user.departments.remove(department)
-    flag_modified(user,"departments")
-    db.session.flush()
-    db.session.merge(user)
-    db.session.flush()
-    db.session.commit()
-    return status(User(),status=status_codes.UPDATED)
-
 @app.route("/user/update/<ID>/add/address/<ADDRESS_ID>",methods=["get"])
 @auth.login_required
 @roles_required(roles=['admin'])
@@ -185,11 +166,18 @@ def new_user():
     roleName=None
     if 'role' in json.keys():
         roleName=json.get('role')
-    json.__delitem__('role')
-
+    elif 'roles' in json.keys():
+        roleName=json.get("roles")
+    if 'role' in json.keys():
+        json.__delitem__('role')
+    elif 'roles' in json.keys():
+        json.__delitem__('roles')
+    
     print(json) 
     if db.session.query(User).filter_by(uname=auth.username()).first().active:
+        print(json)
         user=User(**json)
+
         user.hash_password(json['password'])
         json.__delitem__('password')
         exists=db.session.query(User).filter_by(**json).first()
@@ -250,6 +238,27 @@ def add_roles_to_user(ID,ROLE_ID):
     db.session.flush()
     db.session.commit()
     return status(User(),status=status_codes.UPDATED)
+
+@app.route("/user/update/<ID>/remove/department/<DEPARTMENT_ID>",methods=["get"])
+@auth.login_required
+@roles_required(roles=['admin'])
+def remove_department_from_user(ID,DEPARTMENT_ID):
+    assert ID != None
+    assert DEPARTMENT_ID != None
+    user=db.session.query(User).filter_by(id=ID).first()
+    assert user != None
+    department=db.session.query(Department).filter_by(id=DEPARTMENT_ID).first()
+    assert department != None
+    assert department in user.departments
+    user.departments.remove(department)
+    #flag_modified(user,"departments")
+    #db.session.flush()
+    #db.session.merge(user)
+    print(user.departments)
+    db.session.flush()
+    db.session.commit()
+    return status(User(),status=status_codes.UPDATED)
+
 
 @app.route("/user/update/<ID>/remove/roles/<ROLE_ID>",methods=["get"])
 @auth.login_required

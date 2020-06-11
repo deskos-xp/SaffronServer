@@ -142,24 +142,27 @@ class UserNew(QDialog):
                 print(e)
 
         def stage_1(response):
-            print(response.json())
-            if response.status_code == 200 and response.json().get("status") != 'old':
-                self.uid=response.json().get("id")
-                if self.dialog.newDepartment.isChecked():
-                    NewDepartment=NewWorker(self.auth,self.departmentModel.item,"department")
-                    NewDepartment.signals.hasError.connect(lambda x:print(x))
-                    NewDepartment.signals.hasResponse.connect(stage_2_modify)
-                    NewDepartment.signals.finished.connect(lambda:print("finished creating new department"))
-                    QThreadPool.globalInstance().start(NewDepartment)
-                elif self.dialog.existingDepartment.isChecked():
-                    modDepartment=Update(self.auth,self.departmentModel.dataToItem(),"department",self.uid)
-                    modDepartment.signals.hasError.connect(lambda x:print(x))
-                    modDepartment.signals.hasResponse.connect(stage_2)
-                    modDepartment.signals.finished.connect(lambda :print("finished adding department"))
-                    QThreadPool.globalInstance().start(modDepartment)
-                #modify department
-            else:
-                raise Exception("response for department was not 200")
+            try:
+                #print(response.json())
+                if response.status_code == 200 and response.json().get("status") != 'old':
+                    self.uid=response.json().get("id")
+                    if self.dialog.newDepartment.isChecked():
+                        NewDepartment=NewWorker(self.auth,self.departmentModel.item,"department")
+                        NewDepartment.signals.hasError.connect(lambda x:print(x))
+                        NewDepartment.signals.hasResponse.connect(stage_2_modify)
+                        NewDepartment.signals.finished.connect(lambda:print("finished creating new department"))
+                        QThreadPool.globalInstance().start(NewDepartment)
+                    elif self.dialog.existingDepartment.isChecked():
+                        modDepartment=Update(self.auth,self.departmentModel.dataToItem(),"department",self.uid)
+                        modDepartment.signals.hasError.connect(lambda x:print(x))
+                        modDepartment.signals.hasResponse.connect(stage_2)
+                        modDepartment.signals.finished.connect(lambda :print("finished adding department"))
+                        QThreadPool.globalInstance().start(modDepartment)
+                    #modify department
+                else:
+                    raise Exception("response for department was not 200")
+            except Exception as e:
+                print(e)
 
         NewUserWorker=NewWorker(self.auth,self.userModel.item,"user")
         NewUserWorker.signals.hasError.connect(lambda x:print(x))
