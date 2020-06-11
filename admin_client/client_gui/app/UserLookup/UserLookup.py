@@ -187,8 +187,9 @@ class UserLookup(QDialog):
                     print(self.userModel.item.get(name))
                     #if name in ['roles','departments']:
                     #    name=name[:-1]
-                    print(userData.keys(),name*10)
-                    self.worker=SaveRelations(self.auth,data,userData.get(name),"user",name,userId)
+                    #print(userData.keys(),name*10)
+                    if isinstance(userData,dict):
+                        self.worker=SaveRelations(self.auth,data,userData.get(name),"user",name,userId)
 
             self.worker.signals.finished.connect(lambda : print("done saving"))
             self.worker.signals.hasError.connect(lambda x:print(x))
@@ -206,25 +207,57 @@ class UserLookup(QDialog):
         uworker.signals.finished.connect(lambda x: print("finished saving {x}".format(**dict(x=x))))
         QThreadPool.globalInstance().start(uworker)
         
+    def comboToId(self,combo):
+        string=combo.currentText()
+        if string:
+            d=regexThisShit2(string)
+            if d:
+                idStr=d.get("ID")
+                if idStr:
+                    return int(idStr)
+
 
     @pyqtSlot(bool)
     def saveUser(self,state):
+        #if self.userModel.item.get("id"):
         self.saveMaster(self.userModel.item,"user",self.userModel.item.get("id"))
+        #else:
+        #    combo=getattr(self.dialog,"result").changeData
+        #    ID=self.comboToId(combo)
+        #    self.saveMaster(self.userModel.item,"user",ID)
+
         #print(self.userModel.item)
 
     @pyqtSlot(bool)
     def saveDepartments(self,state):
-        self.saveMaster(self.models.get("departments").item,"departments",self.userModel.item.get("id"))
+        if self.models.get("departments").item.get("id"):
+            self.saveMaster(self.models.get("departments").item,"departments",self.userModel.item.get("id"))
+        else:
+            combo=getattr(self.dialog,"department").changeData
+            ID=self.comboToId(combo)
+            self.saveMaster(ID,"departments",self.userModel.item.get("id"))
         #print(self.models.get("departments").item)
 
     @pyqtSlot(bool)
     def saveRoles(self,state):
-        self.saveMaster(self.models.get("roles").item,"roles",self.userModel.item.get("id"))
+        if self.modes.get("roles").item.get("id"):
+            self.saveMaster(self.models.get("roles").item,"roles",self.userModel.item.get("id"))
+        else:
+            combo=getattr(self.dialog,"role").changeData
+            ID=self.comboToId(combo)
+            self.saveMaster(ID,"roles",self.userModel.item.get("id"))
+
         #print(self.models.get("roles").item)
         
     @pyqtSlot(bool)
     def saveAddress(self,state):
-        self.saveMaster(self.models.get("address").item,"address",self.userModel.item.get("id"))
+        if self.models.get("address").item.get("id"):
+            self.saveMaster(self.models.get("address").item,"address",self.userModel.item.get("id"))
+        else:
+            combo=getattr(self.dialog,"address").changeData
+            ID=self.comboToId(combo)
+            self.saveMaster(ID,"address",self.userModel.item.get("id"))
+
         #print(self.models.get("address").item)
 
     @pyqtSlot(bool)
