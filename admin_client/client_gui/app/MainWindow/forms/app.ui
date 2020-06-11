@@ -101,6 +101,10 @@
    </property>
   </action>
   <action name="action_About">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../Icons/help.png</normaloff>../../Icons/help.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;About</string>
    </property>
