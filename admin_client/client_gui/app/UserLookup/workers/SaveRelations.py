@@ -20,7 +20,10 @@ class SaveRelations(QRunnable):
         super(SaveRelations,self).__init__()
         self.auth=auth
         self.userId=userId
-        self.data=keyStripper('NAME',data)
+        if isinstance(data,dict):
+            self.data=keyStripper('NAME',data)
+        else:
+            self.data=data
         self.name=name
         if name_whom in ['departments']:
             name_whom = name_whom[:-1]
@@ -47,7 +50,11 @@ class SaveRelations(QRunnable):
                 response=self.signals.session.get(rm_addr,auth=auth)
                 self.signals.hasResponse.emit(response)
                 print(rm_addr)
-            addr="{server_address}/{NAME}/update/{USERID}/add/{E}/{ID}".format(**dict(USERID=self.userId,server_address=self.auth.get("server_address"),NAME=self.name,ID=self.data.get("id"),E=self.name_whom))
+            if isinstance(self.data,dict):
+                addr="{server_address}/{NAME}/update/{USERID}/add/{E}/{ID}".format(**dict(USERID=self.userId,server_address=self.auth.get("server_address"),NAME=self.name,ID=self.data.get("id"),E=self.name_whom))
+            else:
+                addr="{server_address}/{NAME}/update/{USERID}/add/{E}/{ID}".format(**dict(USERID=self.userId,server_address=self.auth.get("server_address"),NAME=self.name,ID=self.data,E=self.name_whom))
+
             response=self.signals.session.get(addr,auth=auth)
             self.signals.hasResponse.emit(response)
             print(addr)

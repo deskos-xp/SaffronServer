@@ -35,7 +35,8 @@ class UserComboData:
         #print(model.item,'#%'*30)
         def updateModel(index):
             try:
-                self.model.load_data(self.cache[index])
+                if index > 0:
+                    self.model.load_data(self.cache[index])
             except Exception as e:
                 print(e)
 
