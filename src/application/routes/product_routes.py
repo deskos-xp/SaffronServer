@@ -18,6 +18,8 @@ from .. import delete,status,ccj,status_codes
 from ..tools.barcode.barcodes import barcode_gen
 from io import BytesIO
 from ..decor import roles_required
+from ..messages import messages
+
 utypes=["upc_image","product_image"]
 ALLOWED_EXTENSIONS=["png","jpg","jpeg"]
 
@@ -39,10 +41,16 @@ def v(username,password):
 @auth.login_required
 @roles_required(roles=['admin'])
 def update_product(ID):
-    assert ID != None
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
+
     json=request.get_json(force=True)
     json=ccj(json)
-    assert json != None
+    #assert json != None
+    if not json:
+        return messages.NO_JSON.value
+
     product=db.session.query(Product).filter_by(id=ID).first()
     for k in json.keys():
         if k in product.__dict__.keys():
@@ -57,11 +65,23 @@ def update_product(ID):
 @auth.login_required
 @roles_required(roles=['admin','user'])
 def get_barcode(ID:int,TYPE:str):
-    assert ID != None
-    assert TYPE != None
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
+
+    #assert TYPE != None
+    if not TYPE:
+        return messages.NO_TYPE_FOR_EXPORT.value
+
     product=db.session.query(Product).filter_by(id=ID).first()
-    assert product != None
-    assert len(product.upc)
+    #assert product != None
+    if not product:
+        return messages.ENTITY_DOES_NOT_EXIST_PRODUCT.value
+
+    #assert len(product.upc)
+    if not len(product.upc):
+        return messages.INVALID_UPC_LEN.value
+
     bard=barcode_gen(upc=product.upc,Type=TYPE)
     bard.buff.seek(0)
     img=bytes()
@@ -82,10 +102,18 @@ def get_barcode(ID:int,TYPE:str):
 @auth.login_required
 @roles_required(roles=['admin'])
 def upload_upc_image(ID,WHICH):
-    assert WHICH != None
-    assert ID != None
+    #assert WHICH != None
+    if not WHICH:
+        return messages.NO_WHICH_PROVIDED.value
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
+
     product=db.session.query(Product).filter_by(id=ID).first()
-    assert product != None
+    #assert product != None
+    if not product:
+        return messages.ENTITY_DOES_NOT_EXIST_PRODUCT.value
+
     if WHICH not in utypes:
         return status(product,status=status_codes.NOT_UPLOADED,msg="valid uploads are {}".format(','.join(utypes)))
 
@@ -115,13 +143,21 @@ def upload_upc_image(ID,WHICH):
 @auth.login_required
 @roles_required(roles=['admin','user'])
 def get_images(ID,WHICH):
-    assert ID != None
-    assert WHICH != None
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
+    #assert WHICH != None
+    if not WHICH:
+        return messages.NO_WHICH_PROVIDED.value
+
     if WHICH not in utypes:
         return status(Product(),status=status_codes.NOT_UPLOADED,msg="valid images are {}".format(', '.join(utypes)))
 
     product=db.session.query(Product).filter_by(id=ID).first()
-    assert product != None
+    #assert product != None
+    if not product:
+        return messages.ENTITY_DOES_NOT_EXIST_PRODUCT.value
+
     fname=product.__dict__[WHICH]
     p=os.path.join(app.root_path,app.config['UPLOAD_FOLDER'])
     logging.debug(p)
@@ -136,7 +172,10 @@ def get_images(ID,WHICH):
 def new_product():
         json=request.get_json(force=True)
         json=ccj(json)
-        assert json != None
+        #assert json != None
+        if not json:
+            return messages.NO_JSON.value
+
         if len(json.keys()) > 0:
             exists=db.session.query(Product).filter_by(**json).first()
             if exists != None:
@@ -146,23 +185,15 @@ def new_product():
         db.session.commit()
         db.session.flush()
         return status(product,status=status_codes.NEW) 
-        '''
-        return """
-product created!
-ToDos:
-    /product/update/<product_id>/add/weight/<weight_id>
-    /product/update/<product_id>/add/price/<price_id>
-    /product/update/<product_id>/add/vendor/<vendor_id>
-    /product/update/<product_id>/add/brand/<brand_id>
-    /product/update/<product_id>/add/manufacturer/<manufacturer_id>
-    /product/update/<product_id>/add/department/<department_id>
-    """
-        '''
+        
 @app.route("/product/get/<product_id>",methods=["GET"])
 @auth.login_required
 @roles_required(roles=['admin','user'])
 def get_product_id(product_id):
-    assert product_id != None
+    #assert product_id != None
+    if not product_id:
+        return messages.NO_PRODUCT_ID
+
     product=db.session.query(Product).filter_by(id=product_id).first()
     if product == None:
         return status(Product(),status=status_codes.INVALID_ID,msg="no such product")
@@ -175,7 +206,9 @@ def get_product_id(product_id):
 def get_products():
     json=request.get_json(force=True)
     json=ccj(json)
-    assert json != None
+    #assert json != None
+    if not json:
+        return messages.NO_JSON.value
     page=json.get("page")
     limit=json.get("limit")
     if page == None:
@@ -213,10 +246,19 @@ def delete_product(product_id):
 @auth.login_required
 @roles_required(roles=['admin'])
 def remove_vendor_to_product(product_id,vendor_id):
-    assert product_id != None
-    assert vendor_id != None
+    #assert product_id != None
+    if not product_id:
+        return messages.NO_PRODUCT_ID.value
+
+    #assert vendor_id != None
+    if not vendor_id:
+        return messages.NO_VENDOR_ID.value
+
     vendor=db.session.query(Vendor).filter_by(id=vendor_id).first()
-    assert vendor != None
+    #assert vendor != None
+    if not vendor:
+        return messages.ENTITY_DOES_NOT_EXIST_VENDOR.value
+
     product=db.session.query(Product).filter_by(id=product_id).first()
     #removal=False
     print(product.vendors)
@@ -227,55 +269,24 @@ def remove_vendor_to_product(product_id,vendor_id):
     
     db.session.commit()
     return status(product,status=status_codes.UPDATED)
-'''
-@app.route("/product/update/<product_id>/add/weight/<weight_id>",methods=["get"])
-@auth.login_required
-def add_weight_to_product(product_id,weight_id):
-    assert product_id != None
-    assert weight_id != None
-    weight=db.session.query(Weight).filter_by(id=weight_id).first()
-    assert weight != None
-    product=db.session.query(Product).filter_by(id=product_id).first()
-    print(product.weight)
-    if weight not in product.weight:
-        product.weight.append(weight)
-    else:
-        return status(product,status=status_codes.NOT_UPDATED) 
-    flag_modified(product,"weight")
-    db.session.merge(product)
-    db.session.flush()
-    db.session.commit()
-    return status(product,status=status_codes.UPDATED)
-'''
-'''
-@app.route("/product/update/<product_id>/add/price/<price_id>",methods=["get"])
-@auth.login_required
-def add_price_to_product(product_id,price_id):
-    assert product_id != None
-    assert price_id != None
-    price=db.session.query(Price).filter_by(id=price_id).first()
-    assert price != None
-    product=db.session.query(Product).filter_by(id=product_id).first()
-    print(product.price)
-    if price not in product.price:
-        product.price.append(price)
-    else:
-        return status(Product(),status=status_codes.NOT_UPDATED)
-    flag_modified(product,"price")
-    db.session.merge(product)
-    db.session.flush()
-    db.session.commit()
-    return status(Product(),status=status_codes.UPDATED)
-'''
 
 @app.route("/product/update/<product_id>/add/vendor/<vendor_id>",methods=["get"])
 @auth.login_required
 @roles_required(roles=['admin'])
 def add_vendor_to_product(product_id,vendor_id):
-    assert product_id != None
-    assert vendor_id != None
+    #assert product_id != None
+    if not product_id:
+        return messages.NO_PRODUCT_ID.value
+
+    #assert vendor_id != None
+    if not vendor_id:
+        return messages.NO_VENDOR_ID.value
+
     vendor=db.session.query(Vendor).filter_by(id=vendor_id).first()
-    assert vendor != None
+    #assert vendor != None
+    if not vendor:
+        return messages.ENTITY_DOES_NOT_EXIST_VENDOR.value
+
     product=db.session.query(Product).filter_by(id=product_id).first()
     print(product.vendors)
     if vendor not in product.vendors:
@@ -292,10 +303,19 @@ def add_vendor_to_product(product_id,vendor_id):
 @auth.login_required
 @roles_required(roles=['admin'])
 def remove_brand_to_product(product_id,brand_id):
-    assert product_id != None
-    assert brand_id != None
+    #assert product_id != None
+    if not product_id:
+        return messages.NO_PRODUCT_ID.value
+
+    #assert brand_id != None
+    if not brand_id:
+        return messages.NO_BRAND_ID.value
+
     brand=db.session.query(Brand).filter_by(id=brand_id).first()
-    assert brand != None
+    #assert brand != None
+    if not brand:
+        return messages.ENTITY_DOES_NOT_EXIST_BRAND.value
+
     product=db.session.query(Product).filter_by(id=product_id).first()
     #removal=False
     print(product.brands)
@@ -312,10 +332,19 @@ def remove_brand_to_product(product_id,brand_id):
 @auth.login_required
 @roles_required(roles=['admin'])
 def add_brand_to_product(product_id,brand_id):
-    assert product_id != None
-    assert brand_id != None
+    #assert product_id != None
+    if not product_id:
+        return messages.NO_PRODUCT_ID.value
+
+    #assert brand_id != None
+    if not brand_id:
+        return messages.NO_BRAND_ID.value
+
     brand=db.session.query(Brand).filter_by(id=brand_id).first()
-    assert brand != None
+    #assert brand != None
+    if not brand:
+        return messages.ENTITY_DOES_NOT_EXIST_BRAND.value
+
     product=db.session.query(Product).filter_by(id=product_id).first()
     print(product.brands)
     if brand not in product.brands:
@@ -332,10 +361,19 @@ def add_brand_to_product(product_id,brand_id):
 @auth.login_required
 @roles_required(roles=['admin'])
 def remove_manufacturer_to_product(product_id,manufacturer_id):
-    assert product_id != None
-    assert manufacturer_id != None
+    #assert product_id != None
+    if not product_id:
+        return messages.NO_PRODUCT_ID.value
+
+    #assert manufacturer_id != None
+    if not manufacturer_id:
+        return messages.NO_MANUFACTURER_ID.value
+
     manufacturer=db.session.query(Manufacturer).filter_by(id=manufacturer_id).first()
-    assert manufacturer != None
+    #assert manufacturer != None
+    if not manufacturer:
+        return messages.ENTITY_DOES_NOT_EXIST_MANUFACTURER
+
     product=db.session.query(Product).filter_by(id=product_id).first()
     #removal=False
     print(product.manufacturers)
@@ -347,16 +385,22 @@ def remove_manufacturer_to_product(product_id,manufacturer_id):
     db.session.commit()
     return status(Product(),status=status_codes.UPDATED)
 
-
-
 @app.route("/product/update/<product_id>/add/manufacturer/<manufacturer_id>",methods=["get"])
 @auth.login_required
 @roles_required(roles=['admin'])
 def add_manufacturer_to_product(product_id,manufacturer_id):
-    assert product_id != None
-    assert manufacturer_id != None
+    #assert product_id != None
+    if not product_id:
+        return messages.NO_PRODUCT_ID.value
+    #assert manufacturer_id != None
+    if not manufacturer_id:
+        return messages.NO_MANUFACTURER_ID.value
+
     manufacturer=db.session.query(Manufacturer).filter_by(id=manufacturer_id).first()
-    assert manufacturer != None
+    #assert manufacturer != None
+    if not manufacturer:
+        return messages.ENTITY_DOES_NOT_EXIST_MANUFACTURER.value
+
     product=db.session.query(Product).filter_by(id=product_id).first()
     print(product.manufacturers)
     if manufacturer not in product.manufacturers:
@@ -373,10 +417,19 @@ def add_manufacturer_to_product(product_id,manufacturer_id):
 @auth.login_required
 @roles_required(roles=['admin'])
 def remove_department_to_product(product_id,department_id):
-    assert product_id != None
-    assert department_id != None
+    #assert product_id != None
+    if not product_id:
+        return messages.NO_PRODUCT_ID.value
+
+    #assert department_id != None
+    if not department_id:
+        return messages.NO_DEPARTMENT_ID.value
+
     department=db.session.query(Department).filter_by(id=department_id).first()
-    assert department != None
+    #assert department != None
+    if not department:
+        return messages.ENTITY_DOES_NOT_EXIST_DEPARTMENT.value
+
     product=db.session.query(Product).filter_by(id=product_id).first()
     #removal=False
     print(product.departments)
@@ -392,10 +445,19 @@ def remove_department_to_product(product_id,department_id):
 @auth.login_required
 @roles_required(roles=['admin'])
 def add_department_to_product(product_id,department_id):
-    assert product_id != None
-    assert department_id != None
+    #assert product_id != None
+    if not product_id:
+        return messages.NO_PRODUCT_ID.value
+
+    #assert department_id != None
+    if not department_id:
+        return messages.NO_DEPARTMENT_ID.value
+
     department=db.session.query(Department).filter_by(id=department_id).first()
-    assert department != None
+    #assert department != None
+    if not department:
+        return messages.ENTITY_DOES_NOT_EXIST_DEPARTMENT.value
+
     product=db.session.query(Product).filter_by(id=product_id).first()
     print(product.departments)
     if department not in product.departments:

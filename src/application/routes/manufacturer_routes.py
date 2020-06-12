@@ -8,11 +8,14 @@ from sqlalchemy.orm.attributes import flag_modified
 from . import verify
 from .. import delete,status,ccj,status_codes
 from ..decor import roles_required
+from ..messages import messages
 
 @app.route("/manufacturer/delete/<ID>",methods=["delete"])
 @auth.login_required
 @roles_required(roles=['admin'])
 def delete_manufacturer(ID):
+    if not ID:
+        return messages.NO_ID.value
     return delete(ID,Manufacturer)
 
 
@@ -41,7 +44,9 @@ def get_manufacturer():
     json=request.get_json(force=True)
     json=ccj(json)
     print(json)
-    assert json != None
+    #assert json != None
+    if not json:
+        return messages.NO_JSON.value
     page=json.get('page')
     limit=json.get('limit')
     if page == None:
@@ -65,8 +70,9 @@ def get_manufacturer():
 def add_manufacturer():
     json=request.get_json(force=True)
     json=ccj(json)
-    assert json != None
-
+    #assert json != None
+    if not json:
+        return messages.NO_JSON.value
     if len(json.keys()) > 0:
         qb=db.session.query(Manufacturer).filter_by(**json).first()
         if qb != None:
@@ -77,20 +83,33 @@ def add_manufacturer():
     db.session.commit()
     db.session.flush()
     return status(manufacturer,status=status_codes.NEW) 
+
 @app.route("/manufacturer/update/<ID>",methods=["post"])
 @auth.login_required
 @roles_required(roles=['admin'])
 def update_manufacturer(ID):
-    assert ID != None
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
     manufacturer_old=db.session.query(Manufacturer).filter_by(id=ID).first()
-    assert manufacturer_old != None
+
+    #assert manufacturer_old != None
+    if not manufacturer_old:
+        return messages.ENTITY_DOES_NOT_EXIST_MANUFACTURER.value
     json=request.get_json(force=True)
     json=ccj(json)
-    assert json != None
+    #assert json != None
+    if not json:
+        return messages.NO_JSON.value
+
     for key in manufacturer_old.defaultdict().keys():
         if key not in ["id","address"]:
-            assert key in manufacturer_old.__dict__.keys()
-            assert key in json.keys()
+            #assert key in manufacturer_old.__dict__.keys()
+            if key not in manufacturer_old.__dict__.keys():
+                return messages.INVALID_KEY_MANUFACTURER.value
+            #assert key in json.keys()
+            if key not in json.keys():
+                return messages.INVALID_KEY_MANUFACTURER.value
             manufacturer_old.__dict__[key]=json[key]
             flag_modified(manufacturer_old,key)
     db.session.merge(manufacturer_old)
@@ -103,12 +122,23 @@ def update_manufacturer(ID):
 @auth.login_required
 @roles_required(roles=['admin'])
 def update_manufacturer_with_address_add(ID,ADDRESS_ID):
-    assert ID != None
-    assert ADDRESS_ID != None
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
+    #assert ADDRESS_ID != None
+    if not ADDRESS_ID:
+        return messages.NO_ADDRESS_ID.value
+
     manufacturer=db.session.query(Manufacturer).filter_by(id=ID).first()
-    assert manufacturer != None
+    #assert manufacturer != None
+    if not manufacturer:
+        return messages.ENTITY_DOES_NOT_EXIST_MANUFACTURER.value
+
     address=db.session.query(Address).filter_by(id=ADDRESS_ID).first()
-    assert address != None
+    #assert address != None
+    if not address:
+        return messages.ENTITY_DOES_NOT_EXIST_ADDRESS.value
+
     if address not in manufacturer.address:
         manufacturer.address.append(address)
         db.session.commit()
@@ -120,12 +150,23 @@ def update_manufacturer_with_address_add(ID,ADDRESS_ID):
 @auth.login_required
 @roles_required(roles=['admin'])
 def update_manufacturer_with_address_rm(ID,ADDRESS_ID):
-    assert ID != None
-    assert ADDRESS_ID != None
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
+    #assert ADDRESS_ID != None
+    if not ADDRESS_ID:
+        return messages.NO_ADDRESS_ID.value
+
     manufacturer=db.session.query(Manufacturer).filter_by(id=ID).first()
-    assert manufacturer != None
+    #assert manufacturer != None
+    if not manufacturer:
+        return messages.ENTITY_DOES_NOT_EXIST_MANUFACTURER
+
     address=db.session.query(Address).filter_by(id=ADDRESS_ID).first()
-    assert address != None
+    #assert address != None
+    if not address:
+        return messages.ENTITY_DOES_NOT_EXIST_ADDRESS
+
     if address in manufacturer.address:
         manufacturer.address.remove(address)
         db.session.commit()

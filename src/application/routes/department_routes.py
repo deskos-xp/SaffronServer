@@ -7,11 +7,14 @@ from sqlalchemy.orm.attributes import flag_modified
 from . import verify
 from .. import delete,status,ccj,status_codes
 from ..decor import roles_required
+from ..messages import messages
 
 @app.route("/department/delete/<ID>",methods=["delete"])
 @auth.login_required
 @roles_required(roles=['admin'])
 def delete_department(ID):
+    if not ID:
+        return messages.NO_ID.value
     return delete(ID,Department)
 
 
@@ -26,7 +29,9 @@ def v(username,password):
 def new_department():
     json=request.get_json(force=True)
     json=ccj(json)
-    assert json != None
+    #assert json != None
+    if not json:
+        return messages.NO_JSON.value
     if len(json.keys()) > 0:
         exists=db.session.query(Department).filter_by(**json).first()
         if exists != None:

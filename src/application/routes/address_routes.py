@@ -10,12 +10,15 @@ from sqlalchemy.orm.attributes import flag_modified
 from . import verify
 from .. import delete,status,ccj,status_codes
 from ..decor import roles_required
+from ..messages import messages
 
 @app.route("/address/delete/<ID>",methods=["delete"])
 @auth.login_required
 @roles_required(roles=['admin'])
 def delete_address(ID):
-    assert ID != None
+    ##assert ID != None
+    if not ID:
+        return messages.NO_ID.value
     return delete(ID,Address)
 
 @auth.verify_password
@@ -41,8 +44,10 @@ def get_address_id(ID):
 def get_address():
     json=request.get_json(force=True)
     json=ccj(json)
-    print(json)
-    assert json != None
+    #print(json)
+    #assert json != None
+    if not json:
+        return messages.NO_JSON.value
     page=json.get('page')
     limit=json.get('limit')
     if page == None:
@@ -66,7 +71,8 @@ def get_address():
 def add_address():
     json=request.get_json(force=True)
     json=ccj(json)
-    assert json != None
+    if not json:
+        return messages.NO_JSON.value
     if len(json.keys()) > 0:
         address=db.session.query(Address).filter_by(**json).first()
         if address != None:
@@ -81,16 +87,28 @@ def add_address():
 @auth.login_required
 @roles_required(roles=['admin'])
 def update_address(ID):
-    assert ID != None
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
     address_old=db.session.query(Address).filter_by(id=ID).first()
-    assert address_old != None
+    #assert address_old != None
+    if not address_old:
+        return messages.ENTITY_DOES_NOT_EXIST.value
     json=request.get_json(force=True)
     json=ccj(json)
-    assert json != None
+    #assert json != None
+    if not json:
+        return messages.NO_JSON.value
     for key in address_old.defaultdict().keys():
         if key not in ["id"]:
-            assert key in address_old.__dict__.keys()
-            assert key in json.keys()
+            #assert key in address_old.__dict__.keys()
+            if key not in address_old.__dict__.keys():
+                return messages.INVALID_KEY_ADDRESS.value
+
+            #assert key in json.keys()
+            if key not in json.keys():
+                return messages.INVALID_KEY_ADDRESS.values
+
             address_old.__dict__[key]=json[key]
             flag_modified(address_old,key)
     db.session.merge(address_old)

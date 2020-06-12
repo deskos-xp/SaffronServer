@@ -10,6 +10,8 @@ from sqlalchemy.orm.attributes import flag_modified
 from . import verify
 from .. import delete,status,ccj,status_codes
 from ..decor import roles_required
+from ..messages import messages
+
 @auth.verify_password
 def v(username,password):
     a=verify.verify_password(username,password)
@@ -21,7 +23,9 @@ def v(username,password):
 @roles_required(roles=['admin'])
 def new_productCount():
         json=request.get_json(force=True)
-        assert json != None
+        #assert json != None
+        if not json:
+            return messages.NO_JSON.value
         json=ccj(json)
         if len(json.keys()) > 0:
             exists=db.session.query(ProductCount).filter_by(**json).first()
@@ -32,19 +36,14 @@ def new_productCount():
         db.session.commit()
         db.session.flush()
         return status(productCount,status=status_codes.NEW)
-        '''
-        return """
-ledger created!
-ToDos:
-    /productCount/update/<productCount_id>/add/product/<product_id>
-    /productCount/update/<productCount_id> {data in json}
-"""
-'''
+
 @app.route("/productCount/get/<productCount_id>",methods=["GET"])
 @auth.login_required
 @roles_required(roles=['admin','user'])
 def get_productCount_id(productCount_id):
-    assert productCount_id != None
+    if not productCount_id:
+        return messages.NO_PRODUCT_COUNT_ID.value
+    #assert productCount_id != None
     productCount=db.session.query(ProductCount).filter_by(id=productCount_id).first()
     if productCount == None:
         return status(ProductCount(),status=status_codes.INVALID_ID,msg="no such productCount")
@@ -57,7 +56,9 @@ def get_productCount_id(productCount_id):
 def get_productCount():
     json=request.get_json(force=True)
     json=ccj(json)
-    assert json != None
+    #assert json != None
+    if not json:
+        return messages.NO_JSON.value
     page=json.get("page")
     limit=json.get("limit")
     if page == None:
@@ -81,18 +82,29 @@ def get_productCount():
 @auth.login_required
 @roles_required(roles=['admin'])
 def delete_productCount(productCount_id): 
+    if not productCount_id:
+        return messages.NO_PRODUCT_COUNT_ID.value
+
     return delete(productCount_id,ProductCount)
 
 @app.route("/productCount/update/<productCount_id>",methods=["post"])
 @auth.login_required
 @roles_required(roles=['admin'])
 def update_productCount(productCount_id):
-    assert productCount_id != None
+    #assert productCount_id != None
+    if not productCount_id:
+        return messages.NO_PRODUCT_COUNT_ID.value
+
     json=request.get_json(force=True)
     json=ccj(json)
-    assert json != None
+    #assert json != None
+    if not json:
+        return messages.NO_JSON.value
     productCount=db.session.query(ProductCount).filter_by(id=productCount_id).first()
-    assert productCount != None
+    #assert productCount != None
+    if not productCount:
+        return messages.ENTITY_DOES_NOT_EXIST_PRODUCT_COUNT.value
+
     productCount.__dict__.update(json)
     for key in json.keys():
         flag_modified(productCount,key)
@@ -106,10 +118,17 @@ def update_productCount(productCount_id):
 @auth.login_required
 @roles_required(roles=['admin'])
 def remove_product_from_productCount(productCount_id,product_id):
-    assert productCount_id != None
-    assert product_id != None
+    #assert productCount_id != None
+    if not productCount_id:
+        return messages.NO_PRODUCT_COUNT_ID.value
+    #assert product_id != None
+    if not product_id:
+        return messages.NO_PRODUCT_ID.value
+
     product=db.session.query(Product).filter_by(id=product_id).first()
-    assert product != None
+    #assert product != None
+    if not product:
+        return messages.ENTITY_DOES_NOT_EXIST_PRODUCT.value
     productCount=db.session.query(ProductCount).filter_by(id=productCount_id).first()
     #removal=False
     print(productCount.products)
@@ -125,12 +144,22 @@ def remove_product_from_productCount(productCount_id,product_id):
 @auth.login_required
 @roles_required(roles=['admin'])
 def add_product_to_productCount(productCount_id,product_id):
-    assert productCount_id != None
-    assert product_id != None
+    #assert productCount_id != None
+    if not productCount_id:
+        return messages.NO_PRODUCT_COUNT_ID.value
+    #assert product_id != None
+    if not product_id:
+        return messages.NO_PRODUCT_ID.value
+
     product=db.session.query(Product).filter_by(id=product_id).first()
-    assert product != None
+    #assert product != None
+    if not product:
+        return messages.ENTITY_DOES_NOT_EXIST_PRODUCT.value
     productCount=db.session.query(ProductCount).filter_by(id=productCount_id).first()
-    assert productCount != None
+    #assert productCount != None
+    if not productCount:
+        return messages.ENTITY_DOES_NOT_EXIST_PRODUCT_COUNT.value
+
     print(productCount.products)
     if product not in productCount.products:
         productCount.products.append(product)

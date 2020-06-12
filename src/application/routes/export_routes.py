@@ -16,6 +16,7 @@ import json
 from flask  import send_from_directory
 import phonenumbers,emails
 from ..decor import roles_required
+from ..messages import messages
 
 FMTS=['json','pdf']
 WHATS=['product','ledger']
@@ -34,10 +35,19 @@ def v(username,password):
 @auth.login_required
 @roles_required(roles=['admin','user'])
 def export_to_text(FMT,UID,WHO,TO):
-    assert FMT != None 
-    assert UID != None
-    assert WHO != None
-    assert TO != None
+    if not FMT:
+        return messages.FMT_NOT_PROVIDED.value
+    #assert FMT != None 
+    #assert UID != None
+    if not UID:
+        return messages.NO_ID.value
+    #assert WHO != None
+    if not WHO:
+        return messages.NO_WHO_ID.value
+    #assert TO != None
+    if not TO:
+        return messages.TO_FORMAT_NOT_PROVIDED.value
+
     if not exportable(FMT):
         return status(None,status=status_codes.INVALID_EXPORT_FMT,msg="invalid export fmt")
     e=export(export_fmt=FMT)
@@ -92,11 +102,15 @@ def export_to_text(FMT,UID,WHO,TO):
 
 def verify_phone_number(number:str,region:str):
     numbers=[i.raw_string for i in phonenumbers.PhoneNumberMatcher(number,region)]  
-    assert numbers != []
+    #assert numbers != []
+    if not numbers:
+        return messages.PHONE_EMPTY.value
     return numbers
 
 def verify_email_address(address):
-    assert address != None
+    #assert address != None
+    if not address:
+        return messages.EMAIL_EMPTY.value
     if '@' in emails.utils.parseaddr(address)[1]:
         return address
     raise ValueError
@@ -110,7 +124,9 @@ def phone_or_email(WHO,TO):
 
 def getAddress(WHO,TO):
     user=db.session.query(User).filter_by(id=WHO).first()
-    assert user != None
+    #assert user != None
+    if not user:
+        return messages.ENTITY_DOES_NOT_EXIST_USER.value
     return getattr(user,TO)
 
 
@@ -128,9 +144,16 @@ def exporter(FMT,WHAT,ID):
         if json.get("limit") != None:
             limit=json.get("limit")
 
-    assert FMT != None
-    assert WHAT != None
-    assert ID != None
+    #assert FMT != None
+    if not FMT:
+        return messages.FMT_NOT_PROVIDED.value
+    #assert WHAT != None
+    if not WHAT:
+        return messages.WHAT_EMPTY.value
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
+
     if not exportable(FMT):
         return status(None,status=status_codes.INVALID_EXPORT_FMT,msg="invalid export format")
     if not validWhats(WHAT):

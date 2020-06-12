@@ -8,12 +8,15 @@ import json as Json
 from sqlalchemy.orm.attributes import flag_modified
 from . import verify
 from .. import delete,status,ccj,status_codes
-#from flask_user import current_user, login_required, roles_required, UserManager, UserMixin
 from ..decor import roles_required
+from ..messages import messages
+
 @app.route("/user/delete/<user_id>",methods=["delete"])
 @auth.login_required
 @roles_required(roles=['admin'])
 def delete_user(user_id): 
+    if not user_id:
+        return messages.NO_ID.value
     return delete(user_id,User)
 
 @auth.verify_password
@@ -26,6 +29,8 @@ def v(username,password):
 @auth.login_required
 @roles_required(roles=["admin","user"])
 def get_user_by_id(ID):
+    if not ID:
+        return messages.NO_ID.value
     USER=db.session.query(User).filter_by(id=ID).first()
     USER.password="xxxxx"
     userSchema = UserSchema()
@@ -37,6 +42,8 @@ def get_user_by_id(ID):
 def search_user():
     print(request.view_args)
     json=request.get_json(force=True)
+    if not json:
+        return messages.NO_JSON.value
     json=ccj(json)
     page=json.get("page")
     limit=json.get("limit")
@@ -67,10 +74,18 @@ def alter_user(ID):
     #print(ID)
     #getuser
     admin=db.session.query(User).filter_by(uname=auth.username()).first()
-    assert admin != None
-    assert admin.admin != False
+    #assert admin != None
+    if not admin:
+        return messages.ENTITY_DOES_NOT_EXIST_USER.value
+    #assert admin.admin != False
+    if not admin.admin:
+        return messages.NOT_ADMIN.value
+
     USER=db.session.query(User).filter_by(id=ID).first()        
-    assert USER != None
+    #assert USER != None
+    if not USER:
+        return messages.ENTITY_DOES_NOT_EXIST_USER.value
+
     #update fields
     for key in USER.defaultdict().keys():
         if json.get(key) != None:
@@ -86,17 +101,30 @@ def alter_user(ID):
     db.session.flush()
     db.session.commit()  
     return status(User(),status=status_codes.UPDATED)
+
 #need to add department route
 @app.route("/user/update/<ID>/add/department/<DEPARTMENT_ID>",methods=["get"])
 @auth.login_required
 @roles_required(roles=['admin'])
 def add_department_to_user(ID,DEPARTMENT_ID):
-    assert ID != None
-    assert DEPARTMENT_ID != None
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
+
+    #assert DEPARTMENT_ID != None
+    if not DEPARTMENT_ID:
+        return messages.NO_DEPARTMENT_ID.value
+
     user=db.session.query(User).filter_by(id=ID).first()
-    assert user != None
+    #assert user != None
+    if not user:
+        return messages.ENTITY_DOES_NOT_EXIST_USER.value
+
     department=db.session.query(Department).filter_by(id=DEPARTMENT_ID).first()
-    assert department != None
+    #assert department != None
+    if not department:
+        return messages.ENTITY_DOES_NOT_EXIST_DEPARTMENT.value
+
     if department in user.departments:
         return status(User(),status=status_codes.NOT_UPDATED)
     user.departments.append(department)
@@ -111,12 +139,24 @@ def add_department_to_user(ID,DEPARTMENT_ID):
 @auth.login_required
 @roles_required(roles=['admin'])
 def add_address_to_user(ID,ADDRESS_ID):
-    assert ID != None
-    assert ADDRESS_ID != None
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
+
+    #assert ADDRESS_ID != None
+    if ADDRESS_ID:
+        return messages.NO_ADDRESS_ID.value
+
     user=db.session.query(User).filter_by(id=ID).first()
-    assert user != None
+    #assert user != None
+    if not user:
+        return messages.ENTITY_DOES_NOT_EXIST_USER.value
+
     address=db.session.query(Address).filter_by(id=ADDRESS_ID).first()
-    assert address != None
+    #assert address != None
+    if not address:
+        return messages.ENTITY_DOES_NOT_EXIST_ADDRESS.value
+
     if address in user.address:
         return status(User(),status=status_codes.NOT_UPDATED)
     user.address.append(address)
@@ -131,13 +171,28 @@ def add_address_to_user(ID,ADDRESS_ID):
 @auth.login_required
 @roles_required(roles=['admin'])
 def remove_address_from_user(ID,ADDRESS_ID):
-    assert ID != None
-    assert ADDRESS != None
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
+
+    #assert ADDRESS_ID != None
+    if not ADDRESS_ID:
+        return messages.NO_ADDRESS_ID.value
+
     user=db.session.query(User).filter_by(id=ID).first()
-    assert user != None
+    #assert user != None
+    if not user:
+        return messages.ENTITY_DOES_NOT_EXIST_USER.value
+
     address=db.session.query(Address).filter_by(id=ADDRESS_ID).first()
-    assert address != None
-    assert address in user.addresss
+    #assert address != None
+    if not address:
+        return messages.ENTITY_DOES_NOT_EXIST_ADDRESS
+
+    #assert address in user.address
+    if address not in user.address:
+        return messages.ENTITY_NOT_RELATED.value
+
     user.address.remove(address)
     flag_modified(user,"address")
     db.session.flush()
@@ -162,6 +217,8 @@ if os.environ['NEED_ADMIN'] == "True":
 @roles_required(roles=['admin'])
 def new_user():
     json=request.get_json(force=True)
+    if not json:
+        return messages.NO_JSON.value
     json=ccj(json)
     roleName=None
     if 'role' in json.keys():
@@ -223,12 +280,24 @@ def default_user():
 @auth.login_required
 @roles_required(roles=['admin'])
 def add_roles_to_user(ID,ROLE_ID):
-    assert ID != None
-    assert ROLE_ID != None
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
+
+    #assert ROLE_ID != None
+    if not ROLE_ID:
+        return messages.NO_ROLE_ID.value
+
     user=db.session.query(User).filter_by(id=ID).first()
-    assert user != None
+    #assert user != None
+    if not user:
+        return messages.ENTITY_DOES_NOT_EXIST_USER.value
+
     roles=db.session.query(Role).filter_by(id=ROLE_ID).first()
-    assert roles != None
+    #assert roles != None
+    if not roles:
+        return messages.ENTITY_DOES_NOT_EXIST_ROLE.value
+
     if roles in user.roles:
         return status(User(),status=status_codes.NOT_UPDATED)
     user.roles.append(roles)
@@ -243,13 +312,27 @@ def add_roles_to_user(ID,ROLE_ID):
 @auth.login_required
 @roles_required(roles=['admin'])
 def remove_department_from_user(ID,DEPARTMENT_ID):
-    assert ID != None
-    assert DEPARTMENT_ID != None
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
+
+    #assert DEPARTMENT_ID != None
+    if not DEPARTMENT_ID:
+        return messages.NO_DEPARTMENT_ID.value
     user=db.session.query(User).filter_by(id=ID).first()
-    assert user != None
+    #assert user != None
+    if not user:
+        return messages.ENTITY_DOES_NOT_EXIST_USER.value
+
     department=db.session.query(Department).filter_by(id=DEPARTMENT_ID).first()
-    assert department != None
-    assert department in user.departments
+    #assert department != None
+    if not department:
+        return messages.ENTITY_DOES_NOT_EXIST_DEPARTMENT.value
+
+    #assert department in user.departments
+    if department not in user.departments:
+        return messages.ENTITY_NOT_RELATED.value
+
     user.departments.remove(department)
     #flag_modified(user,"departments")
     #db.session.flush()
@@ -264,13 +347,27 @@ def remove_department_from_user(ID,DEPARTMENT_ID):
 @auth.login_required
 @roles_required(roles=['admin'])
 def remove_roles_from_user(ID,ROLE_ID):
-    assert ID != None
-    assert ROLE_ID != None
+    #assert ID != None
+    if not ID:
+        return messages.NO_ID.value
+
+    #assert ROLE_ID != None
+    if not ROLE_ID:
+        return messages.NO_ROLE_ID.value
+
     user=db.session.query(User).filter_by(id=ID).first()
-    assert user != None
+    #assert user != None
+    if not user:
+        return messages.ENTITY_DOES_NOT_EXIST_USER.value
+
     roles=db.session.query(Role).filter_by(id=ROLE_ID).first()
-    assert roles != None
-    assert roles in user.roles
+    #assert roles != None
+    if not roles:
+        return messages.ENTITY_DOES_NOT_EXIST_ROLE.value
+
+    #assert roles in user.roles
+    if roles not in user.roles:
+        return messages.ENTITY_NOT_RELATED.value
     user.roles.remove(roles)
     #print(user.roles)
     #flag_modified(user,"roles")
