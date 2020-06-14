@@ -1,0 +1,2 @@
+rootProject.name='SaffronExplorer'
+include ':app'
