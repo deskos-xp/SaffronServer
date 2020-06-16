@@ -41,6 +41,6 @@ public class loggedIn extends AppCompatActivity {
             }
         });
         //view.setText(intent.getStringExtra("user"));
-        Toast.makeText(this,intent_old.getStringExtra("user"),Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,intent_old.getStringExtra("user"),Toast.LENGTH_LONG).show();
     }
 }

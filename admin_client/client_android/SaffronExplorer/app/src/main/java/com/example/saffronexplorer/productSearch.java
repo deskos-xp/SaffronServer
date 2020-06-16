@@ -63,6 +63,16 @@ public class productSearch extends AppCompatActivity {
 
             @Override
             public void call(Object o, Integer integer) {
+                if (integer == 200){
+                    String d=new Gson().toJson(o);
+                    Intent i=new Intent(getBaseContext(),ProductSearchResults.class);
+                    i.putExtra("user",getIntent().getStringExtra("user"));
+                    i.putExtra("host",getIntent().getStringExtra("host"));
+                    i.putExtra("results",d);
+                    i.putExtra("page",0);
+                    i.putExtra("limit",55);
+                    startActivity(i);
+                }
                 Toast.makeText(getBaseContext(),String.valueOf(integer),Toast.LENGTH_SHORT).show();
             }
         });
@@ -76,7 +86,7 @@ public class productSearch extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_next);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
