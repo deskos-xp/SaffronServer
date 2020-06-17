@@ -12,9 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ResultView"
-            android:label="@string/title_activity_result_view"
+            android:name=".VBM_View"
+            android:label="@string/title_activity_v_b_m__view"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ProductView"
+            android:label="@string/title_activity_result_view"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProductSearchResults"
             android:label="@string/title_activity_product_search_results"

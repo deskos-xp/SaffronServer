@@ -1,5 +1,6 @@
 package com.example.saffronexplorer;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,7 +17,7 @@ import android.widget.TextView;
 
 import entities.Product;
 
-public class ResultView extends AppCompatActivity {
+public class ProductView extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +49,56 @@ public class ResultView extends AppCompatActivity {
         //more work will be done here, each needs a new activity
         Button upc = findViewById(R.id.upc);
         Button departments = findViewById(R.id.departments);
+
         Button vendor = findViewById(R.id.vendors);
+        vendor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(),VBM_View.class);
+                String user=getIntent().getStringExtra("user");
+                String host=getIntent().getStringExtra("host");
+                String vendors=new Gson().toJson(product_data.getVendors().get(0));
+                //getIntent().getStringExtra()
+                intent.putExtra("user",user);
+                intent.putExtra("host",host);
+                intent.putExtra("item",vendors);
+                intent.putExtra("type","vendor");
+                startActivity(intent);
+            }
+        });
         Button brand = findViewById(R.id.brands);
+        brand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(),VBM_View.class);
+                String user=getIntent().getStringExtra("user");
+                String host=getIntent().getStringExtra("host");
+                String brands=new Gson().toJson(product_data.getBrands().get(0));
+                //getIntent().getStringExtra()
+                intent.putExtra("user",user);
+                intent.putExtra("host",host);
+                intent.putExtra("item",brands);
+                intent.putExtra("type","brand");
+                startActivity(intent);
+            }
+        });
+
         Button Manufacturer = findViewById(R.id.manufacturers);
+        Manufacturer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(),VBM_View.class);
+                String user=getIntent().getStringExtra("user");
+                String host=getIntent().getStringExtra("host");
+                String manufacturers=new Gson().toJson(product_data.getManufacturers().get(0));
+                //getIntent().getStringExtra()
+                intent.putExtra("user",user);
+                intent.putExtra("host",host);
+                intent.putExtra("item",manufacturers);
+                intent.putExtra("type","manufacturer");
+                startActivity(intent);
+            }
+        });
 
         ImageView product_img = findViewById(R.id.product_image);
         ImageView upc_img = findViewById(R.id.upc_image);

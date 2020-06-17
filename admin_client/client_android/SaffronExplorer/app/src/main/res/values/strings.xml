@@ -94,4 +94,5 @@
     <string name="title_activity_product_search">productSearch</string>
     <string name="title_activity_product_search_results">ProductSearchResults</string>
     <string name="title_activity_result_view">ResultView</string>
+    <string name="title_activity_v_b_m__view">VBM_View</string>
 </resources>

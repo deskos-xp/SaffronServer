@@ -26,7 +26,7 @@ public class productSearch extends AppCompatActivity {
         EditText name=findViewById(R.id.name);
         EditText homecode=findViewById(R.id.homecode);
         EditText upc=findViewById(R.id.upc);
-        EditText ID=findViewById(R.id.id);
+        EditText ID=findViewById(R.id.id_row);
         HashMap toBe = new HashMap<>();
         if (!name.getText().toString().equals("")) {
             toBe.put("name", name.getText().toString());

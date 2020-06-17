@@ -1,15 +1,13 @@
 package com.example.saffronexplorer.ProductResults;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 
 import com.example.saffronexplorer.R;
-import com.example.saffronexplorer.ResultView;
+import com.example.saffronexplorer.ProductView;
 import com.google.gson.Gson;
 
 import entities.Product;
@@ -49,7 +47,7 @@ public class ResultClass {
         selection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(getContext(), ResultView.class);
+                Intent intent1 = new Intent(getContext(), ProductView.class);
                 intent1.putExtra("user",intent.getStringExtra("user"));
                 intent1.putExtra("host",intent.getStringExtra("host"));
                 intent1.putExtra("product",new Gson().toJson(getProduct()));
