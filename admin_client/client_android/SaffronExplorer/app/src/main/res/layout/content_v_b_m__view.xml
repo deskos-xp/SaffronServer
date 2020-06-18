@@ -11,7 +11,8 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="25dp">
+        android:padding="25dp"
+        android:shrinkColumns="1">
 
         <TableRow
             android:id="@+id/address_row"
@@ -23,13 +24,21 @@
                 android:id="@+id/address_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="Address" />
 
-            <Button
-                android:id="@+id/address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Address" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Address" />
+            </FrameLayout>
+
         </TableRow>
 
         <TableRow
@@ -42,13 +51,16 @@
                 android:id="@+id/comment_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="Comment" />
 
             <TextView
                 android:id="@+id/comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Comment" />
+                android:hint="Comment"
+                android:padding="10dp"
+                android:singleLine="false" />
 
         </TableRow>
 
@@ -62,13 +74,16 @@
                 android:id="@+id/email_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="Email" />
 
             <TextView
                 android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Email" />
+                android:hint="Email"
+                android:padding="10dp"
+                android:singleLine="false" />
         </TableRow>
 
         <TableRow
@@ -81,13 +96,16 @@
                 android:id="@+id/id_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="ID" />
 
             <TextView
                 android:id="@+id/id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="ID" />
+                android:hint="ID"
+                android:padding="10dp"
+                android:singleLine="false" />
 
         </TableRow>
 
@@ -101,32 +119,39 @@
                 android:id="@+id/name_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="Name" />
 
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Name" />
+                android:hint="Name"
+                android:padding="10dp"
+                android:singleLine="false" />
         </TableRow>
 
         <TableRow
             android:id="@+id/phone_row"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
             android:padding="10dp">
 
             <TextView
                 android:id="@+id/phone_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="Phone Number" />
 
             <TextView
                 android:id="@+id/phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="xxx-xxx-xxxx" />
+                android:hint="xxx-xxx-xxxx"
+                android:padding="10dp"
+                android:singleLine="false" />
         </TableRow>
     </TableLayout>
 </androidx.core.widget.NestedScrollView>
