@@ -1,5 +1,6 @@
 package com.example.saffronexplorer;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -14,6 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import entities.Address;
 import entities.Brand;
 import entities.Manufacturer;
 import entities.Vendor;
@@ -29,21 +33,31 @@ public class VBM_View extends AppCompatActivity {
 
         //Object item;
         String type=getIntent().getStringExtra("type");
+        String cap=String.valueOf(type.toCharArray()[0]).toUpperCase();
+        int count=0;
+        for ( char x : type.toCharArray()){
+            if (count > 0){
+                cap+=String.valueOf(x);
+            }
+            count+=1;
+        }
+        getSupportActionBar().setTitle(cap);
         String name_str="";
         String id_str="";
         String phone_str="";
         String email_str="";
         String comment_str="";
-        
+        ArrayList<Address> addr = null;
         switch (type){
             case "vendor":
-                Vendor item_vendor =(Vendor) new Gson().fromJson( getIntent().getStringExtra("item_vendor"), Vendor.class);
+                Vendor item_vendor =(Vendor) new Gson().fromJson( getIntent().getStringExtra("item"), Vendor.class);
                 if (item_vendor != null) {
                     name_str = item_vendor.getName();
                     id_str = String.valueOf(item_vendor.getId());
                     phone_str = item_vendor.getPhone();
                     email_str = item_vendor.getEmail();
                     comment_str = item_vendor.getComment();
+                    addr=item_vendor.getAddress();
                 }
                 break;
             case "brand":
@@ -54,6 +68,7 @@ public class VBM_View extends AppCompatActivity {
                     phone_str = item_brand.getPhone();
                     email_str = item_brand.getEmail();
                     comment_str = item_brand.getComment();
+                    addr=item_brand.getAddress();
                 }
                 break;
             case "manufacturer":
@@ -64,12 +79,28 @@ public class VBM_View extends AppCompatActivity {
                     phone_str = item_manufacturer.getPhone();
                     email_str = item_manufacturer.getEmail();
                     comment_str = item_manufacturer.getComment();
+                    addr=item_manufacturer.getAddress();
                 }
                 break;
             default:
                 break;
         }
-
+        final ArrayList<Address> addrF=addr;
+        Button address = findViewById(R.id.address);
+        address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (addrF != null) {
+                    String addr_Str = new Gson().toJson(addrF);
+                    Intent intent = new Intent(getBaseContext(),A_View.class);
+                    intent.putExtra("user",getIntent().getStringExtra("user"));
+                    intent.putExtra("host",getIntent().getStringExtra("host"));
+                    intent.putExtra("item",addr_Str);
+                    intent.putExtra("type","address");
+                    startActivity(intent);
+                }
+            }
+        });
         TextView name = findViewById(R.id.name);
         name.setText(name_str);
         TextView id = findViewById(R.id.id);
@@ -80,7 +111,6 @@ public class VBM_View extends AppCompatActivity {
         email.setText(email_str);
         TextView comment = findViewById(R.id.comment);
         comment.setText(comment_str);
-        Button address = findViewById(R.id.address);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

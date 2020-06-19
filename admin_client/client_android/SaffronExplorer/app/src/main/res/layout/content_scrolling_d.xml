@@ -20,17 +20,17 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/street_number_label"
+                android:id="@+id/store_department_number_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="Street Number" />
+                android:text="Store Department" />
 
             <TextView
-                android:id="@+id/street_number"
+                android:id="@+id/store_department_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Street Number"
+                android:hint="Store Department Number"
                 android:padding="10dp" />
         </TableRow>
 
@@ -60,17 +60,17 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/street_name_label"
+                android:id="@+id/_name_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="Street Name" />
+                android:text="Name" />
 
             <TextView
-                android:id="@+id/street_name"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Street Name"
+                android:hint="Name"
                 android:padding="10dp" />
         </TableRow>
 
@@ -80,73 +80,20 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/city_label"
+                android:id="@+id/comment_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="City" />
+                android:text="Comment" />
 
             <TextView
-                android:id="@+id/city"
+                android:id="@+id/comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="City"
+                android:hint="Comment"
                 android:padding="10dp" />
 
         </TableRow>
 
-        <TableRow
-            android:id="@+id/state_row"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:id="@+id/state_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="State" />
-
-            <TextView
-                android:id="@+id/state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="State" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/zip_row"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:id="@+id/zip_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ZIP" />
-
-            <TextView
-                android:id="@+id/zip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="ZIP" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/apartment_suite_row"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <TextView
-                android:id="@+id/apartment_suite_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Apartment/Suite" />
-
-            <TextView
-                android:id="@+id/apartment_suite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Apartment/Suite" />
-        </TableRow>
     </TableLayout>
 </androidx.core.widget.NestedScrollView>
