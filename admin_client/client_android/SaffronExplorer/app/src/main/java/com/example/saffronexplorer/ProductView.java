@@ -48,6 +48,21 @@ public class ProductView extends AppCompatActivity {
 
         //more work will be done here, each needs a new activity
         Button upc = findViewById(R.id.upc);
+        upc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(),UPC_View.class);
+                String user = getIntent().getStringExtra("user");
+                String host = getIntent().getStringExtra("host");
+                String item = product_data.getUpc();
+                intent.putExtra("user",user);
+                intent.putExtra("host",host);
+                intent.putExtra("item",item);
+                intent.putExtra("product_id",product_data.getId());
+                intent.putExtra("type","upc");
+                startActivity(intent);
+            }
+        });
         Button departments = findViewById(R.id.departments);
         departments.setOnClickListener(new View.OnClickListener() {
             @Override
